@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <mat-icon aria-hidden="false" id="hamIcon" (click)="toggleForMenuClick()" >menu</mat-icon>
+  <button id="home-button" mat-button routerLink="/home">
+    Virtual Labs
+  </button>
+  <span class="fill-remaining-space"></span>
+  <button mat-button routerLink="/home" [queryParams]="{doLogin: true}">{{label}}</button>
+</mat-toolbar>
+<mat-toolbar>Applicazioni Internet</mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" position="start" #sidenav opened>
+    <div class="container">
+      <mat-nav-list>
+        <mat-list-item routerLink="teacher/courses/applicazioni-internet/students">
+          Applicazioni Internet
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link 
+      routerLink = "teacher/courses/applicazioni-internet/students"
+      routerLinkActive #rla="routerLinkActive"
+      [active] = "rla.isActive"
+      >
+        Studenti  
+      </a>
+      <a mat-tab-link
+      routerLink = "teacher/courses/applicazioni-internet/vms"
+      routerLinkActive #rlvm="routerLinkActive"
+      [active] = "rlvm.isActive"
+      
+      >
+        Vms
+      </a>
+    </nav>
+    <div class="tab-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
