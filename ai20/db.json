@@ -1,0 +1,35 @@
+{
+  "students": [
+    {
+      "id": "265373",
+      "name": "Alicino",
+      "firstName": "Giuseppe",
+      "courseId": "Applicazioni Internet"
+    },
+    {
+      "id": "257633",
+      "name": "Alluminio",
+      "firstName": "Lorenzo",
+      "courseId": "Applicazioni Internet"
+    },
+    {
+      "id": "265560",
+      "name": "Amato",
+      "firstName": "Domenico",
+      "courseId": "0"
+    }
+  ],
+  "courses": [
+    {
+      "id": "Applicazioni Internet",
+      "path": "applicazioni-internet"
+    }
+  ],
+  "users": [
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$9SFIVF0tDrwRoUlZOo9Q0urEs0cnpBXu9RWGf/TxuHjFzDteQhvDW",
+      "id": 1
+    }
+  ]
+}

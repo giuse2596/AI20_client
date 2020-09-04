@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Effettua il login</h1>
+<mat-error *ngIf="data.failedLogin">Login Fallito!</mat-error>
+<form [formGroup] = "userForm">
+    <div mat-dialog-content>
+        <mat-form-field class="input-item">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Email" formControlName="username">
+            <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+                <div *ngIf="username.errors.email">Email non valida</div>
+                <div *ngIf="username.errors.required">L'Email è obbligatoria</div> 
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+                <div *ngIf="password.errors.minlength">Password troppo corta</div>
+                <div *ngIf="password.errors.required">La password è obbligatoria</div>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid" (click) = "login()">Login</button>
+        <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    </div>
+</form>
