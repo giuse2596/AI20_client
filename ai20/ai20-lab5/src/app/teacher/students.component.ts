@@ -29,7 +29,13 @@ export class StudentsComponent implements OnInit {
 
   @Input() studentsInTable: Student[];
 
-  @Input() students: Student[];
+//  @Input() students: Student[];
+  students: Student[];
+  @Input()
+  set allStudents(students: Student[]) {
+    this.students = [... students];
+    this.options = [...this.students];
+  }
 
   masterState: State = State.NOT_CHECKED;
 
