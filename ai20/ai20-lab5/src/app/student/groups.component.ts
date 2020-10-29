@@ -20,9 +20,9 @@ export class GroupsComponent implements OnInit {
   displayColumnsMembers: string[] = ['id', 'name', 'firstName'];
   displayColumnsAvailables: string[] = ['Select', 'id', 'name', 'firstName'];
   displayColumnsRequests: string[] = ['id', 'name', 'firstName', 'accepted'];
-  private dataSourceMembers: MatTableDataSource<Student> = new MatTableDataSource();
-  private dataSourceAvailables: MatTableDataSource<Student> = new MatTableDataSource();
-  private dataSourceRequests = new Map<string, MatTableDataSource<Student>>();
+  dataSourceMembers: MatTableDataSource<Student> = new MatTableDataSource();
+  dataSourceAvailables: MatTableDataSource<Student> = new MatTableDataSource();
+  dataSourceRequests = new Map<string, MatTableDataSource<Student>>();
   membersSelected: Student[] = [];
   studentInGroup: boolean;
   group: Group;
