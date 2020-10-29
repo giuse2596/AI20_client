@@ -11,6 +11,11 @@
   <mat-sidenav mode="side" position="start" #sidenav opened>
     <div class="container">
       <mat-nav-list>
+        <mat-list-item (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
+          <mat-icon mat-list-icon>add</mat-icon>
+          <div mat-line>Aggiungi Corso</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
         <mat-list-item routerLink="teacher/courses/applicazioni-internet/students">
           Applicazioni Internet
         </mat-list-item>
@@ -19,18 +24,18 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <nav mat-tab-nav-bar>
-      <a mat-tab-link 
+      <a mat-tab-link
       routerLink = "teacher/courses/applicazioni-internet/students"
       routerLinkActive #rla="routerLinkActive"
       [active] = "rla.isActive"
       >
-        Studenti  
+        Studenti
       </a>
       <a mat-tab-link
       routerLink = "teacher/courses/applicazioni-internet/vms"
       routerLinkActive #rlvm="routerLinkActive"
       [active] = "rlvm.isActive"
-      
+
       >
         Vms
       </a>

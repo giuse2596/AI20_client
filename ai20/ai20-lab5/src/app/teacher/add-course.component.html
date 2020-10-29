@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Inserisci il nome del corso</h1>
+<form [formGroup] = "courseForm">
+  <div mat-dialog-content>
+    <mat-form-field class="input-item">
+      <mat-label>Nome</mat-label>
+      <input matInput placeholder="Nome" formControlName="name">
+      <mat-error *ngIf="name.invalid">
+        <div *ngIf="name.errors.required">Il nome del Corso è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="courseForm.invalid" type="submit">Aggiungi</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

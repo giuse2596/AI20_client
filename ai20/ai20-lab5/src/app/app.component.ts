@@ -5,6 +5,7 @@ import { LoginDialogComponent } from './auth/login-dialog.component';
 import { AuthService } from './auth/auth.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import { Subscription } from 'rxjs';
+import {AddCourseComponent} from "./teacher/add-course.component";
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,9 @@ export class AppComponent implements OnInit, OnDestroy{
     );
   }
 
+  openDialogAdd(){
+    const dialog = this.dialog.open(AddCourseComponent);
+  }
 
   openDialog(loginFailed){
     if( this.authService.isLogged()){

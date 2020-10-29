@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { AddCourseComponent } from './teacher/add-course.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     HomeComponent,
     PageNotFoundComponent,
     VmsContComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    AddCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     FormsModule
   ],
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent,
+    AddCourseComponent
   ],
   providers: [
     {
