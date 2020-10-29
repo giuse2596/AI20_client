@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { VmsContComponent } from './teacher/vms-cont.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
+import {GroupsContComponent} from './student/groups-cont.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
     { path: 'teacher/courses', canActivate: [AuthGuard],
       children: [
        { path: 'applicazioni-internet/students', component: StudentsContComponent },
+       { path: 'applicazioni-internet/student/:studentId/courses/:courseId/groups', component: GroupsContComponent },
        { path: 'applicazioni-internet/vms', component: VmsContComponent }
         ] },
     { path: '**', component: PageNotFoundComponent}

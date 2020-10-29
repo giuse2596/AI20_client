@@ -18,6 +18,7 @@ export class LoginDialogComponent implements OnInit {
                 username: ['', [Validators.email, Validators.required]],
                 password: ['', [Validators.minLength(8), Validators.required]]
   });
+  hide = true;
 
   loginFailed = false;
 

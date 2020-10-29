@@ -29,6 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { GroupsComponent } from './student/groups.component';
+import { GroupsContComponent } from './student/groups-cont.component';
+import { GroupNameDialogComponent } from './student/group-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     HomeComponent,
     PageNotFoundComponent,
     VmsContComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    GroupsComponent,
+    GroupsContComponent,
+    GroupNameDialogComponent,
   ],
   imports: [
     BrowserModule,

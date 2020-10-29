@@ -2,12 +2,14 @@ export class Student{
     id: string;
     name: string;
     firstName: string;
-    courseId: string;
+    courses: string[];
+    groups: string[];
 
-    constructor(id: string, name: string, firstName: string){
+    constructor(id: string, name: string, firstName: string, courses: string[], groups: string[]){
         this.id = id;
         this.name = name;
         this.firstName = firstName;
-        this.courseId = '0';
+        this.courses = courses;
+        this.groups = groups;
     }
 }

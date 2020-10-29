@@ -29,7 +29,6 @@ export class StudentsComponent implements OnInit {
 
   @Input() studentsInTable: Student[];
 
-//  @Input() students: Student[];
   students: Student[];
   @Input()
   set allStudents(students: Student[]) {
@@ -93,7 +92,7 @@ export class StudentsComponent implements OnInit {
       }else if (this.studentSelected.some(s => s.id === row.id ) && event.checked === false){
         const index = this.studentSelected.indexOf(row);
         this.studentSelected.splice(index, 1);
-        if(this.studentSelected.length === 0){
+        if (this.studentSelected.length === 0){
           this.masterState = State.NOT_CHECKED;
         }else{
           this.masterState = State.INTERMEDIATE;
