@@ -7,12 +7,15 @@
             <input matInput placeholder="Email" formControlName="username">
             <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
                 <div *ngIf="username.errors.email">Email non valida</div>
-                <div *ngIf="username.errors.required">L'Email è obbligatoria</div> 
+                <div *ngIf="username.errors.required">L'Email è obbligatoria</div>
             </mat-error>
         </mat-form-field>
         <mat-form-field class="input-item">
             <mat-label>Password</mat-label>
-            <input type="password" matInput placeholder="Password" formControlName="password">
+            <input type="password" matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
             <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
                 <div *ngIf="password.errors.minlength">Password troppo corta</div>
                 <div *ngIf="password.errors.required">La password è obbligatoria</div>

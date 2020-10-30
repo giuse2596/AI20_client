@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from '../student.model';
 import { StudentService } from '../services/student.service';
 import { Observable } from 'rxjs';
+import {CourseService} from '../services/course.service';
 
 
 
@@ -16,11 +17,11 @@ export class StudentsContComponent implements OnInit {
    students$: Observable<Student[]>;
    enrolledStudents$: Observable<Student[]>;
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService, private courseService: CourseService) { }
 
   ngOnInit(): void {
     this.students$ = this.studentService.query();
-    this.enrolledStudents$ = this.studentService.getEnrolled('Applicazioni Internet');
+    this.enrolledStudents$ = this.courseService.getEnrolled('Applicazioni Internet');
   }
 
   getStudents(): Observable<Student[]>{
@@ -29,12 +30,12 @@ export class StudentsContComponent implements OnInit {
 
   getEnrolled(): Observable<Student[]>{
 
-    return this.studentService.getEnrolled('Applicazioni Internet');
+    return this.courseService.getEnrolled('Applicazioni Internet');
   }
 
   enrollStudent(toAdd: Student[]){
     console.log(toAdd);
-    toAdd.forEach(s => s.courseId = 'Applicazioni Internet');
+    toAdd.forEach(s => s.courses.concat('Applicazioni Internet'));
     this.studentService.updateEnrolled(toAdd).subscribe(
       () => {
         this.enrolledStudents$ = this.getEnrolled();
@@ -46,7 +47,12 @@ export class StudentsContComponent implements OnInit {
     if (toDelete){
       console.log(toDelete);
       toDelete.forEach(
-        s => s.courseId = '0'
+        s => {
+          const index = s.courses.indexOf('Applicazioni Internet');
+          if (index !== -1) {
+            s.courses.splice(index, 1);
+          }
+        }
       );
       this.studentService.updateEnrolled(toDelete).subscribe(
         () => {

@@ -1,0 +1,28 @@
+<div *ngIf="data.notInRange; else elseBlock">
+  <mat-error>Il numero di membri deve essere compreso tra {{data.min}} e {{data.max}}</mat-error>
+</div>
+<ng-template #elseBlock>
+  <h1 mat-dialog-title>Inserisci il nome del gruppo e il timeout della richiesta</h1>
+  <form [formGroup] = "groupForm">
+    <div mat-dialog-content>
+      <mat-form-field class="input-item">
+        <mat-label>Nome Gruppo</mat-label>
+        <input matInput placeholder="Inserisci il nome" formControlName="name">
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">Il nome del gruppo è obbligatorio</div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="input-item">
+        <mat-label>Timeout (in minuti)</mat-label>
+        <input type="number" matInput placeholder="Inserisci il timeout" formControlName="expiry">
+        <mat-error *ngIf="expiry.invalid && (expiry.dirty || expiry.touched)">
+          <div *ngIf="expiry.errors.required">Il timeout è obbligatorio</div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+    </div>
+  </form>
+</ng-template>

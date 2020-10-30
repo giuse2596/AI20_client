@@ -1,3 +1,3 @@
-<app-students [enrolledStudents] = "enrolledStudents$ | async" [students]="students$ | async" 
-(enrollEmitter) = "enrollStudent($event)" 
+<app-students [enrolledStudents] = "enrolledStudents$ | async" [allStudents]="students$ | async"
+(enrollEmitter) = "enrollStudent($event)"
 (deleteEmitter) = "deleteStudents($event)"></app-students>

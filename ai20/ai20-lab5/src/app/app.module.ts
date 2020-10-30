@@ -30,6 +30,9 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AddCourseComponent } from './teacher/add-course.component';
+import { GroupsComponent } from './student/groups.component';
+import { GroupsContComponent } from './student/groups-cont.component';
+import { GroupNameDialogComponent } from './student/group-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,11 @@ import { AddCourseComponent } from './teacher/add-course.component';
     PageNotFoundComponent,
     VmsContComponent,
     LoginDialogComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    LoginDialogComponent,
+    GroupsComponent,
+    GroupsContComponent,
+    GroupNameDialogComponent,
   ],
   imports: [
     BrowserModule,
