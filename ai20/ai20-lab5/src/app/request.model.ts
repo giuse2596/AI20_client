@@ -15,5 +15,6 @@ export class Request{
     for (const member of members) {
       this.accepted.set(member, false);
     }
+    this.accepted.set(this.proposer, true);
   }
 }

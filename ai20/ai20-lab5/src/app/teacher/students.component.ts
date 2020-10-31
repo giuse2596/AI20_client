@@ -32,8 +32,10 @@ export class StudentsComponent implements OnInit {
   students: Student[];
   @Input()
   set allStudents(students: Student[]) {
-    this.students = [... students];
-    this.options = [...this.students];
+    if (students !== null) {
+      this.students = [... students];
+      this.options = [...this.students];
+    }
   }
 
   masterState: State = State.NOT_CHECKED;
