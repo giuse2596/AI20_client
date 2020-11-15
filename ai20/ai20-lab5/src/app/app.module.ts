@@ -33,6 +33,8 @@ import { AddCourseComponent } from './teacher/add-course.component';
 import { GroupsComponent } from './student/groups.component';
 import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
+import {SignupComponent} from "./auth/signup.component";
+
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { GroupNameDialogComponent } from './student/group-name-dialog.component'
     GroupsComponent,
     GroupsContComponent,
     GroupNameDialogComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ import { GroupNameDialogComponent } from './student/group-name-dialog.component'
   ],
   entryComponents: [
     LoginDialogComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    SignupComponent
   ],
   providers: [
     {

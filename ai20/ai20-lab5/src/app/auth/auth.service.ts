@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './login-dialog.component';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import {SignupComponent} from "./signup.component";
 
 
 
@@ -43,6 +44,13 @@ export class AuthService {
     );
   }
 
+  signup(user: User, dialog: MatDialogRef<SignupComponent>){
+    console.log("signup");
+    console.log(user);
+
+    // to be implemented
+  }
+
   logout(){
     this.user = null;
     localStorage.removeItem('jwt');
@@ -51,10 +59,6 @@ export class AuthService {
   }
 
   isLogged(){
-    if ( this.jwt && this.jwt.exp > moment().unix()){
-      return true;
-    }
-
-    return false;
+    return this.jwt && this.jwt.exp > moment().unix();
   }
 }

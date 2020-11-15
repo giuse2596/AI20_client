@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Registrati a Virtual Labs</h1>
+<mat-error *ngIf="data.failedSignup">Registrazione Fallita!</mat-error>
+<form [formGroup] = "userForm">
+  <div mat-dialog-content>
+    <mat-form-field class="input-item">
+      <mat-label>Nome</mat-label>
+      <input matInput placeholder="Nome" formControlName="name">
+      <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required">Il nome è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item">
+      <mat-label>Cognome</mat-label>
+      <input matInput placeholder="Cognome" formControlName="firstName">
+      <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">Il cognome è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item">
+      <mat-label>Matricola</mat-label>
+      <input matInput placeholder="Matricola" formControlName="id">
+      <mat-error *ngIf="id.invalid && (id.dirty || id.touched)">
+        <div *ngIf="id.errors.required">La matricola è obbligatoria</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="username">
+      <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+        <div *ngIf="username.errors.email">Email non valida</div>
+        <div *ngIf="username.errors.required">L'Email è obbligatoria</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.minlength">Password troppo corta</div>
+        <div *ngIf="password.errors.required">La password è obbligatoria</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item">
+      <mat-label>Conferma Password</mat-label>
+      <input type="password" matInput placeholder=" Conferma Password" formControlName="password" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.minlength">Password troppo corta</div>
+        <div *ngIf="password.errors.required">La password è obbligatoria</div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid" (click) = "signup()">Registrati</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

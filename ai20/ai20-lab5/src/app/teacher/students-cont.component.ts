@@ -29,7 +29,6 @@ export class StudentsContComponent implements OnInit {
   }
 
   getEnrolled(): Observable<Student[]>{
-
     return this.courseService.getEnrolled('Applicazioni Internet');
   }
 

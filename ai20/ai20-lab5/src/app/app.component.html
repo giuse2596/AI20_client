@@ -5,25 +5,31 @@
   </button>
   <span class="fill-remaining-space"></span>
   <button mat-button routerLink="/home" [queryParams]="{doLogin: true}">{{label}}</button>
+  <button mat-button *ngIf="!logged" routerLink="/home" [queryParams]="{doSignup: true}">Registrati</button>
 </mat-toolbar>
-<mat-toolbar>Applicazioni Internet</mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
+<mat-toolbar *ngIf="logged && selected">{{selected.id}}</mat-toolbar>
+<mat-sidenav-container class="sidenav-container" autosize [ngStyle]="{'margin': top}">
   <mat-sidenav mode="side" position="start" #sidenav opened>
     <div class="container">
-      <mat-nav-list>
-        <mat-list-item (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
+      <mat-nav-list *ngIf="!logged">
+        <mat-list-item id="home-entry">
+          Home
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-nav-list *ngIf="logged">
+        <mat-list-item  (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
           <mat-icon mat-list-icon>add</mat-icon>
           <div mat-line>Aggiungi Corso</div>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item routerLink="teacher/courses/applicazioni-internet/students">
-          Applicazioni Internet
+        <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="teacher/courses/applicazioni-internet/students">
+          {{course.id}}
         </mat-list-item>
       </mat-nav-list>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <nav mat-tab-nav-bar>
+    <nav mat-tab-nav-bar *ngIf="logged && selected">
       <a mat-tab-link
       routerLink = "teacher/courses/applicazioni-internet/students"
       routerLinkActive #rla="routerLinkActive"
