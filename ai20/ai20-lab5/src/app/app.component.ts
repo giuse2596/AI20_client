@@ -9,6 +9,8 @@ import {AddCourseComponent} from "./teacher/add-course.component";
 import {CourseService} from "./services/course.service";
 import {Course} from "./course.model";
 import {SignupComponent} from "./auth/signup.component";
+import {User} from "./user.model";
+import {split} from "ts-node";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy{
   private username: string;
   private password: string;
   private subscription: Subscription;
+  user: User;
   label = 'Login';
   courses$ : Observable<Course[]>;
   logged: boolean = false;
@@ -54,7 +57,6 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   openDialogSignup(signupFailed){
-
       const dialogRef = this.dialog.open(SignupComponent, {data: {
           failedSignup: signupFailed
         }
@@ -89,6 +91,7 @@ export class AppComponent implements OnInit, OnDestroy{
       this.authService.logout();
       this.label = 'Login';
       this.logged = false;
+      this.user = null;
     }else{
       const dialogRef = this.dialog.open(LoginDialogComponent, {data: {
         failedLogin: loginFailed
@@ -100,6 +103,8 @@ export class AppComponent implements OnInit, OnDestroy{
         if(result === true){
           this.label = 'Logout';
           this.logged = true;
+          this.user = this.authService.user;
+          this.user.id = this.user.email.split('@')[0];
           this.top = '20px 20px 20px 20px';
           console.log("app.component::ngOnInit is logged == true");
           this.courses$ = this.courseService.getAll();

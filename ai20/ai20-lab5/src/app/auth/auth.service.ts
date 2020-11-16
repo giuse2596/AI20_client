@@ -29,6 +29,7 @@ export class AuthService {
         this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
         localStorage.setItem('jwt', res.accessToken);
         user.token = this.jwt;
+        console.log(user.token.email);
         this.user = user;
         console.log(this.jwt);
         this.logged = true;
@@ -47,8 +48,24 @@ export class AuthService {
   signup(user: User, dialog: MatDialogRef<SignupComponent>){
     console.log("signup");
     console.log(user);
-
-    // to be implemented
+    this.http.post<any>(hostname + '/register', user).subscribe(
+      res => {
+        this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
+        localStorage.setItem('jwt', res.accessToken);
+        user.token = this.jwt;
+        this.user = user;
+        console.log(this.jwt);
+        this.logged = true;
+        dialog.close(this.logged);
+        if (this.redirectUrl){
+          this.router.navigate([this.redirectUrl]);
+        }
+      },
+      err => {
+        this.logged = false;
+        dialog.close(this.logged);
+      }
+    );
   }
 
   logout(){

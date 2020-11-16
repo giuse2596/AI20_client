@@ -34,6 +34,7 @@ import { GroupsComponent } from './student/groups.component';
 import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
 import {SignupComponent} from "./auth/signup.component";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import {SignupComponent} from "./auth/signup.component";
     HttpClientModule,
     MatDialogModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule
   ],
   entryComponents: [
     LoginDialogComponent,

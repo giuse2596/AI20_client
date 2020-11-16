@@ -1,11 +1,25 @@
 <mat-toolbar color="primary">
-  <mat-icon aria-hidden="false" id="hamIcon" (click)="toggleForMenuClick()" >menu</mat-icon>
+  <mat-icon aria-hidden="false" id="hamIcon" (click)="toggleForMenuClick()">menu</mat-icon>
   <button id="home-button" mat-button routerLink="/home">
     Virtual Labs
   </button>
   <span class="fill-remaining-space"></span>
-  <button mat-button routerLink="/home" [queryParams]="{doLogin: true}">{{label}}</button>
+  <button mat-button routerLink="/home" [queryParams]="{doLogin: true}" *ngIf="!logged">{{label}}</button>
   <button mat-button *ngIf="!logged" routerLink="/home" [queryParams]="{doSignup: true}">Registrati</button>
+  <button mat-button *ngIf="logged" [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
+    <span id="logged-label">{{user.id}}</span>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item routerLink="/profile">
+      <mat-icon>portrait</mat-icon>
+      <span>Profilo</span>
+    </button>
+    <button mat-menu-item routerLink="/home" [queryParams]="{doLogin: true}">
+      <mat-icon>logout</mat-icon>
+      <span>{{label}}</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
 <mat-toolbar *ngIf="logged && selected">{{selected.id}}</mat-toolbar>
 <mat-sidenav-container class="sidenav-container" autosize [ngStyle]="{'margin': top}">
