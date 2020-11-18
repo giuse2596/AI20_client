@@ -23,6 +23,10 @@
     {
       "id": "Applicazioni Internet",
       "path": "applicazioni-internet"
+    },
+    {
+      "id": "Programmazione di Sistema",
+      "path": "programmazione-di-sistema"
     }
   ],
   "users": [
@@ -30,6 +34,13 @@
       "email": "olivier@mail.com",
       "password": "$2a$10$9SFIVF0tDrwRoUlZOo9Q0urEs0cnpBXu9RWGf/TxuHjFzDteQhvDW",
       "id": 1
+    },
+    {
+      "email": "s265373@studenti.polito.it",
+      "password": "$2a$10$vZymKTZqge1XifcS8o8SWu2KpOobdTr04RTrT66lwViVXbwgJmY4C",
+      "id": "s265373",
+      "name": "Giuseppe",
+      "firstName": "Alicino"
     }
   ]
 }

@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; scroll-behavior: unset;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 mat-sidenav-container{
-    margin: 20px;
+    margin: 0 20px 20px 20px;
     height: 100%;
  }
 
@@ -14,7 +14,7 @@ mat-sidenav-container{
  }
 
  .container{
-     margin-right: 15px;
+   margin-right: 15px;
  }
 
  .tab-content{
@@ -30,8 +30,14 @@ mat-sidenav-container{
     flex: 1 1 auto;
   }
 
- 
+ #title{
+   text-align: center;
+ }
+
+ #logged-label{
+   margin-right: 5px;
+ }
 
 
 
- 
+

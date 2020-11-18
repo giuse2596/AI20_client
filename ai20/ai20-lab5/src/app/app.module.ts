@@ -29,9 +29,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { AddCourseComponent } from './teacher/add-course.component';
 import { GroupsComponent } from './student/groups.component';
 import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
+import {SignupComponent} from "./auth/signup.component";
+import {MatMenuModule} from "@angular/material/menu";
+
 
 @NgModule({
   declarations: [
@@ -42,9 +46,12 @@ import { GroupNameDialogComponent } from './student/group-name-dialog.component'
     PageNotFoundComponent,
     VmsContComponent,
     LoginDialogComponent,
+    AddCourseComponent,
+    LoginDialogComponent,
     GroupsComponent,
     GroupsContComponent,
     GroupNameDialogComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -66,10 +73,13 @@ import { GroupNameDialogComponent } from './student/group-name-dialog.component'
     HttpClientModule,
     MatDialogModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule
   ],
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent,
+    AddCourseComponent,
+    SignupComponent
   ],
   providers: [
     {

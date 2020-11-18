@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './login-dialog.component';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import {SignupComponent} from "./signup.component";
 
 
 
@@ -24,6 +25,30 @@ export class AuthService {
 
   login(user: User, dialog: MatDialogRef<LoginDialogComponent>){
     this.http.post<any>(hostname + '/login', user).subscribe(
+      res => {
+        this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
+        localStorage.setItem('jwt', res.accessToken);
+        user.token = this.jwt;
+        console.log(user.token.email);
+        this.user = user;
+        console.log(this.jwt);
+        this.logged = true;
+        dialog.close(this.logged);
+        if (this.redirectUrl){
+          this.router.navigate([this.redirectUrl]);
+        }
+      },
+      err => {
+        this.logged = false;
+        dialog.close(this.logged);
+      }
+    );
+  }
+
+  signup(user: User, dialog: MatDialogRef<SignupComponent>){
+    console.log("signup");
+    console.log(user);
+    this.http.post<any>(hostname + '/register', user).subscribe(
       res => {
         this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
         localStorage.setItem('jwt', res.accessToken);
@@ -51,10 +76,6 @@ export class AuthService {
   }
 
   isLogged(){
-    if ( this.jwt && this.jwt.exp > moment().unix()){
-      return true;
-    }
-
-    return false;
+    return this.jwt && this.jwt.exp > moment().unix();
   }
 }

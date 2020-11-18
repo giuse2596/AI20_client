@@ -45,7 +45,8 @@ export class LoginDialogComponent implements OnInit {
   }
 
   login(){
-    this.service.login( new User(this.userForm.get('username').value, this.userForm.get('password').value), this.dialogRef );
+    this.service.login( new User(this.userForm.get('username').value,
+      this.userForm.get('password').value), this.dialogRef );
   }
 
 }

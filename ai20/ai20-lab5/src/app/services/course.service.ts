@@ -13,6 +13,10 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(){
+    return this.http.get<Course[]>(`${hostname}/courses`);
+  }
+
   find(id: string): Observable<Course>{
     return this.http.get<Course>(`${hostname}/courses/${id}`);
   }

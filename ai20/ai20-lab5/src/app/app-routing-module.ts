@@ -6,9 +6,11 @@ import { VmsContComponent } from './teacher/vms-cont.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
 import {GroupsContComponent} from './student/groups-cont.component';
+import {ProfileComponent} from "./auth/profile.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
+    { path: 'profile', component: ProfileComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'teacher/courses', canActivate: [AuthGuard],
       children: [
