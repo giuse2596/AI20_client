@@ -24,7 +24,8 @@ export class GroupsComponent implements OnInit {
   dataSourceAvailables: MatTableDataSource<Student> = new MatTableDataSource();
   dataSourceRequests = new Map<string, MatTableDataSource<Student>>();
   membersSelected: Student[] = [];
-  studentInGroup: boolean;
+  studentInActivatedGroup: boolean;
+  studentInPendingGroup: boolean;
   group: Group;
   @Input() student: Student;
   @Input() course: Course;
@@ -35,7 +36,8 @@ export class GroupsComponent implements OnInit {
     this.courseService.getAvailablesForCourse(this.course.name)
       .subscribe(availables => {
           if (availables.includes(this.student)) {
-            this.studentInGroup = false;
+            this.studentInActivatedGroup = false;
+            this.studentInPendingGroup = false;
             availables.splice(availables.indexOf(this.student), 1); // non includo lo studente nell'elenco
             this.dataSourceAvailables = new MatTableDataSource(availables);
             this.studentService.getPendingGroupsForCourse(this.course.name)
@@ -48,59 +50,63 @@ export class GroupsComponent implements OnInit {
                 }
               );
           } else {
-            this.studentInGroup = true;
             this.studentService.getGroupForCourse(this.student.id, this.course.name)
               .subscribe(group => {
+                if (group.activated) {
+                  this.studentInActivatedGroup = true;
                   this.group = group;
                   this.studentService.getGroupMembers(group.id)
                     .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
+                } else {
+                  this.studentInActivatedGroup = false;
+                  this.studentInPendingGroup = true;
                 }
-              );
+              });
           }
         }
       );
-/*    if (this.student.courseGroup.has(this.course.name)) {
-      this.studentService.getGroupMembers(this.student.courseGroup.get(this.course.name))
+    /*    if (this.student.courseGroup.has(this.course.name)) {
+        this.studentService.getGroupMembers(this.student.courseGroup.get(this.course.name))
         .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
-    } else {
-      this.courseService.getAvailablesForCourse(this.course.name)
+      } else {
+        this.courseService.getAvailablesForCourse(this.course.name)
         .subscribe(availables => this.dataSourceAvailables = new MatTableDataSource(availables));
-      this.studentService.getPendingGroupsForCourse(this.course.name)
+        this.studentService.getPendingGroupsForCourse(this.course.name)
         .subscribe(requests =>
         {
           this.requestsList = requests;
           for (const request of requests) {
-            this.studentService.getRequestMembers(request)
-              .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
+          this.studentService.getRequestMembers(request)
+            .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
           }
         });
-    }*/
+      }*/
   }
 
-/*  @Input() set members(members: Student[]){
+  /*  @Input() set members(members: Student[]){
     if (members !== null){
       this.membersList = Array.from(members);
       this.dataSourceMembers = new MatTableDataSource(this.membersList);
     }
-  }
+    }
 
-  @Input() set availables(availables: Student[]){
+    @Input() set availables(availables: Student[]){
     if (availables !== null){
       this.membersList = Array.from(availables);
       this.dataSourceAvailables = new MatTableDataSource(this.availablesList);
     }
-  }
+    }
 
-  @Input() set requests(requests: Request[]){
+    @Input() set requests(requests: Request[]){
     if (requests !== null){
       this.requestsList = Array.from(requests);
       for (const request of this.requestsList) {
-        this.studentService.getRequestMembers(request)
-          .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
+      this.studentService.getRequestMembers(request)
+        .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
       }
     }
-  }
-*/
+    }
+  */
 
   getChangeEvent(event, row){
     if (!this.membersSelected.some(s => s.id === row.id ) && event.checked === true ){
