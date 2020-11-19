@@ -35,6 +35,9 @@ import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
 import {SignupComponent} from "./auth/signup.component";
 import {MatMenuModule} from "@angular/material/menu";
+import {ProfileComponent} from "./auth/profile.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -51,7 +54,8 @@ import {MatMenuModule} from "@angular/material/menu";
     GroupsComponent,
     GroupsContComponent,
     GroupNameDialogComponent,
-    SignupComponent
+    SignupComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule,
+    MatGridListModule
   ],
   entryComponents: [
     LoginDialogComponent,

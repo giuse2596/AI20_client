@@ -38,6 +38,25 @@ mat-sidenav-container{
    margin-right: 5px;
  }
 
+ #profile-image{
+   margin-top: 5px;
+   display: flex;
+   max-width: 150px;
+   max-height: 150px;
+   min-width: 150px;
+   min-height: 150px;
+   border-radius: 10px;
+   border: darkgrey solid 2px;
+ }
 
+ .update-data .input-item{
+   width: 100%;
+ }
 
+ #image-label{
+   display: flex;
+ }
+ .image-box button{
+   margin-top: 10px;
+ }
 

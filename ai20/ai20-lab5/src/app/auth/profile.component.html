@@ -1,1 +1,51 @@
-<p>profile works!</p>
+<h3>I miei dati</h3>
+<mat-grid-list cols="3">
+  <mat-grid-tile colspan="1">
+    <form [formGroup]="imageForm">
+      <div class="image-box">
+        <mat-label id="image-label">Immagine Profilo</mat-label>
+        <img id="profile-image" [src]=url alt="Immagine Profilo">
+        <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)">
+        <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
+        <button mat-raised-button style="float: right;">Salva</button>
+      </div>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="update-data">
+      <h2>Dati Anagrafici</h2>
+      <form [formGroup]="profileForm">
+        <mat-form-field class="input-item">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Nome" formControlName="name">
+          <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div *ngIf="name.errors.required">Il nome è obbligatorio</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item">
+          <mat-label>Cognome</mat-label>
+          <input matInput placeholder="Cognome" formControlName="firstName">
+          <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+            <div *ngIf="firstName.errors.required">Il cognome è obbligatorio</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item">
+          <mat-label>Matricola</mat-label>
+          <input matInput placeholder="Matricola" formControlName="id">
+          <mat-error *ngIf="id.invalid && (id.dirty || id.touched)">
+            <div *ngIf="id.errors.required">La matricola è obbligatoria</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="username">
+          <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.email">Email non valida</div>
+            <div *ngIf="username.errors.required">L'Email è obbligatoria</div>
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <button mat-raised-button color="primary">Modifica</button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
