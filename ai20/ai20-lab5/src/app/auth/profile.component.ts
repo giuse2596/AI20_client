@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {AuthService} from "./auth.service";
 
 @Component({
@@ -10,6 +10,7 @@ import {AuthService} from "./auth.service";
 export class ProfileComponent implements OnInit {
 
   failed: boolean = false;
+  hide: boolean = true;
   url: string = "assets/default_profile.png";
 
   imageForm: FormGroup = this.builder.group({
@@ -17,9 +18,23 @@ export class ProfileComponent implements OnInit {
   })
   profileForm: FormGroup =  this.builder.group({
     name: ['', [Validators.required]],
-    id: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
-    username: ['', [Validators.required]]
+  });
+
+  passwordForm: FormGroup = this.builder.group({
+    password: ['', [ Validators.minLength(8),
+        Validators.required
+      ]
+    ],
+    lastPassword: ['', [ Validators.minLength(8),
+      Validators.required
+     ]
+    ],
+    passwordConfirm: ['', [ Validators.minLength(8),
+            ProfileComponent.matchValues('password'),
+            Validators.required
+      ]
+    ]
   });
 
   constructor( private builder: FormBuilder,
@@ -48,12 +63,28 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.get('firstName');
   }
 
-  get id(){
-    return this.profileForm.get('id');
+  get password(){
+    return this.passwordForm.get('password');
   }
 
-  get username(){
-    return this.profileForm.get('username');
+  get lastPassword(){
+    return this.passwordForm.get('lastPassword');
+  }
+
+  get passwordConfirm(){
+    return this.passwordForm.get('passwordConfirm');
+  }
+
+  public static matchValues(
+    matchTo: string // name of the control to match to
+  ): (AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return !!control.parent &&
+      !!control.parent.value &&
+      control.value === control.parent.controls[matchTo].value
+        ? null
+        : { isMatching: false };
+    };
   }
 
 }
