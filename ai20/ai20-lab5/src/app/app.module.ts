@@ -35,6 +35,17 @@ import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
 import {SignupComponent} from './auth/signup.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { AssignmentsContComponent } from './teacher/assignments-cont.component';
+import { AssignmentsComponent } from './teacher/assignments.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { TasksComponent } from './teacher/tasks.component';
+import { CorrectDialogComponent } from './teacher/correct-dialog.component';
+import {NewAssignmentDialogComponent} from './teacher/new-assignment-dialog.component';
+import {ProfileComponent} from './auth/profile.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {TaskHistoricalsComponent} from './teacher/task-historicals.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -51,7 +62,14 @@ import {MatMenuModule} from '@angular/material/menu';
     GroupsComponent,
     GroupsContComponent,
     GroupNameDialogComponent,
-    SignupComponent
+    SignupComponent,
+    AssignmentsContComponent,
+    AssignmentsComponent,
+    TasksComponent,
+    CorrectDialogComponent,
+    NewAssignmentDialogComponent,
+    ProfileComponent,
+    TaskHistoricalsComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +92,11 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
   entryComponents: [
     LoginDialogComponent,

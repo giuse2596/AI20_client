@@ -1,0 +1,56 @@
+<mat-label>Filtra per Stato</mat-label>
+<mat-select [(value)]="selectedState" (valueChange)="filter()">
+  <mat-option value="">TUTTI</mat-option>
+  <mat-option value="NULL">NULL</mat-option>
+  <mat-option value="LETTO">LETTO</mat-option>
+  <mat-option value="CONSEGNATO">CONSEGNATO</mat-option>
+  <mat-option value="RIVISTO">RIVISTO</mat-option>
+</mat-select>
+<table mat-table
+       [dataSource]="dataSourceTasks" multiTemplateDataRows
+       class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="content">
+    <th mat-header-cell *matHeaderCellDef > Contenuto </th>
+    <td mat-cell *matCellDef="let task">{{task.content}}</td>
+  </ng-container>
+  <ng-container matColumnDef="studentId">
+    <th mat-header-cell *matHeaderCellDef > StudentID </th>
+    <td mat-cell *matCellDef="let task">{{task.studentId}}</td>
+  </ng-container>
+  <ng-container matColumnDef="studentFirstName">
+    <th mat-header-cell *matHeaderCellDef > NomeStudente </th>
+    <td mat-cell *matCellDef="let task">{{task.studentFirstName}}</td>
+  </ng-container>
+  <ng-container matColumnDef="studentName">
+    <th mat-header-cell *matHeaderCellDef > CognomeStudente </th>
+    <td mat-cell *matCellDef="let task">{{task.studentName}}</td>
+  </ng-container>
+  <ng-container matColumnDef="timestamp">
+    <th mat-header-cell *matHeaderCellDef  mat-sort-header> Timestamp </th>
+    <td mat-cell *matCellDef="let task">{{task.timestamp.toLocaleString()}}</td>
+  </ng-container>
+  <ng-container matColumnDef="state">
+    <th mat-header-cell *matHeaderCellDef > Stato </th>
+    <td mat-cell *matCellDef="let task">{{task.state}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let task" [attr.colspan]="displayColumnsTasks.length">
+      <div class="example-element-detail"
+           [@detailExpand]="task == expandedTask ? 'expanded' : 'collapsed'">
+        <app-task-historicals [assignment] = assignment
+                              [task] = task>
+
+        </app-task-historicals>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumnsTasks"></tr>
+  <tr mat-row *matRowDef="let task; columns: displayColumnsTasks;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedTask === task"
+      (click)="expandedTask = expandedTask === task ? null : task">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>

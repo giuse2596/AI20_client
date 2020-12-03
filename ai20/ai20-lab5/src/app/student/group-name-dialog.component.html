@@ -3,8 +3,8 @@
 </div>
 <ng-template #elseBlock>
   <h1 mat-dialog-title>Inserisci il nome del gruppo e il timeout della richiesta</h1>
-  <form [formGroup] = "groupForm">
-    <div mat-dialog-content>
+  <div mat-dialog-content>
+    <form [formGroup] = "groupForm">
       <mat-form-field class="input-item">
         <mat-label>Nome Gruppo</mat-label>
         <input matInput placeholder="Inserisci il nome" formControlName="name">
@@ -19,10 +19,10 @@
           <div *ngIf="expiry.errors.required">Il timeout è obbligatorio</div>
         </mat-error>
       </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
-      <button mat-raised-button mat-dialog-close>Cancel</button>
-    </div>
-  </form>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" mat-dialog-close [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+  </div>
 </ng-template>

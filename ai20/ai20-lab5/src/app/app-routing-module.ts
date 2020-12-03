@@ -6,7 +6,8 @@ import { VmsContComponent } from './teacher/vms-cont.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
 import {GroupsContComponent} from './student/groups-cont.component';
-import {ProfileComponent} from "./auth/profile.component";
+import {ProfileComponent} from './auth/profile.component';
+import {AssignmentsContComponent} from './teacher/assignments-cont.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -15,9 +16,13 @@ const routes: Routes = [
     { path: 'teacher/courses', canActivate: [AuthGuard],
       children: [
        { path: 'applicazioni-internet/students', component: StudentsContComponent },
-       { path: 'applicazioni-internet/student/:studentId/courses/:courseId/groups', component: GroupsContComponent },
+       { path: ':courseId/assignments', component: AssignmentsContComponent },
        { path: 'applicazioni-internet/vms', component: VmsContComponent }
         ] },
+    { path: 'student/:studentId', canActivate: [AuthGuard],
+      children: [
+        { path: 'courses/:courseId/groups', component: GroupsContComponent },
+      ]},
     { path: '**', component: PageNotFoundComponent}
 ];
 

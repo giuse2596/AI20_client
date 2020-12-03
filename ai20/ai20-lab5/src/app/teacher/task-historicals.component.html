@@ -1,0 +1,8 @@
+<div *ngFor="let historical of taskHistoricals">
+  <h4>{{historical.content}}</h4>
+  <h4>{{historical.state}}</h4>
+  <h4>{{historical.timestamp}}</h4>
+</div>
+<div *ngIf="task.state === 'CONSEGNATO' || task.state === 'RIVISTO'">
+  <button mat-button (click) = "correct()">Correggi</button>
+</div>
