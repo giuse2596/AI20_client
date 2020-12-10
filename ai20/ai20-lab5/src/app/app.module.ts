@@ -33,9 +33,25 @@ import { AddCourseComponent } from './teacher/add-course.component';
 import { GroupsComponent } from './student/groups.component';
 import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
-import {SignupComponent} from "./auth/signup.component";
-import {MatMenuModule} from "@angular/material/menu";
-import {ProfileComponent} from "./auth/profile.component";
+import {SignupComponent} from './auth/signup.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { TeacherAssignmentsContComponent } from './teacher/teacher-assignments-cont.component';
+import { TeacherAssignmentsComponent } from './teacher/teacher-assignments.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { TeacherDeliveryComponent } from './teacher/teacher-delivery.component';
+import { CorrectDialogComponent } from './teacher/correct-dialog.component';
+import {NewAssignmentDialogComponent} from './teacher/new-assignment-dialog.component';
+import {ProfileComponent} from './auth/profile.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {TeacherDeliveryHistoricalsComponent} from './teacher/teacher-delivery-historicals.component';
+import {MatSelectModule} from '@angular/material/select';
+import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
+import {StudentAssignmentsComponent} from './student/student-assignments.component';
+import {StudentDeliveryComponent} from './student/student-delivery.component';
+import {StudentDeliveryHistoricalsComponent} from './student/student-delivery-historicals.component';
+import {EvaluateDialogComponent} from './teacher/evaluate-dialog.component';
+import {SubmitDeliveryDialogComponent} from './student/submit-delivery-dialog.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
@@ -56,7 +72,19 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     GroupsContComponent,
     GroupNameDialogComponent,
     SignupComponent,
-    ProfileComponent
+    TeacherAssignmentsContComponent,
+    TeacherAssignmentsComponent,
+    TeacherDeliveryComponent,
+    CorrectDialogComponent,
+    NewAssignmentDialogComponent,
+    ProfileComponent,
+    TeacherDeliveryHistoricalsComponent,
+    StudentAssignmentsContComponent,
+    StudentAssignmentsComponent,
+    StudentDeliveryComponent,
+    StudentDeliveryHistoricalsComponent,
+    EvaluateDialogComponent,
+    SubmitDeliveryDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +107,11 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
     MatMenuModule,
     MatCardModule,
     MatGridListModule,

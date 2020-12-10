@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../student.model';
-import {of, Observable, concat, forkJoin} from 'rxjs';
+import {of, Observable, forkJoin} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { concatMap, filter, map, tap, toArray, flatMap, mergeMap } from 'rxjs/operators';
+import { concatMap, toArray, flatMap} from 'rxjs/operators';
 import {Request} from '../request.model';
 import {Group} from '../group.model';
 

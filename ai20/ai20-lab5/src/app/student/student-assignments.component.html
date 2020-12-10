@@ -1,0 +1,14 @@
+<div *ngFor="let assignment of assignments">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h4>{{assignment.content}}</h4>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-student-delivery [courseName]= courseName
+                          [assignment] = assignment
+                          [studentInput] = student>
+
+    </app-student-delivery>
+  </mat-expansion-panel>
+</div>

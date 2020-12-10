@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Correzione Elaborato</h1>
+<div mat-dialog-content>
+  <div *ngIf="this.expiryDate > this.nowDate">
+    <mat-checkbox class="example-margin" (change)="deliveryToRedo = !deliveryToRedo">
+      Richiedi una nuova consegna
+    </mat-checkbox>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close (click)="confirmCorrection()">Correggi</button>
+  <button mat-raised-button mat-dialog-close>Annulla</button>
+</div>

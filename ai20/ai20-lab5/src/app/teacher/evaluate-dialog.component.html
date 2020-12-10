@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Valutazione Elaborato</h1>
+<div mat-dialog-content>
+  <form [formGroup]="evaluationForm" class="image-box">
+    <mat-form-field class="input-item">
+      <mat-label>Giudizio</mat-label>
+      <input matInput placeholder="Inserisci il giudizio" formControlName="evaluation">
+      <mat-error *ngIf="evaluation.invalid && (evaluation.dirty || evaluation.touched)">
+        <div *ngIf="evaluation.errors.required">Il giudizio è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item">
+      <mat-label>Voto</mat-label>
+      <input type="number" matInput placeholder="Inserisci il voto" formControlName="mark">
+      <mat-error *ngIf="mark.invalid && (mark.dirty || mark.touched)">
+        <div *ngIf="mark.errors.required">Il voto è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close (click)="confirmEvaluation()">Valuta</button>
+  <button mat-raised-button mat-dialog-close>Annulla</button>
+</div>

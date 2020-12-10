@@ -1,0 +1,15 @@
+<button mat-raised-button color="primary" (click) = "addAssignment()">Aggiungi Consegna</button>
+<div *ngFor="let assignment of assignments">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h4>{{assignment.content}}</h4>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-teacher-delivery [courseName]= courseName
+                          [assignment] = assignment
+                          [studentsArray] = students>
+
+    </app-teacher-delivery>
+  </mat-expansion-panel>
+</div>
