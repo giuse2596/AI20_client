@@ -6,10 +6,11 @@ import { LoginDialogComponent } from './login-dialog.component';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import {SignupComponent} from "./signup.component";
+import {ProfileComponent} from "./profile.component";
 
 
 
-const hostname = 'http://localhost:3000';
+const hostname = 'http://localhost:8080/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class AuthService {
   signup(user: User, dialog: MatDialogRef<SignupComponent>){
     console.log("signup");
     console.log(user);
-    this.http.post<any>(hostname + '/register', user).subscribe(
+    this.http.post<any>('register', user).subscribe(
       res => {
         this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
         localStorage.setItem('jwt', res.accessToken);
@@ -77,5 +78,21 @@ export class AuthService {
 
   isLogged(){
     return this.jwt && this.jwt.exp > moment().unix();
+  }
+
+  updateUser(user: User, profile: ProfileComponent){
+    console.log(user);
+    this.http.put<any>( hostname + '/modify_user', user).subscribe(
+      res => {
+        this.user = user;
+        profile.showResult(true, 'Data successfully updated');
+      },
+      err => {
+        if(err.status >= 400 && err.status < 500)
+          profile.showResult(false, err.message);
+        profile.showResult(false, 'Some error occurred during request');
+
+      }
+    );
   }
 }

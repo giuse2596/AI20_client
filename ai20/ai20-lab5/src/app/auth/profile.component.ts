@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {AuthService} from "./auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {User} from "../user.model";
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +14,7 @@ export class ProfileComponent implements OnInit {
   failed: boolean = false;
   hide: boolean = true;
   url: string = "assets/default_profile.png";
+  currentUser: User;
 
   imageForm: FormGroup = this.builder.group({
     image: ['']
@@ -38,9 +41,15 @@ export class ProfileComponent implements OnInit {
   });
 
   constructor( private builder: FormBuilder,
-               private service: AuthService) { }
+               private service: AuthService,
+               private resultBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.currentUser = this.service.user;
+    /*
+    this.profileForm.get('name').setValue(this.currentUser.name);
+    this.profileForm.get('firstName').setValue(this.currentUser.firstName);
+     */
   }
 
   onChangeImage(event){
@@ -83,8 +92,34 @@ export class ProfileComponent implements OnInit {
       !!control.parent.value &&
       control.value === control.parent.controls[matchTo].value
         ? null
-        : { isMatching: false };
+        : {isMatching: false};
     };
+  }
+
+  uploadImage(){
+
+
+  }
+
+  editData(){
+    /*this.currentUser.name = this.profileForm.get('name').value;
+    this.currentUser.firstName = this.profileForm.get('firstName').value;
+*/
+    this.service.updateUser(this.currentUser, this);
+  }
+
+  editPassword(){
+
+  }
+
+  showResult(success: boolean, message: string){
+    const panelClass = success ? 'result-bar-success' : 'result-bar-fail';
+    this.resultBar.open(message,'', {
+      duration: 5000,
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      panelClass: panelClass
+    });
   }
 
 }

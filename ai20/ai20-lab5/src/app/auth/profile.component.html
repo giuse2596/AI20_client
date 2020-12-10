@@ -1,4 +1,5 @@
 <h2>I miei dati</h2>
+<mat-error></mat-error>
 <mat-grid-list cols="4" rowHeight="300">
   <mat-grid-tile colspan="1">
     <form [formGroup]="imageForm">
@@ -7,7 +8,7 @@
         <img id="profile-image" [src]=url alt="Immagine Profilo">
         <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" >
         <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
-        <button mat-raised-button style="float: right;">Salva</button>
+        <button mat-raised-button style="float: right;" (click)="uploadImage()">Salva</button>
       </div>
     </form>
   </mat-grid-tile>
@@ -30,7 +31,7 @@
           </mat-error>
         </mat-form-field>
       </form>
-      <button mat-raised-button color="primary" [disabled]="profileForm.invalid" style="margin-bottom: 10px;">Modifica</button>
+      <button mat-raised-button color="primary" [disabled]="profileForm.invalid" (click)="editData()" style="margin-bottom: 10px;">Modifica</button>
       <div class="password-box">
         <h3>Modifica Password</h3>
         <form [formGroup]="passwordForm" autocomplete="off">
@@ -71,7 +72,7 @@
               <div *ngIf="!passwordConfirm.errors.isMatching">Le Password devono coincidere</div>
             </mat-error>
           </mat-form-field>
-          <button mat-raised-button [disabled]="passwordForm.invalid" color="primary">Conferma</button>
+          <button mat-raised-button [disabled]="passwordForm.invalid" (click)="editPassword()" color="primary">Conferma</button>
         </form>
       </div>
     </div>

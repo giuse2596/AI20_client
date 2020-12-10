@@ -64,3 +64,16 @@ mat-sidenav-container{
     width: 100%;
     height: 100%;
  }
+
+ .result-bar-success{
+   color: #ffff;
+   background: rgba(0,128,0,0.9);
+   width: 800px;
+   opacity: 0.5;
+ }
+
+ .result-bar-fail{
+   color: #ffff;
+   background: rgba(255,0,0,0.9);
+   width: 800px;
+ }

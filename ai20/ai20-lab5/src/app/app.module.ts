@@ -38,6 +38,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {ProfileComponent} from "./auth/profile.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     FormsModule,
     MatMenuModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     LoginDialogComponent,
