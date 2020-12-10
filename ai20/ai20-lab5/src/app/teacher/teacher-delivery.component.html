@@ -7,50 +7,47 @@
   <mat-option value="RIVISTO">RIVISTO</mat-option>
 </mat-select>
 <table mat-table
-       [dataSource]="dataSourceTasks" multiTemplateDataRows
+       [dataSource]="dataSourceDeliveries" multiTemplateDataRows
        class="mat-elevation-z8" matSort>
-  <ng-container matColumnDef="content">
-    <th mat-header-cell *matHeaderCellDef > Contenuto </th>
-    <td mat-cell *matCellDef="let task">{{task.content}}</td>
-  </ng-container>
   <ng-container matColumnDef="studentId">
     <th mat-header-cell *matHeaderCellDef > StudentID </th>
-    <td mat-cell *matCellDef="let task">{{task.studentId}}</td>
+    <td mat-cell *matCellDef="let delivery">{{delivery.studentId}}</td>
   </ng-container>
   <ng-container matColumnDef="studentFirstName">
     <th mat-header-cell *matHeaderCellDef > NomeStudente </th>
-    <td mat-cell *matCellDef="let task">{{task.studentFirstName}}</td>
+    <td mat-cell *matCellDef="let delivery">{{delivery.studentFirstName}}</td>
   </ng-container>
   <ng-container matColumnDef="studentName">
     <th mat-header-cell *matHeaderCellDef > CognomeStudente </th>
-    <td mat-cell *matCellDef="let task">{{task.studentName}}</td>
+    <td mat-cell *matCellDef="let delivery">{{delivery.studentName}}</td>
   </ng-container>
   <ng-container matColumnDef="timestamp">
     <th mat-header-cell *matHeaderCellDef  mat-sort-header> Timestamp </th>
-    <td mat-cell *matCellDef="let task">{{task.timestamp.toLocaleString()}}</td>
+    <td mat-cell *matCellDef="let delivery">{{delivery.timestamp.toLocaleString()}}</td>
   </ng-container>
   <ng-container matColumnDef="state">
     <th mat-header-cell *matHeaderCellDef > Stato </th>
-    <td mat-cell *matCellDef="let task">{{task.state}}</td>
+    <td mat-cell *matCellDef="let delivery">{{delivery.state}}</td>
   </ng-container>
 
   <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let task" [attr.colspan]="displayColumnsTasks.length">
+    <td mat-cell *matCellDef="let delivery" [attr.colspan]="displayColumns.length">
       <div class="example-element-detail"
-           [@detailExpand]="task == expandedTask ? 'expanded' : 'collapsed'">
-        <app-task-historicals [assignment] = assignment
-                              [task] = task>
+           [@detailExpand]="delivery == expandedDelivery ? 'expanded' : 'collapsed'">
+        <app-teacher-delivery-historicals [assignment] = assignment
+                                          [lastDelivery]="delivery"
+                                          [courseName] = courseName>
 
-        </app-task-historicals>
+        </app-teacher-delivery-historicals>
       </div>
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayColumnsTasks"></tr>
-  <tr mat-row *matRowDef="let task; columns: displayColumnsTasks;"
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let delivery; columns: displayColumns;"
       class="example-element-row"
-      [class.example-expanded-row]="expandedTask === task"
-      (click)="expandedTask = expandedTask === task ? null : task">
+      [class.example-expanded-row]="expandedDelivery === delivery"
+      (click)="expandedDelivery = expandedDelivery === delivery ? null : delivery">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>

@@ -3,11 +3,13 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <h4>Contenuto della consegna</h4>
+        <h4>{{assignment.content}}</h4>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-tasks [assignment] = assignment>
+    <app-teacher-delivery [courseName]= courseName
+                          [assignment] = assignment
+                          [studentsArray] = students>
 
-    </app-tasks>
+    </app-teacher-delivery>
   </mat-expansion-panel>
 </div>

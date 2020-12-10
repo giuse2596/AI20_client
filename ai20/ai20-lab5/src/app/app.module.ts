@@ -35,17 +35,23 @@ import { GroupsContComponent } from './student/groups-cont.component';
 import { GroupNameDialogComponent } from './student/group-name-dialog.component';
 import {SignupComponent} from './auth/signup.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { AssignmentsContComponent } from './teacher/assignments-cont.component';
-import { AssignmentsComponent } from './teacher/assignments.component';
+import { TeacherAssignmentsContComponent } from './teacher/teacher-assignments-cont.component';
+import { TeacherAssignmentsComponent } from './teacher/teacher-assignments.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { TasksComponent } from './teacher/tasks.component';
+import { TeacherDeliveryComponent } from './teacher/teacher-delivery.component';
 import { CorrectDialogComponent } from './teacher/correct-dialog.component';
 import {NewAssignmentDialogComponent} from './teacher/new-assignment-dialog.component';
 import {ProfileComponent} from './auth/profile.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import {TaskHistoricalsComponent} from './teacher/task-historicals.component';
-import {MatSelectModule} from "@angular/material/select";
+import {TeacherDeliveryHistoricalsComponent} from './teacher/teacher-delivery-historicals.component';
+import {MatSelectModule} from '@angular/material/select';
+import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
+import {StudentAssignmentsComponent} from './student/student-assignments.component';
+import {StudentDeliveryComponent} from './student/student-delivery.component';
+import {StudentDeliveryHistoricalsComponent} from './student/student-delivery-historicals.component';
+import {EvaluateDialogComponent} from './teacher/evaluate-dialog.component';
+import {SubmitDeliveryDialogComponent} from './student/submit-delivery-dialog.component';
 
 
 @NgModule({
@@ -63,13 +69,19 @@ import {MatSelectModule} from "@angular/material/select";
     GroupsContComponent,
     GroupNameDialogComponent,
     SignupComponent,
-    AssignmentsContComponent,
-    AssignmentsComponent,
-    TasksComponent,
+    TeacherAssignmentsContComponent,
+    TeacherAssignmentsComponent,
+    TeacherDeliveryComponent,
     CorrectDialogComponent,
     NewAssignmentDialogComponent,
     ProfileComponent,
-    TaskHistoricalsComponent
+    TeacherDeliveryHistoricalsComponent,
+    StudentAssignmentsContComponent,
+    StudentAssignmentsComponent,
+    StudentDeliveryComponent,
+    StudentDeliveryHistoricalsComponent,
+    EvaluateDialogComponent,
+    SubmitDeliveryDialogComponent
   ],
   imports: [
     BrowserModule,

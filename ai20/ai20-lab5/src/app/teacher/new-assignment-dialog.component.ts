@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Assignment} from '../assignment.model';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {DialogData} from './dialogData.module';
+import {AssignmentService} from '../services/assignment.service';
 
 @Component({
   selector: 'app-new-assignment-dialog',
@@ -16,7 +19,9 @@ export class NewAssignmentDialogComponent implements OnInit {
     expiryDate: ['', Validators.required]
   });
 
-  constructor( private builder: FormBuilder ) { }
+  constructor( private builder: FormBuilder,
+               @Inject(MAT_DIALOG_DATA) public data: DialogData,
+               private assignmentService: AssignmentService) { }
 
   ngOnInit(): void {
   }
@@ -42,8 +47,8 @@ export class NewAssignmentDialogComponent implements OnInit {
   }
 
   createAssignment() {
-    // todo
-    const assignment = new Assignment('', '', '', new Date(), this.expiryDate.value);
+    const assignment = new Assignment('', this.image.value, this.data.courseName, new Date(), this.expiryDate.value);
+    this.assignmentService.createAssignment(this.data.courseName, assignment);
   }
 
 }

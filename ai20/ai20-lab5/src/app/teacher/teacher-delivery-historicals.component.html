@@ -1,0 +1,9 @@
+<div *ngFor="let historical of deliveryHistoricals">
+  <h4>{{historical.content}}</h4>
+  <h4>{{historical.state}}</h4>
+  <h4>{{historical.timestamp.toLocaleDateString()}}</h4>
+</div>
+<div *ngIf="lastDelivery.state === 'CONSEGNATO' || lastDelivery.state === 'RIVISTO'">
+  <button mat-raised-button color="primary" (click) = "correct()">Correggi</button>
+  <button mat-raised-button [disabled]="lastDelivery.state !== 'RIVISTO'" (click) = "evaluate()">Assegna Voto</button>
+</div>

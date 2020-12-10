@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DialogData} from './dialogData.module';
-import {TaskService} from '../services/task.service';
+import {DeliveryService} from '../services/delivery.service';
+import {Delivery} from '../delivery.model';
 
 @Component({
   selector: 'app-correct-dialog',
@@ -10,22 +11,24 @@ import {TaskService} from '../services/task.service';
 })
 export class CorrectDialogComponent implements OnInit {
   nowDate: Date;
-  taskToRedo = false;
+  expiryDate: Date;
+  deliveryToRedo = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private taskService: TaskService) { }
+              private deliveryService: DeliveryService) { }
 
   ngOnInit(): void {
     this.nowDate = new Date();
+    this.expiryDate = new Date(this.data.assignment.expiryDate);
   }
 
   confirmCorrection() {
-    if (this.taskToRedo) {
-      this.data.task.state = 'LETTO';
+    const newDelivery: Delivery = new Delivery('', this.data.delivery.content, new Date(), '');
+    if (this.deliveryToRedo) {
+      newDelivery.state = 'LETTO';
     } else {
-      this.data.task.state = 'RIVISTO';
+      newDelivery.state = 'RIVISTO';
     }
-    this.data.task.timestamp = new Date();
-    this.taskService.updateTask(this.data.task);
+    this.deliveryService.reviewDelivery(this.data.courseName, this.data.assignment.id, this.data.homework.id, newDelivery);
   }
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignmentsContComponent } from './assignments-cont.component';
+import { EvaluateDialogComponent } from './evaluate-dialog.component';
 
-describe('AssignmentsContComponent', () => {
-  let component: AssignmentsContComponent;
-  let fixture: ComponentFixture<AssignmentsContComponent>;
+describe('EvaluateDialogComponent', () => {
+  let component: EvaluateDialogComponent;
+  let fixture: ComponentFixture<EvaluateDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssignmentsContComponent ]
+      declarations: [ EvaluateDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssignmentsContComponent);
+    fixture = TestBed.createComponent(EvaluateDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
