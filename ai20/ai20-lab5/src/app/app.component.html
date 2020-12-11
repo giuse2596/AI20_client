@@ -8,7 +8,7 @@
   <button mat-button *ngIf="!logged" routerLink="/home" [queryParams]="{doSignup: true}">Registrati</button>
   <button mat-button *ngIf="logged" [matMenuTriggerFor]="menu">
     <mat-icon>person</mat-icon>
-    <span id="logged-label">{{user.id}}</span>
+    <span id="logged-label">{{user.username}}</span>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
     <button mat-menu-item routerLink="/profile">

@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>Registrati a Virtual Labs</h1>
 <mat-error *ngIf="data.failedSignup">Registrazione Fallita!</mat-error>
+<mat-label *ngIf="data.signed" style="color: green;">Controlla la tua email per confermare la Registrazione</mat-label>
 <form [formGroup] = "userForm">
   <div mat-dialog-content>
     <mat-form-field class="input-item">
@@ -44,13 +45,15 @@
     </mat-form-field>
     <mat-form-field class="input-item">
       <mat-label>Conferma Password</mat-label>
-      <input type="password" matInput placeholder=" Conferma Password" formControlName="password" [type]="hide ? 'password' : 'text'">
+      <input type="password" matInput placeholder=" Conferma Password" formControlName="confirmPassword"
+             [type]="hide ? 'password' : 'text'">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
-      <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
-        <div *ngIf="password.errors.minlength">Password troppo corta</div>
-        <div *ngIf="password.errors.required">La password è obbligatoria</div>
+      <mat-error *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+        <div *ngIf="confirmPassword.errors.minlength">Password troppo corta</div>
+        <div *ngIf="confirmPassword.errors.required">La password è obbligatoria</div>
+        <div *ngIf="!confirmPassword.errors.isMatching">Le Password devono coincidere</div>
       </mat-error>
     </mat-form-field>
   </div>

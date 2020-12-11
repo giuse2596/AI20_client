@@ -7,7 +7,7 @@ import {Student} from '../student.model';
 import {StudentService} from '../services/student.service';
 
 @Component({
-  selector: 'app-assignments-cont',
+  selector: 'app-student-assignments-cont',
   templateUrl: './student-assignments-cont.component.html',
   styleUrls: ['./student-assignments-cont.component.css']
 })

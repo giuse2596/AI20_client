@@ -10,7 +10,7 @@ import {ProfileComponent} from "./profile.component";
 
 
 
-const hostname = 'http://localhost:8080/auth';
+const hostname = '/server';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(user: User, dialog: MatDialogRef<LoginDialogComponent>){
-    this.http.post<any>(hostname + '/login', user).subscribe(
+    this.http.post<any>(hostname + '/auth/login', user).subscribe(
       res => {
         this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
         localStorage.setItem('jwt', res.accessToken);
@@ -47,24 +47,16 @@ export class AuthService {
   }
 
   signup(user: User, dialog: MatDialogRef<SignupComponent>){
-    console.log("signup");
     console.log(user);
-    this.http.post<any>('register', user).subscribe(
+    this.http.post<any>( hostname + '/register', user).subscribe(
       res => {
-        this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
-        localStorage.setItem('jwt', res.accessToken);
-        user.token = this.jwt;
-        this.user = user;
-        console.log(this.jwt);
-        this.logged = true;
-        dialog.close(this.logged);
+        dialog.close(true);
         if (this.redirectUrl){
           this.router.navigate([this.redirectUrl]);
         }
       },
       err => {
-        this.logged = false;
-        dialog.close(this.logged);
+        dialog.close(false);
       }
     );
   }

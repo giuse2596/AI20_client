@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import { User } from '../User.model';
 import { AuthService } from './auth.service';
 import { DialogData } from './dialogData.module';
@@ -19,12 +19,12 @@ export class SignupComponent implements OnInit {
     firstName: ['', Validators.required],
     id: ['', Validators.required],
     username: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.minLength(8), Validators.required]]
+    password: ['', [Validators.minLength(8), Validators.required]],
+    confirmPassword: ['',[Validators.minLength(8),
+      SignupComponent.matchValues('password'),
+      Validators.required]]
   });
   hide = true;
-
-  failedSignup = false;
-
   constructor(public dialogRef: MatDialogRef<SignupComponent>
     , private builder: FormBuilder,
               private service: AuthService,
@@ -54,6 +54,10 @@ export class SignupComponent implements OnInit {
     return this.userForm.get('password');
   }
 
+  get confirmPassword(){
+    return this.userForm.get('confirmPassword');
+  }
+
   get username(){
     return this.userForm.get('username');
   }
@@ -68,6 +72,18 @@ export class SignupComponent implements OnInit {
       ),
       this.dialogRef
     );
+  }
+
+  public static matchValues(
+    matchTo: string // name of the control to match to
+  ): (AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return !!control.parent &&
+      !!control.parent.value &&
+      control.value === control.parent.controls[matchTo].value
+        ? null
+        : {isMatching: false};
+    };
   }
 
 }

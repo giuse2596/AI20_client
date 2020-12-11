@@ -49,32 +49,29 @@ export class AppComponent implements OnInit, OnDestroy{
         }
         const doSignup = params.get('doSignup');
         if(doSignup === 'true'){
-          this.openDialogSignup(false);
+          this.openDialogSignup(false, false);
         }
       }
     );
 
   }
 
-  openDialogSignup(signupFailed){
+  openDialogSignup(signupFailed, signed){
       const dialogRef = this.dialog.open(SignupComponent, {data: {
-          failedSignup: signupFailed
+          failedSignup: signupFailed,
+          signed: signed
         }
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log(result);
         this.routes.navigate(['/home']);
         if(result === true){
-          this.label = 'Logout';
-          this.logged = true;
-          this.top = '20px 20px 20px 20px';
-          this.courses$ = this.courseService.getAll();
-
+          this.top = '0 20px 20px 20px';
+          this.openDialogSignup(false, true);
         }else if(result === false){
           this.top = '0 20px 20px 20px';
-          this.logged = false;
           this.label = 'Login';
-          this.openDialogSignup(true);
+          this.openDialogSignup(true, false);
         }
 
       });
@@ -104,7 +101,7 @@ export class AppComponent implements OnInit, OnDestroy{
           this.label = 'Logout';
           this.logged = true;
           this.user = this.authService.user;
-          this.user.id = this.user.email.split('@')[0];
+          this.user.username = this.user.email.split('@')[0];
           this.top = '20px 20px 20px 20px';
           console.log("app.component::ngOnInit is logged == true");
           this.courses$ = this.courseService.getAll();
