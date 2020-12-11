@@ -25,10 +25,12 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(user: User, dialog: MatDialogRef<LoginDialogComponent>){
+    user.username = user.email.split('@')[0];
     this.http.post<any>(hostname + '/auth/login', user).subscribe(
       res => {
-        this.jwt = JSON.parse(atob(res.accessToken.split('.')[1]));
-        localStorage.setItem('jwt', res.accessToken);
+        console.log(res);
+        this.jwt = JSON.parse(atob(res.token.split('.')[1]));
+        localStorage.setItem('jwt', res.token);
         user.token = this.jwt;
         console.log(user.token.email);
         this.user = user;
@@ -40,6 +42,7 @@ export class AuthService {
         }
       },
       err => {
+        console.log(err.message);
         this.logged = false;
         dialog.close(this.logged);
       }
