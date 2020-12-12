@@ -25,6 +25,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(user: User, dialog: MatDialogRef<LoginDialogComponent>){
+    localStorage.clear();
     user.username = user.email.split('@')[0];
     this.http.post<any>(hostname + '/auth/login', user).subscribe(
       res => {
@@ -51,6 +52,7 @@ export class AuthService {
 
   signup(user: User, dialog: MatDialogRef<SignupComponent>){
     console.log(user);
+    localStorage.clear();
     this.http.post<any>( hostname + '/register', user).subscribe(
       res => {
         dialog.close(true);
