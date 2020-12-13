@@ -61,4 +61,8 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
       }
     });
   }
+
+  seeImage(delivery: Delivery) {
+    // todo
+  }
 }

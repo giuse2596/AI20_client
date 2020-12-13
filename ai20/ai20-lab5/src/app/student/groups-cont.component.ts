@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Student} from '../student.model';
-import {Request} from '../request.model';
 import {StudentService} from '../services/student.service';
 import {ActivatedRoute} from '@angular/router';
 import {Course} from '../course.model';
 import {CourseService} from '../services/course.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-groups-cont',
@@ -19,10 +19,13 @@ export class GroupsContComponent implements OnInit {
   student$: Observable<Student>;
   course$: Observable<Course>;
 
-  constructor(private studentService: StudentService, private route: ActivatedRoute, private courseService: CourseService) { }
+  constructor(private studentService: StudentService,
+              private route: ActivatedRoute,
+              private courseService: CourseService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
-    const studentId = this.route.snapshot.params.studentId;
+    const studentId = this.authService.user.username;
     const courseId = this.route.snapshot.params.courseId;
     this.student$ = this.studentService.find(studentId);
     this.course$ = this.courseService.find(courseId);

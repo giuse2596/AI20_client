@@ -39,4 +39,8 @@ export class TeacherAssignmentsComponent implements OnInit {
       }
     });
   }
+
+  seeImage() {
+    // todo
+  }
 }

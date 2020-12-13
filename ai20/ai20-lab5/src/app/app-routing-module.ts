@@ -16,11 +16,11 @@ const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'teacher/courses', canActivate: [AuthGuard],
       children: [
-       { path: 'applicazioni-internet/students', component: StudentsContComponent },
+       { path: ':courseId/students', component: StudentsContComponent },
        { path: ':courseId/assignments', component: TeacherAssignmentsContComponent },
-       { path: 'applicazioni-internet/vms', component: VmsContComponent }
+       { path: ':courseId/vms', component: VmsContComponent }
         ] },
-    { path: 'student/:studentId', canActivate: [AuthGuard],
+    { path: 'student', canActivate: [AuthGuard],
       children: [
         { path: 'courses/:courseId/groups', component: GroupsContComponent },
         { path: 'courses/:courseId/assignments', component: StudentAssignmentsContComponent },

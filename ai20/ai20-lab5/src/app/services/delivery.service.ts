@@ -6,8 +6,8 @@ import {Homework} from '../homework.model';
 import {Delivery} from '../delivery.model';
 import {Student} from '../student.model';
 
-const hostnameCourses = 'http://localhost:3000/API/courses';
-const hostnameStudents = 'http://localhost:3000/API/students';
+const hostnameCourses = '/server/API/courses';
+const hostnameStudents = '/server/API/students';
 
 @Injectable({
   providedIn: 'root'

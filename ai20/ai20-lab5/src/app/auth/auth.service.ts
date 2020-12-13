@@ -5,8 +5,8 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './login-dialog.component';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import {SignupComponent} from "./signup.component";
-import {ProfileComponent} from "./profile.component";
+import {SignupComponent} from './signup.component';
+import {ProfileComponent} from './profile.component';
 
 
 
@@ -25,6 +25,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(user: User, dialog: MatDialogRef<LoginDialogComponent>){
+    localStorage.clear();
     user.username = user.email.split('@')[0];
     this.http.post<any>(hostname + '/auth/login', user).subscribe(
       res => {
@@ -51,6 +52,7 @@ export class AuthService {
 
   signup(user: User, dialog: MatDialogRef<SignupComponent>){
     console.log(user);
+    localStorage.clear();
     this.http.post<any>( hostname + '/register', user).subscribe(
       res => {
         dialog.close(true);
@@ -83,8 +85,9 @@ export class AuthService {
         profile.showResult(true, 'Data successfully updated');
       },
       err => {
-        if(err.status >= 400 && err.status < 500)
+        if (err.status >= 400 && err.status < 500) {
           profile.showResult(false, err.message);
+        }
         profile.showResult(false, 'Some error occurred during request');
 
       }

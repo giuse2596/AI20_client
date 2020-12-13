@@ -3,6 +3,7 @@ export interface Token{
     exp;
     iat;
     sub;
+    roles;
 }
 
 export class User{

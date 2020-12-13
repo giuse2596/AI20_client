@@ -52,4 +52,7 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
     });
   }
 
+  seeImage(delivery: Delivery) {
+    // todo
+  }
 }

@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 import {Assignment} from '../assignment.model';
 import {HttpClient} from '@angular/common/http';
 
-const hostnameCourses = 'http://localhost:3000/API/courses';
-const hostnameStudents = 'http://localhost:3000/API/students';
+const hostnameCourses = '/server/API/courses';
+const hostnameStudents = '/server/API/students';
 
 @Injectable({
   providedIn: 'root'

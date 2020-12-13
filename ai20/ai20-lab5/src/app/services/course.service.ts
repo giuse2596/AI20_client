@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Student} from '../student.model';
 import {Course} from '../course.model';
 
-const hostname = 'http://localhost:3000';
+const hostname = '/server/API';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class CourseService {
   }
 
   getEnrolled(id: string): Observable<Student[]>{
-    return this.http.get<Student[]>(`${hostname}/courses/${id}/students`);
+    return this.http.get<Student[]>(`${hostname}/courses/${id}/enrolled`);
   }
 
   getAvailablesForCourse(courseId: string): Observable<Student[]> {

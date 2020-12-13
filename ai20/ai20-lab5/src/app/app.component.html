@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-icon aria-hidden="false" id="hamIcon" (click)="toggleForMenuClick()">menu</mat-icon>
-  <button id="home-button" mat-button routerLink="/home">
+  <button id="home-button" mat-button routerLink="/home" (click)="selected = null">
     Virtual Labs
   </button>
   <span class="fill-remaining-space"></span>
@@ -15,53 +15,98 @@
       <mat-icon>portrait</mat-icon>
       <span>Profilo</span>
     </button>
-    <button mat-menu-item routerLink="/home" [queryParams]="{doLogin: true}">
+    <button mat-menu-item routerLink="/home" [queryParams]="{doLogin: true}" (click)="selected = null">
       <mat-icon>logout</mat-icon>
       <span>{{label}}</span>
     </button>
   </mat-menu>
 </mat-toolbar>
-<mat-toolbar *ngIf="logged && selected">{{selected.id}}</mat-toolbar>
+<mat-toolbar *ngIf="logged && selected">{{selected.name}}</mat-toolbar>
 <mat-sidenav-container class="sidenav-container" autosize [ngStyle]="{'margin': top}">
   <mat-sidenav mode="side" position="start" #sidenav opened>
     <div class="container">
-      <mat-nav-list *ngIf="!logged">
+      <mat-nav-list *ngIf="!logged; else elseBlock">
         <mat-list-item id="home-entry">
           Home
         </mat-list-item>
       </mat-nav-list>
-      <mat-nav-list *ngIf="logged">
-        <mat-list-item  (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
-          <mat-icon mat-list-icon>add</mat-icon>
-          <div mat-line>Aggiungi Corso</div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="teacher/courses/applicazioni-internet/students">
-          {{course.id}}
-        </mat-list-item>
-      </mat-nav-list>
+      <ng-template #elseBlock>
+        <mat-nav-list *ngIf="user.token.roles[0] === 'ROLE_TEACHER'">
+          <mat-list-item (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
+            <mat-icon mat-list-icon>add</mat-icon>
+            <div mat-line>Aggiungi Corso</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="teacher/courses/{{course.name}}/students">
+            {{course.name}}
+          </mat-list-item>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="user.token.roles[0] === 'ROLE_STUDENT'">
+          <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="student/courses/{{course.name}}/groups">
+            {{course.name}}
+          </mat-list-item>
+        </mat-nav-list>
+      </ng-template>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <nav mat-tab-nav-bar *ngIf="logged && selected">
-      <a mat-tab-link
-      routerLink = "teacher/courses/applicazioni-internet/students"
-      routerLinkActive #rla="routerLinkActive"
-      [active] = "rla.isActive"
-      >
-        Studenti
-      </a>
-      <a mat-tab-link
-      routerLink = "teacher/courses/applicazioni-internet/vms"
-      routerLinkActive #rlvm="routerLinkActive"
-      [active] = "rlvm.isActive"
+  <mat-sidenav-content *ngIf="logged && selected">
+    <div *ngIf="user.token.roles[0] === 'ROLE_TEACHER'">
+      <nav mat-tab-nav-bar>
+        <a mat-tab-link
+           routerLink = "teacher/courses/{{selected.name}}/students"
+           routerLinkActive #rls="routerLinkActive"
+           [active] = "rls.isActive"
+        >
+          Studenti
+        </a>
+        <a mat-tab-link
+           routerLink = "teacher/courses/{{selected.name}}/vms"
+           routerLinkActive #rlvm="routerLinkActive"
+           [active] = "rlvm.isActive"
 
-      >
-        Vms
-      </a>
-    </nav>
-    <div class="tab-content">
+        >
+          Vms
+        </a>
+        <a mat-tab-link
+           routerLink = "teacher/courses/{{selected.name}}/assignments"
+           routerLinkActive #rla="routerLinkActive"
+           [active] = "rla.isActive"
+        >
+          Consegne ed Elaborati
+        </a>
+      </nav>
+    </div>
+    <div *ngIf="user.token.roles[0] === 'ROLE_STUDENT'">
+      <nav mat-tab-nav-bar>
+        <a mat-tab-link
+           routerLink = "student/courses/{{selected.name}}/groups"
+           routerLinkActive #rlg="routerLinkActive"
+           [active] = "rlg.isActive"
+        >
+          Gruppi
+        </a>
+        <a mat-tab-link
+           routerLink = "student/courses/{{selected.name}}/vms"
+           routerLinkActive #rlvm="routerLinkActive"
+           [active] = "rlvm.isActive"
+
+        >
+          Vms
+        </a>
+        <a mat-tab-link
+           routerLink = "student/courses/{{selected.name}}/assignments"
+           routerLinkActive #rla="routerLinkActive"
+           [active] = "rla.isActive"
+        >
+          Consegne ed Elaborati
+        </a>
+      </nav>
+    </div>
+    <div class="tab-content" *ngIf="selected">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
+  <div class="tab-content" *ngIf="!selected">
+    <router-outlet></router-outlet>
+  </div>
 </mat-sidenav-container>

@@ -52,9 +52,11 @@ import {StudentDeliveryComponent} from './student/student-delivery.component';
 import {StudentDeliveryHistoricalsComponent} from './student/student-delivery-historicals.component';
 import {EvaluateDialogComponent} from './teacher/evaluate-dialog.component';
 import {SubmitDeliveryDialogComponent} from './student/submit-delivery-dialog.component';
-import {MatCardModule} from "@angular/material/card";
-import {MatGridListModule} from "@angular/material/grid-list";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {TeacherImageDialogComponent} from './teacher/teacher-image-dialog.component';
+import {StudentImageDialogComponent} from './student/student-image-dialog.component';
 
 
 @NgModule({
@@ -84,7 +86,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     StudentDeliveryComponent,
     StudentDeliveryHistoricalsComponent,
     EvaluateDialogComponent,
-    SubmitDeliveryDialogComponent
+    SubmitDeliveryDialogComponent,
+    TeacherImageDialogComponent,
+    StudentImageDialogComponent,
   ],
   imports: [
     BrowserModule,

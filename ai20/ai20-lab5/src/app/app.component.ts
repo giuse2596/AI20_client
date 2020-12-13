@@ -1,16 +1,16 @@
-import { Component, ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './auth/login-dialog.component';
 import { AuthService } from './auth/auth.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
-import {AddCourseComponent} from "./teacher/add-course.component";
-import {CourseService} from "./services/course.service";
-import {Course} from "./course.model";
-import {SignupComponent} from "./auth/signup.component";
-import {User} from "./user.model";
-import {split} from "ts-node";
+import {CourseService} from './services/course.service';
+import {Course} from './course.model';
+import {SignupComponent} from './auth/signup.component';
+import {User} from './user.model';
+import {StudentService} from './services/student.service';
+import {AddCourseComponent} from './teacher/add-course.component';
 
 @Component({
   selector: 'app-root',
@@ -27,8 +27,8 @@ export class AppComponent implements OnInit, OnDestroy{
   private subscription: Subscription;
   user: User;
   label = 'Login';
-  courses$ : Observable<Course[]>;
-  logged: boolean = false;
+  courses$: Observable<Course[]>;
+  logged = false;
   selected: Course;
   top = '0 20px 20px 20px';
 
@@ -36,7 +36,8 @@ export class AppComponent implements OnInit, OnDestroy{
               private authService: AuthService,
               private route: ActivatedRoute,
               private routes: Router,
-              private courseService: CourseService){
+              private courseService: CourseService,
+              private studentService: StudentService){
   }
 
   ngOnInit(){
@@ -44,11 +45,11 @@ export class AppComponent implements OnInit, OnDestroy{
       (params: ParamMap ) => {
         console.log(params);
         const doLogin = params.get('doLogin');
-        if(doLogin === 'true'){
+        if (doLogin === 'true'){
           this.openDialog(false);
         }
         const doSignup = params.get('doSignup');
-        if(doSignup === 'true'){
+        if (doSignup === 'true'){
           this.openDialogSignup(false, false);
         }
       }
@@ -59,16 +60,16 @@ export class AppComponent implements OnInit, OnDestroy{
   openDialogSignup(signupFailed, signed){
       const dialogRef = this.dialog.open(SignupComponent, {data: {
           failedSignup: signupFailed,
-          signed: signed
+          signed
         }
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log(result);
         this.routes.navigate(['/home']);
-        if(result === true){
+        if (result === true){
           this.top = '0 20px 20px 20px';
           this.openDialogSignup(false, true);
-        }else if(result === false){
+        }else if (result === false){
           this.top = '0 20px 20px 20px';
           this.label = 'Login';
           this.openDialogSignup(true, false);
@@ -78,12 +79,8 @@ export class AppComponent implements OnInit, OnDestroy{
 
   }
 
-  openDialogAdd(){
-    const dialog = this.dialog.open(AddCourseComponent);
-  }
-
   openDialog(loginFailed){
-    if( this.authService.isLogged()){
+    if ( this.authService.isLogged()){
       this.top = '0 20px 20px 20px';
       this.authService.logout();
       this.label = 'Login';
@@ -97,16 +94,21 @@ export class AppComponent implements OnInit, OnDestroy{
       dialogRef.afterClosed().subscribe(result => {
         console.log(result);
         this.routes.navigate(['/home']);
-        if(result === true){
+        if (result === true){
           this.label = 'Logout';
           this.logged = true;
           this.user = this.authService.user;
           this.user.username = this.user.email.split('@')[0];
           this.top = '20px 20px 20px 20px';
-          console.log("app.component::ngOnInit is logged == true");
-          this.courses$ = this.courseService.getAll();
+          console.log('app.component::ngOnInit is logged == true');
+          if (this.user.token.roles[0] === 'ROLE_TEACHER') {
+            this.courses$ = this.courseService.getAll();
+          }
+          if (this.user.token.roles[0] === 'ROLE_STUDENT') {
+            this.courses$ = this.studentService.getCourses(this.user.username);
+          }
 
-        }else if(result === false){
+        }else if (result === false){
           this.top = '0 20px 20px 20px';
           this.logged = false;
           this.label = 'Login';
@@ -124,14 +126,17 @@ export class AppComponent implements OnInit, OnDestroy{
     }
   }
 
-  selectCourse(course: Course){
-    this.selected = course;
-  }
-
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
 
+  selectCourse(course: Course){
+    this.selected = course;
+  }
+
+  openDialogAdd(){
+    const dialog = this.dialog.open(AddCourseComponent);
+  }
 
 }
 

@@ -31,4 +31,7 @@ export class StudentAssignmentsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  seeImage() {
+    // todo
+  }
 }

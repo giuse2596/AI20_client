@@ -5,8 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { concatMap, toArray, flatMap} from 'rxjs/operators';
 import {Request} from '../request.model';
 import {Group} from '../group.model';
+import {Course} from '../course.model';
 
-const hostname = 'http://localhost:3000';
+const hostname = '/server/API';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,9 @@ export class StudentService {
       listObservable.push(this.find(memberId));
     }
     return forkJoin(listObservable);
+  }
+
+  getCourses(studentId: string): Observable<Course[]> {
+    return this.http.get<Course[]>(`${hostname}/students/${studentId}/courses`);
   }
 }
