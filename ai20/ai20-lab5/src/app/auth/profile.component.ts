@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {AuthService} from "./auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {User} from "../user.model";
+import {User} from "../models/user.model";
 
 @Component({
   selector: 'app-profile',

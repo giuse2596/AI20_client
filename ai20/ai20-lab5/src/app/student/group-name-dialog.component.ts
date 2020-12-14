@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DialogData} from './dialogData.module';
 import {StudentService} from '../services/student.service';
-import {Request} from '../request.model';
+import {Request} from '../models/request.model';
 
 @Component({
   selector: 'app-group-name-dialog',

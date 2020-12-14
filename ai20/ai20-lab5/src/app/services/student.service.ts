@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../student.model';
+import { Student } from '../models/student.model';
 import {of, Observable, forkJoin} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { concatMap, toArray, flatMap} from 'rxjs/operators';
-import {Request} from '../request.model';
-import {Group} from '../group.model';
-import {Course} from '../course.model';
+import {Request} from '../models/request.model';
+import {Group} from '../models/group.model';
+import {Course} from '../models/course.model';
 
 const hostname = '/server/API';
 

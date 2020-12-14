@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Assignment} from '../assignment.model';
+import {Assignment} from '../models/assignment.model';
 import {MatDialog} from '@angular/material/dialog';
 import {NewAssignmentDialogComponent} from './new-assignment-dialog.component';
-import {Student} from '../student.model';
+import {Student} from '../models/student.model';
 
 @Component({
   selector: 'app-teacher-assignments',

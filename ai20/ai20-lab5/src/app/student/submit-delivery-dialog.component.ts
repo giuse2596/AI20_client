@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DialogData} from './dialogData.module';
 import {DeliveryService} from '../services/delivery.service';
-import {Delivery} from '../delivery.model';
+import {Delivery} from '../models/delivery.model';
 
 @Component({
   selector: 'app-submit-delivery-assignment-dialog',

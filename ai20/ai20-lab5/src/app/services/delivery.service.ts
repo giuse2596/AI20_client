@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Assignment} from '../assignment.model';
+import {Assignment} from '../models/assignment.model';
 import {Observable} from 'rxjs';
 import {Homework} from '../homework.model';
-import {Delivery} from '../delivery.model';
-import {Student} from '../student.model';
+import {Delivery} from '../models/delivery.model';
+import {Student} from '../models/student.model';
 
 const hostnameCourses = '/server/API/courses';
 const hostnameStudents = '/server/API/students';

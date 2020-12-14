@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Assignment} from '../assignment.model';
+import {Assignment} from '../models/assignment.model';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DialogData} from './dialogData.module';
 import {AssignmentService} from '../services/assignment.service';

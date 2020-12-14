@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Student} from '../student.model';
-import {Course} from '../course.model';
+import {Student} from '../models/student.model';
+import {Course} from '../models/course.model';
 
 const hostname = '/server/API';
 

@@ -6,9 +6,9 @@ import { AuthService } from './auth/auth.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 import {CourseService} from './services/course.service';
-import {Course} from './course.model';
+import {Course} from './models/course.model';
 import {SignupComponent} from './auth/signup.component';
-import {User} from './user.model';
+import {User} from './models/user.model';
 import {StudentService} from './services/student.service';
 import {AddCourseComponent} from './teacher/add-course.component';
 

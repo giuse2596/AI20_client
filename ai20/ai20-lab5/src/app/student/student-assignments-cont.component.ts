@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Assignment} from '../assignment.model';
+import {Assignment} from '../models/assignment.model';
 import {AssignmentService} from '../services/assignment.service';
 import {ActivatedRoute} from '@angular/router';
-import {Student} from '../student.model';
+import {Student} from '../models/student.model';
 import {StudentService} from '../services/student.service';
 import {AuthService} from '../auth/auth.service';
 

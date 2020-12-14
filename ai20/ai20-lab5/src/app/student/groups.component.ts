@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Request} from '../request.model';
-import {Student} from '../student.model';
+import {Request} from '../models/request.model';
+import {Student} from '../models/student.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {GroupNameDialogComponent} from './group-name-dialog.component';
-import {Course} from '../course.model';
+import {Course} from '../models/course.model';
 import {StudentService} from '../services/student.service';
 import {CourseService} from '../services/course.service';
-import {Group} from '../group.model';
+import {Group} from '../models/group.model';
 
 @Component({
   selector: 'app-groups',

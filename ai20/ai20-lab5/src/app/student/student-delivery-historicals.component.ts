@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Homework} from '../homework.model';
 import {MatDialog} from '@angular/material/dialog';
-import {Assignment} from '../assignment.model';
-import {Delivery} from '../delivery.model';
+import {Assignment} from '../models/assignment.model';
+import {Delivery} from '../models/delivery.model';
 import {DeliveryService} from '../services/delivery.service';
 import {SubmitDeliveryDialogComponent} from './submit-delivery-dialog.component';
 

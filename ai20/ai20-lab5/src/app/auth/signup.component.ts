@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import { User } from '../User.model';
+import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
 import { DialogData } from './dialogData.module';
 import { Router } from '@angular/router';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../User.model';
+import { User } from '../models/user.model';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './login-dialog.component';
 import * as moment from 'moment';

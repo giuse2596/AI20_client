@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Assignment} from '../assignment.model';
+import {Assignment} from '../models/assignment.model';
 import {HttpClient} from '@angular/common/http';
 
 const hostnameCourses = '/server/API/courses';

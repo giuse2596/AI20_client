@@ -1,11 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Assignment} from '../assignment.model';
+import {Assignment} from '../models/assignment.model';
 import {DeliveryService} from '../services/delivery.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
-import {Student} from '../student.model';
-import {Delivery} from '../delivery.model';
+import {Student} from '../models/student.model';
+import {Delivery} from '../models/delivery.model';
 
 @Component({
   selector: 'app-teacher-delivery',
