@@ -34,7 +34,7 @@ export class StudentsComponent implements OnInit {
   set allStudents(students: Student[]) {
     if (students !== null) {
       this.students = [... students];
-      this.options = [...this.students];
+      this.options = [... this.students];
     }
   }
 
@@ -156,8 +156,9 @@ export class StudentsComponent implements OnInit {
     }
 
     */
+    console.log(this.optionSelected)
    if (this.optionSelected != null){
-    const toAdd: Student[] = [];
+     const toAdd: Student[] = [];
     toAdd.push(this.optionSelected);
     this.enrollEmitter.emit(toAdd);
     /*

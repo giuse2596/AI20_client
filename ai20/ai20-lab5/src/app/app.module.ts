@@ -57,6 +57,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {TeacherImageDialogComponent} from './teacher/teacher-image-dialog.component';
 import {StudentImageDialogComponent} from './student/student-image-dialog.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -119,7 +120,8 @@ import {StudentImageDialogComponent} from './student/student-image-dialog.compon
     MatMenuModule,
     MatCardModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   entryComponents: [
     LoginDialogComponent,

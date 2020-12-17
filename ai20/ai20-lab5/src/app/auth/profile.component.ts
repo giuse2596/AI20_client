@@ -20,8 +20,8 @@ export class ProfileComponent implements OnInit {
     inputFile: ['']
   })
   profileForm: FormGroup =  this.builder.group({
-    name: ['', [Validators.required]],
-    firstName: ['', [Validators.required]],
+    name: [this.service.user.name, [Validators.required]],
+    firstName: [this.service.user.firstname, [Validators.required]],
   });
 
   passwordForm: FormGroup = this.builder.group({
@@ -46,10 +46,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.service.user;
-    /*
+    console.log("current name: " + this.currentUser.name);
     this.profileForm.get('name').setValue(this.currentUser.name);
-    this.profileForm.get('firstName').setValue(this.currentUser.firstName);
-     */
   }
 
   onChangeImage(event){
@@ -102,9 +100,6 @@ export class ProfileComponent implements OnInit {
   }
 
   editData(){
-    /*this.currentUser.name = this.profileForm.get('name').value;
-    this.currentUser.firstName = this.profileForm.get('firstName').value;
-*/
     this.service.updateUser(this.currentUser, this);
   }
 

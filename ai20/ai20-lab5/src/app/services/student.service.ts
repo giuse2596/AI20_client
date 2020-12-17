@@ -42,7 +42,7 @@ export class StudentService {
   updateEnrolled(students: Student[]): Observable<Student[]>{
      return of(students).pipe(
       flatMap(st => st),
-      concatMap(s => this.http.put(`${hostname}/students/${s.id}`, s)),
+      concatMap(s => this.http.post(`${hostname}/students/${s.id}`, s)),
       toArray<Student>()
     );
   }

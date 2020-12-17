@@ -1,0 +1,32 @@
+.input-item{
+  width: 100%;
+}
+
+.max-min{
+  width: 45%;
+}
+
+#max{
+  margin-left: 5px;
+}
+
+#min{
+  margin-right: 5px;
+}
+
+#courseDialog-name{
+  width: 70%;
+  margin-right: 10px;
+}
+
+#courseDialog-acronym{
+  width: 25%;
+}
+
+.course-dialog-submit{
+  margin-top: 10px;
+}
+
+.dialog-body{
+  height: 100%;
+}
