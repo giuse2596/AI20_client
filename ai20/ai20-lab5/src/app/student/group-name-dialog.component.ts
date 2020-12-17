@@ -35,7 +35,7 @@ export class GroupNameDialogComponent implements OnInit {
 
   sendRequest() {
     const timeoutMillis = this.expiry.value * 60 * 1000;
-    const request = new Request(this.data.proposer, this.name.value, this.data.members, this.data.course, timeoutMillis);
+    const request = new Request(this.data.proposer, this.name.value, this.data.members, this.data.courseName, timeoutMillis);
     this.studentService.proposeTeam(request);
   }
 }

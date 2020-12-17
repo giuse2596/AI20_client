@@ -12,10 +12,11 @@ import {Delivery} from '../models/delivery.model';
 })
 export class SubmitDeliveryDialogComponent implements OnInit {
 
-  url = '';
+  image: any;
+  file: any;
 
   deliveryForm: FormGroup = this.builder.group({
-    image: ['', Validators.required]
+    inputFile: ['', Validators.required]
   });
 
   constructor( private builder: FormBuilder,
@@ -25,28 +26,21 @@ export class SubmitDeliveryDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get image(){
-    return this.deliveryForm.get('image');
-  }
-
   onChangeImage(event){
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.image = reader.result;
+    }, false);
+
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-      };
-
+      this.file = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]);
     }
   }
 
-  createAssignment() {
-    const delivery = new Delivery('', this.image.value, new Date(), 'CONSEGNATO');
-    delivery.studentId = this.data.delivery.studentId;
-    delivery.studentName = this.data.delivery.studentName;
-    delivery.studentFirstName = this.data.delivery.studentFirstName;
-    this.deliveryService.submitDelivery(this.data.courseName, this.data.assignment.id, this.data.homework.id, delivery);
+  submitDelivery() {
+    this.deliveryService.submitDelivery
+    (this.data.delivery.studentId, this.data.courseName, this.data.assignment.id, this.data.homework.id, this.file);
   }
 
 }

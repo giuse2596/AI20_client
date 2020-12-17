@@ -6,6 +6,7 @@ import {Assignment} from '../models/assignment.model';
 import {Delivery} from '../models/delivery.model';
 import {DeliveryService} from '../services/delivery.service';
 import {EvaluateDialogComponent} from './evaluate-dialog.component';
+import {TeacherImageDialogComponent} from './teacher-image-dialog.component';
 
 @Component({
   selector: 'app-teacher-delivery-historicals',
@@ -30,14 +31,10 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
           .subscribe(deliveryHistoricals => {
             for (const deliveryHistorical of deliveryHistoricals) {
               deliveryHistorical.timestamp = new Date(deliveryHistorical.timestamp);
-              this.deliveryService.getDeliveryImage(this.lastDelivery.studentId, this.courseName,
-                this.assignment, this.homework.id, this.lastDelivery.id)
-                .subscribe(image => {
-                  deliveryHistorical.content = null; // image
-                  this.deliveryHistoricals.push(deliveryHistorical);
-                  this.deliveryHistoricals.sort((del1, del2) =>
-                    del1.timestamp.getTime() - del2.timestamp.getTime()); // ordina dalla più vecchia alla più recente
-                });
+              deliveryHistorical.content = null; // image
+              this.deliveryHistoricals.push(deliveryHistorical);
+              this.deliveryHistoricals.sort((del1, del2) =>
+                del1.timestamp.getTime() - del2.timestamp.getTime()); // ordina dalla più vecchia alla più recente
             }
           });
       });
@@ -62,7 +59,13 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
     });
   }
 
-  seeImage(delivery: Delivery) {
-    // todo
+  seeImage(deliveryToOpen: Delivery) {
+    this.dialog.open(TeacherImageDialogComponent, {data: {
+        courseName: this.courseName,
+        assignment: this.assignment,
+        homework: this.homework,
+        delivery: deliveryToOpen
+      }
+    });
   }
 }

@@ -22,7 +22,7 @@ import {Delivery} from '../models/delivery.model';
 export class TeacherDeliveryComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayColumns: string[] =
-    ['studentId', 'studentFirstName', 'studentName', 'timestamp', 'state'];
+    ['studentId', 'studentFirstName', 'studentName', 'timestamp', 'status'];
   selectedState = '';
   dataSourceDeliveries: MatTableDataSource<Delivery> = new MatTableDataSource();
   deliveries: Delivery[] = [];
@@ -57,7 +57,7 @@ export class TeacherDeliveryComponent implements OnInit {
   filter() {
     this.dataSourceDeliveries = new MatTableDataSource(this.deliveries.filter(delivery => {
       if (this.selectedState !== '') {
-        return delivery.state === this.selectedState;
+        return delivery.status === this.selectedState;
       }
       else {
         return true;

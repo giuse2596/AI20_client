@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Assignment} from '../models/assignment.model';
 import {Student} from '../models/student.model';
+import {MatDialog} from '@angular/material/dialog';
+import {StudentImageDialogComponent} from './student-image-dialog.component';
 
 @Component({
   selector: 'app-student-assignments',
@@ -14,24 +16,27 @@ export class StudentAssignmentsComponent implements OnInit {
   set assignmentsArray(assignments: Assignment[]) {
     if (assignments !== null) {
       for (const assignment of assignments) {
-        // todo get image . subscribe (
         assignment.releaseDate = new Date(assignment.releaseDate);
         assignment.expiryDate = new Date(assignment.expiryDate);
         this.assignments.push(assignment);
         this.assignments.sort((ass1, ass2) =>
           ass2.releaseDate.getTime() - ass1.releaseDate.getTime()); // ordina dalla più recente alla più vecchia
-        // todo )
       }
     }
   }
   @Input() student: Student;
   @Input() courseName: string;
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  seeImage() {
-    // todo
+  seeImage(assignmentToOpen: Assignment) {
+    this.dialog.open(StudentImageDialogComponent, {data: {
+        studentId: this.student.id,
+        courseName: this.courseName,
+        assignment: assignmentToOpen
+      }
+    });
   }
 }

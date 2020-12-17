@@ -6,11 +6,11 @@ export class DialogData{
   notInRange: boolean;
   min: number;
   max: number;
-  course: string;
+  courseName: string;
   proposer: string;
   members: string[];
   delivery: Delivery;
   assignment: Assignment;
   homework: Homework;
-  courseName: string;
+  studentId: string;
 }

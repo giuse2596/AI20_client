@@ -25,9 +25,9 @@ export class CorrectDialogComponent implements OnInit {
   confirmCorrection() {
     const newDelivery: Delivery = new Delivery('', this.data.delivery.content, new Date(), '');
     if (this.deliveryToRedo) {
-      newDelivery.state = 'LETTO';
+      newDelivery.status = 'READ';
     } else {
-      newDelivery.state = 'RIVISTO';
+      newDelivery.status = 'REVIEWED';
     }
     this.deliveryService.reviewDelivery(this.data.courseName, this.data.assignment.id, this.data.homework.id, newDelivery);
   }

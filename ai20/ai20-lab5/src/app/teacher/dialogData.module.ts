@@ -7,4 +7,5 @@ export class DialogData{
   assignment: Assignment;
   homework: Homework;
   courseName: string;
+  error: string;
 }

@@ -1,9 +1,9 @@
 <div *ngFor="let historical of deliveryHistoricals">
   <h4>{{historical.content}}</h4>
-  <h4>{{historical.state}}</h4>
+  <h4>{{historical.status}}</h4>
   <h4>{{historical.timestamp.toLocaleDateString()}}</h4>
-  <button mat-button color="primary" (click)="seeImage(historical)">Guarda Contenuto</button>
+  <button mat-button color="primary" [disabled]="lastDelivery.status !== 'DELIVERED'" (click)="seeImage(historical)">Guarda Contenuto</button>
 </div>
-<div *ngIf="lastDelivery.state === 'LETTO' || lastDelivery.state === 'CONSEGNATO'">
+<div *ngIf="lastDelivery.status === 'READ' || lastDelivery.status === 'DELIVERED'">
   <button mat-raised-button color="primary" (click) = "submitDelivery()">Carica Elaborato</button>
 </div>

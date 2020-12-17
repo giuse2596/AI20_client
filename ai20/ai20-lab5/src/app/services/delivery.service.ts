@@ -34,17 +34,18 @@ export class DeliveryService {
   }
 
   getDeliveryImage(studentId: string, courseName: string, assignment: Assignment,
-                   homeworkId: string, deliveryId: string): Observable<Delivery> {
-    return this.http.get<Delivery>
-    (`${hostnameStudents}/${studentId}/${courseName}/${assignment.id}/${homeworkId}/deliveries/${deliveryId}`);
+                   homeworkId: string, deliveryId: string) {
+    return this.http.get(`${hostnameStudents}/${studentId}/${courseName}/${assignment.id}/${homeworkId}/deliveries/${deliveryId}`,
+      {responseType: 'blob'});
   }
 
   evaluateHomework(courseName: string, assignmentId: string, homework: Homework) {
     this.http.put<Homework>(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, homework).subscribe();
   }
 
-  submitDelivery(courseName: string, assignmentId: string, homeworkId: string, delivery: Delivery) {
-    this.http.post<Delivery>
-    (`${hostnameStudents}/${delivery.studentId}/${courseName}/${assignmentId}/${homeworkId}/deliveries`, delivery).subscribe();
+  submitDelivery(studentId: string, courseName: string, assignmentId: string, homeworkId: string, file: any) {
+    const formData = new FormData();
+    formData.append('file', file);
+    this.http.post(`${hostnameStudents}/${studentId}/${courseName}/${assignmentId}/${homeworkId}/deliveries`, formData).subscribe();
   }
 }

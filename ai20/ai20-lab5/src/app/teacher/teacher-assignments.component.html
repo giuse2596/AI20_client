@@ -3,9 +3,9 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <h4>{{assignment.content}}</h4>
+        <h4>{{assignment.name}}</h4>
       </mat-panel-title>
-      <button mat-button color="primary" (click)="seeImage()">Guarda Contenuto</button>
+      <button mat-button color="primary" (click)="seeImage(assignment)">Guarda Contenuto</button>
     </mat-expansion-panel-header>
     <app-teacher-delivery [courseName]= courseName
                           [assignment] = assignment

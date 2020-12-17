@@ -3,13 +3,13 @@
   <form [formGroup]="deliveryForm" class="image-box">
     <h3>Elaborato</h3>
     <div>
-      <img id="profile-image" [src]=url alt="Immagine">
-      <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" formControlName="image">
+      <img id="profile-image" [src]="image" alt="Immagine">
+      <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" formControlName="inputFile">
       <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
     </div>
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" mat-dialog-close [disabled]="deliveryForm.invalid" (click)="createAssignment()">Consegna</button>
+  <button mat-raised-button color="primary" mat-dialog-close [disabled]="deliveryForm.invalid" (click)="submitDelivery()">Consegna</button>
   <button mat-raised-button mat-dialog-close>Annulla</button>
 </div>

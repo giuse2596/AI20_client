@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
 
   imageForm: FormGroup = this.builder.group({
-    image: ['']
+    inputFile: ['']
   })
   profileForm: FormGroup =  this.builder.group({
     name: ['', [Validators.required]],

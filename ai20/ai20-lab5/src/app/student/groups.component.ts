@@ -139,7 +139,7 @@ export class GroupsComponent implements OnInit {
         notInRange: outOfRange,
         min: this.course.min,
         max: this.course.max,
-        course: this.course.name,
+        courseName: this.course.name,
         proposer: this.student.id,
         members: this.membersSelected.map(s => s.id)
       }
