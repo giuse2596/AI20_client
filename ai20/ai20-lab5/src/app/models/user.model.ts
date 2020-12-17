@@ -9,7 +9,7 @@ export interface Token{
 export class User{
     username: string;
     name: string;
-    firstname: string;
+    firstName: string;
     email: string;
     password: string;
     token: Token;
@@ -17,7 +17,7 @@ export class User{
     constructor(email: string, password: string, username?: string, name?: string, firstName?: string){
         this.username = username;
         this.name = name;
-        this.firstname = firstName;
+        this.firstName = firstName;
         this.email = email;
         this.password = password;
     }
