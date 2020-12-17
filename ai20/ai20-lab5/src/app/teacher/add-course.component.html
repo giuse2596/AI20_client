@@ -1,16 +1,88 @@
-<h1 mat-dialog-title>Inserisci il nome del corso</h1>
+<h1 mat-dialog-title>Aggiungi un nuovo corso</h1>
+<mat-error *ngIf="data.failed">Si è verificato un errore, riprova</mat-error>
 <form [formGroup] = "courseForm">
-  <div mat-dialog-content>
-    <mat-form-field class="input-item">
+  <div mat-dialog-content class="dialog-body">
+    <mat-form-field class="input-item" id="courseDialog-name">
       <mat-label>Nome</mat-label>
       <input matInput placeholder="Nome" formControlName="name">
       <mat-error *ngIf="name.invalid">
         <div *ngIf="name.errors.required">Il nome del Corso è obbligatorio</div>
       </mat-error>
     </mat-form-field>
+    <mat-form-field class="input-item" id="courseDialog-acronym">
+      <mat-label>Acronimo</mat-label>
+      <input matInput placeholder="AAA" formControlName="acronym">
+      <mat-error *ngIf="acronym.invalid">
+        <div *ngIf="acronym.errors.required">L'acronimo è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item max-min" id="min">
+      <mat-label>Minima capienza gruppi</mat-label>
+      <input type="number" matInput formControlName="min">
+      <mat-error *ngIf="min.invalid">
+        <div *ngIf="min.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="min.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="min.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item max-min" id="max">
+      <mat-label>Massima capienza gruppi</mat-label>
+      <input type="number" matInput formControlName="max">
+      <mat-error *ngIf="max.invalid">
+        <div *ngIf="max.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="max.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="max.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <h3>Inserisci i dati relativi alla VM del corso</h3>
+    <mat-form-field class="input-item" id="cpu">
+      <mat-label>Massima CPU</mat-label>
+      <input type="number" matInput formControlName="maxCpu">
+      <mat-error *ngIf="maxCpu.invalid">
+        <div *ngIf="maxCpu.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="maxCpu.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="maxCpu.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="ram">
+      <mat-label>Massima RAM allocabile (In MB)</mat-label>
+      <input type="number" matInput formControlName="maxRam">
+      <mat-error *ngIf="maxRam.invalid">
+        <div *ngIf="maxRam.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="maxRam.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="maxRam.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="disk">
+      <mat-label>Massima capienza disco (In MB)</mat-label>
+      <input type="number" matInput formControlName="maxDisk">
+      <mat-error *ngIf="maxDisk.invalid">
+        <div *ngIf="maxDisk.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="maxDisk.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="maxDisk.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="instances">
+      <mat-label>Massimo numero di istanze</mat-label>
+      <input type="number" matInput formControlName="maxInstances">
+      <mat-error *ngIf="maxInstances.invalid">
+        <div *ngIf="maxInstances.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="maxInstances.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="maxInstances.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="activeIns">
+      <mat-label>Massimo numero istanze attive</mat-label>
+      <input type="number" matInput formControlName="activeInstances">
+      <mat-error *ngIf="activeInstances.invalid">
+        <div *ngIf="activeInstances.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="activeInstances.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="activeInstances.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
   </div>
-  <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [disabled]="courseForm.invalid" type="submit">Aggiungi</button>
+  <div mat-dialog-actions class="course-dialog-submit">
+    <button mat-raised-button color="primary" [disabled]="courseForm.invalid" (click)="addCourse()">Aggiungi</button>
     <button mat-raised-button (click)="onNoClick()">Cancel</button>
   </div>
 </form>

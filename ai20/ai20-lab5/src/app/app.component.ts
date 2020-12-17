@@ -11,6 +11,7 @@ import {SignupComponent} from './auth/signup.component';
 import {User} from './models/user.model';
 import {StudentService} from './services/student.service';
 import {AddCourseComponent} from './teacher/add-course.component';
+import {ScrollStrategyOptions} from "@angular/cdk/overlay";
 
 @Component({
   selector: 'app-root',
@@ -135,7 +136,25 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   openDialogAdd(){
-    const dialog = this.dialog.open(AddCourseComponent);
+    const dialog = this.dialog.open(AddCourseComponent, {
+      data: {
+        failed: false
+      }
+    }).afterClosed().subscribe(
+      res => {
+        if (res === false){
+          this.dialog.open(AddCourseComponent, {
+            data: {
+              failed: true
+            }
+          })
+        }else {
+          this.courses$ = this.courseService.getAll();
+        }
+      }
+    );
+
+
   }
 
 }

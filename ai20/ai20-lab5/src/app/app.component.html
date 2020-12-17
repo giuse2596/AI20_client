@@ -74,6 +74,13 @@
         >
           Consegne ed Elaborati
         </a>
+        <a mat-tab-link
+           routerLink = "teacher/courses/{{selected.name}}/details"
+           routerLinkActive #rla="routerLinkActive"
+           [active] = "rla.isActive"
+        >
+          Dettagli Corso
+        </a>
       </nav>
     </div>
     <div *ngIf="user.token.roles[0] === 'ROLE_STUDENT'">

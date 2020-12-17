@@ -1,6 +1,6 @@
 <h3 class="tab-content-item">Studenti Iscritti al corso</h3>
 <mat-form-field class="tab-content-item" id="add-form-field">
-    <input matInput="text"  mat-input placeholder="Aggiungi Studente" [matAutocomplete] = "auto" (keyup) = "filter($event.target.value)" >
+    <input matInput="text" placeholder="Aggiungi Studente" [matAutocomplete] = "auto" (keyup) = "filter($event.target.value)" >
 </mat-form-field>
 <mat-autocomplete #auto = "matAutocomplete" [displayWith] = "displayFn" (optionSelected) = "save($event.option.value)">
     <mat-option *ngFor = "let option of options" [value] = "option">
@@ -30,4 +30,4 @@
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
 </table>
-        
+

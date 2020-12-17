@@ -25,7 +25,7 @@
         </mat-form-field>
         <mat-form-field class="input-item">
           <mat-label>Cognome</mat-label>
-          <input matInput placeholder="Cognome" formControlName="firstName" autocomplete="off">
+          <input matInput placeholder="Cognome" formControlName="firstName"  autocomplete="off">
           <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
             <div *ngIf="firstName.errors.required">Il cognome è obbligatorio</div>
           </mat-error>

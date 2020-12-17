@@ -32,9 +32,8 @@ export class AuthService {
         console.log(res);
         this.jwt = JSON.parse(atob(res.token.split('.')[1]));
         localStorage.setItem('jwt', res.token);
-        user.token = this.jwt;
-        console.log(user.token.email);
-        this.user = user;
+        this.user = res.user;
+        this.user.token = this.jwt;
         console.log(this.jwt);
         this.logged = true;
         dialog.close(this.logged);

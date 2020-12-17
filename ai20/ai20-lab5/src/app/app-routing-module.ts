@@ -9,22 +9,27 @@ import {GroupsContComponent} from './student/groups-cont.component';
 import {ProfileComponent} from './auth/profile.component';
 import {TeacherAssignmentsContComponent} from './teacher/teacher-assignments-cont.component';
 import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
+import {CourseDetailsComponent} from "./teacher/course-details.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'profile', component: ProfileComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'teacher/courses', canActivate: [AuthGuard],
+    { path: 'teacher', canActivate: [AuthGuard],
       children: [
-       { path: ':courseId/students', component: StudentsContComponent },
-       { path: ':courseId/assignments', component: TeacherAssignmentsContComponent },
-       { path: ':courseId/vms', component: VmsContComponent }
-        ] },
+       { path: 'courses/:courseId/students', component: StudentsContComponent },
+       { path: 'courses/:courseId/assignments', component: TeacherAssignmentsContComponent },
+       { path: 'courses/:courseId/vms', component: VmsContComponent },
+       { path: 'courses/:courseId/details', component: CourseDetailsComponent},
+
+        ]
+    },
     { path: 'student', canActivate: [AuthGuard],
       children: [
         { path: 'courses/:courseId/groups', component: GroupsContComponent },
         { path: 'courses/:courseId/assignments', component: StudentAssignmentsContComponent },
-      ]},
+      ]
+    },
     { path: '**', component: PageNotFoundComponent}
 ];
 
