@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; scroll-behavior: unset;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: hidden;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
 mat-sidenav-container{
     margin: 0 20px 20px 20px;
