@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Homework} from '../homework.model';
+import {Homework} from '../models/homework.model';
 import {CorrectDialogComponent} from './correct-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Assignment} from '../models/assignment.model';
@@ -40,12 +40,18 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
       });
   }
 
-  correct() {
-    this.dialog.open(CorrectDialogComponent, {data: {
+  correct(errorMessage ?: string) {
+    const dialogRef = this.dialog.open(CorrectDialogComponent, {data: {
         delivery: this.lastDelivery,
         assignment: this.assignment,
         homework: this.homework,
-        courseName: this.courseName
+        courseName: this.courseName,
+        error: errorMessage
+      }
+    });
+    dialogRef.afterClosed().subscribe(err => {
+      if (err) {
+        this.correct(err);
       }
     });
   }

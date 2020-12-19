@@ -12,7 +12,6 @@ import {DeliveryService} from '../services/delivery.service';
 export class EvaluateDialogComponent implements OnInit {
 
   evaluationForm: FormGroup =  this.builder.group({
-    evaluation: ['', [Validators.required]],
     mark: ['', [Validators.required]]
   });
 
@@ -27,13 +26,9 @@ export class EvaluateDialogComponent implements OnInit {
     return this.evaluationForm.get('mark');
   }
 
-  get evaluation(){
-    return this.evaluationForm.get('evaluation');
-  }
-
   confirmEvaluation() {
-    this.data.homework.evaluation = this.evaluation.value;
+    this.data.homework.editable = false;
     this.data.homework.mark = this.mark.value;
-    this.deliveryService.evaluateHomework(this.data.courseName, this.data.assignment.id, this.data.homework);
+    this.deliveryService.updateHomework(this.data.courseName, this.data.assignment.id, this.data.homework);
   }
 }

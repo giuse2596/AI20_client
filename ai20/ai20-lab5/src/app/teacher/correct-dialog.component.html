@@ -1,12 +1,20 @@
 <h1 mat-dialog-title>Correzione Elaborato</h1>
+<mat-error *ngIf="data.error">{{data.error}}</mat-error>
 <div mat-dialog-content>
-  <div *ngIf="this.expiryDate > this.nowDate">
-    <mat-checkbox class="example-margin" (change)="deliveryToRedo = !deliveryToRedo">
-      Richiedi una nuova consegna
-    </mat-checkbox>
-  </div>
+  <form [formGroup]="correctionForm" class="image-box">
+    <div>
+      <img id="profile-image" [src]="image" alt="Immagine">
+      <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" formControlName="inputFile">
+      <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
+    </div>
+    <div *ngIf="this.expiryDate > this.nowDate">
+      <mat-checkbox class="example-margin" (change)="deliveryToRedo = !deliveryToRedo">
+        Richiedi una nuova consegna
+      </mat-checkbox>
+    </div>
+  </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" mat-dialog-close (click)="confirmCorrection()">Correggi</button>
+  <button mat-raised-button color="primary" [disabled]="correctionForm.invalid" (click)="confirmCorrection()">Correggi</button>
   <button mat-raised-button mat-dialog-close>Annulla</button>
 </div>

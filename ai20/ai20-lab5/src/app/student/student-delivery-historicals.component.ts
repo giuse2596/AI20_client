@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Homework} from '../homework.model';
+import {Homework} from '../models/homework.model';
 import {MatDialog} from '@angular/material/dialog';
 import {Assignment} from '../models/assignment.model';
 import {Delivery} from '../models/delivery.model';
@@ -18,11 +18,15 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
   @Input() courseName: string;
   homework: Homework;
   deliveryHistoricals: Delivery[] = [];
+  nowDate: Date;
+  expiryDate: Date;
 
   constructor(public dialog: MatDialog,
               private deliveryService: DeliveryService) { }
 
   ngOnInit(): void {
+    this.nowDate = new Date();
+    this.expiryDate = new Date(this.assignment.expiryDate);
     this.deliveryService.getHomework(this.courseName, this.assignment, this.lastDelivery.studentId)
       .subscribe(homework => {
         this.homework = homework;
@@ -39,12 +43,18 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
       });
   }
 
-  submitDelivery() {
-    this.dialog.open(SubmitDeliveryDialogComponent, {data: {
+  submitDelivery(errorMessage ?: string) {
+    const dialogRef = this.dialog.open(SubmitDeliveryDialogComponent, {data: {
         delivery: this.lastDelivery,
         assignment: this.assignment,
         homework: this.homework,
-        courseName: this.courseName
+        courseName: this.courseName,
+        error: errorMessage
+      }
+    });
+    dialogRef.afterClosed().subscribe(err => {
+      if (err) {
+        this.submitDelivery(err);
       }
     });
   }

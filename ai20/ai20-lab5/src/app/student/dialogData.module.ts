@@ -1,6 +1,6 @@
 import {Delivery} from '../models/delivery.model';
 import {Assignment} from '../models/assignment.model';
-import {Homework} from '../homework.model';
+import {Homework} from '../models/homework.model';
 
 export class DialogData{
   notInRange: boolean;
@@ -13,4 +13,5 @@ export class DialogData{
   assignment: Assignment;
   homework: Homework;
   studentId: string;
+  error: string;
 }

@@ -1,4 +1,5 @@
 <h1 mat-dialog-title>Creazione nuovo elaborato</h1>
+<mat-error *ngIf="data.error">{{data.error}}</mat-error>
 <div mat-dialog-content>
   <form [formGroup]="deliveryForm" class="image-box">
     <h3>Elaborato</h3>
@@ -10,6 +11,6 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" mat-dialog-close [disabled]="deliveryForm.invalid" (click)="submitDelivery()">Consegna</button>
+  <button mat-raised-button color="primary" [disabled]="deliveryForm.invalid" (click)="submitDelivery()">Consegna</button>
   <button mat-raised-button mat-dialog-close>Annulla</button>
 </div>

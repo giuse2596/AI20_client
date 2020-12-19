@@ -16,7 +16,7 @@ export class NewAssignmentDialogComponent implements OnInit {
   file: any;
 
   assignmentForm: FormGroup = this.builder.group({
-    name: ['', Validators.required], // todo insert validator for png format
+    name: ['', Validators.required],
     inputFile: ['', Validators.required],
     expiryDate: ['', Validators.required]
   });

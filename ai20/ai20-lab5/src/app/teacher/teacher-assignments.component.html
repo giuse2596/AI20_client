@@ -5,6 +5,9 @@
       <mat-panel-title>
         <h4>{{assignment.name}}</h4>
       </mat-panel-title>
+      <mat-panel-title>
+        <h4>Scadenza: {{assignment.expiryDate.toLocaleDateString()}}</h4>
+      </mat-panel-title>
       <button mat-button color="primary" (click)="seeImage(assignment)">Guarda Contenuto</button>
     </mat-expansion-panel-header>
     <app-teacher-delivery [courseName]= courseName

@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DialogData} from './dialogData.module';
 import {DeliveryService} from '../services/delivery.service';
-import {Delivery} from '../models/delivery.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-correct-dialog',
@@ -13,22 +13,38 @@ export class CorrectDialogComponent implements OnInit {
   nowDate: Date;
   expiryDate: Date;
   deliveryToRedo = false;
+  image: any;
+  file: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private deliveryService: DeliveryService) { }
+  correctionForm: FormGroup = this.builder.group({
+    inputFile: ['', Validators.required],
+  });
+
+  constructor(private builder: FormBuilder,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData,
+              private deliveryService: DeliveryService,
+              public dialogRef: MatDialogRef<CorrectDialogComponent>) { }
 
   ngOnInit(): void {
     this.nowDate = new Date();
     this.expiryDate = new Date(this.data.assignment.expiryDate);
   }
 
-  confirmCorrection() {
-    const newDelivery: Delivery = new Delivery('', this.data.delivery.content, new Date(), '');
-    if (this.deliveryToRedo) {
-      newDelivery.status = 'READ';
-    } else {
-      newDelivery.status = 'REVIEWED';
+  onChangeImage(event){
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.image = reader.result;
+    }, false);
+
+    if (event.target.files && event.target.files[0]) {
+      this.file = event.target.files[0];
+      reader.readAsDataURL(event.target.files[0]);
     }
-    this.deliveryService.reviewDelivery(this.data.courseName, this.data.assignment.id, this.data.homework.id, newDelivery);
+  }
+
+  confirmCorrection() {
+    const homeworkToUpdate = this.data.homework.editable !== this.deliveryToRedo;
+    this.deliveryService.reviewDelivery(this.data.courseName, this.data.assignment.id,
+      this.data.homework, this.file, this.dialogRef, homeworkToUpdate);
   }
 }

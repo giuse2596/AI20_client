@@ -35,10 +35,18 @@ export class AssignmentService {
     formData.append('file', file);
     console.log(formData.get('file'));
     console.log(formData.get('assignmentDTO'));*/
-    return this.http.post(`${hostnameCourses}/${courseName}/assignments`, assignment)
-      .subscribe(() => {
+/*    return this.http.post<Assignment>(`${hostnameCourses}/${courseName}/assignments`, assignment)
+      .subscribe((ass) => {
           dialogRef.close();
-          // todo addImage()
+          this.addImage(file, ass.id);
+        },
+        err => {
+          dialogRef.close(err.error.message);
+        });*/
+    return this.http.post<Assignment>(`${hostnameCourses}/${courseName}/assignments`, assignment)
+      .subscribe((ass) => {
+          dialogRef.close();
+          this.addImage(file, ass.id);
         },
         err => {
           dialogRef.close(err.error.message);
@@ -55,9 +63,9 @@ export class AssignmentService {
       {responseType: 'blob'});
   }
 
-  addImage(file: any) {
+  addImage(file: any, assingmentId: string) {
     const formData = new FormData();
     formData.append('file', file);
-    this.http.post(`${hostnameCourses}/assignments`, formData).subscribe();
+    this.http.post(`${hostnameCourses}/assignments/${assingmentId}`, formData).subscribe();
   }
 }

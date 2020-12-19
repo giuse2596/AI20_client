@@ -1,6 +1,6 @@
 import {Assignment} from '../models/assignment.model';
 import {Delivery} from '../models/delivery.model';
-import {Homework} from '../homework.model';
+import {Homework} from '../models/homework.model';
 
 export class DialogData{
   delivery: Delivery;
