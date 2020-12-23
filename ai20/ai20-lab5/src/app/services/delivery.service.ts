@@ -25,15 +25,11 @@ export class DeliveryService {
   }
 
   reviewDelivery(courseName: string, assignmentId: string, homework: Homework, file: any,
-                 dialogRef: MatDialogRef<CorrectDialogComponent>, homeworkToUpdate: boolean) {
+                 dialogRef: MatDialogRef<CorrectDialogComponent>) {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('multipartFile', file);
     this.http.post(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, formData)
       .subscribe(() => {
-          if (homeworkToUpdate) {
-            homework.editable = !homework.editable;
-            this.updateHomework(courseName, assignmentId, homework);
-          }
           dialogRef.close();
         },
         err => {
@@ -51,18 +47,18 @@ export class DeliveryService {
 
   getDeliveryImage(studentId: string, courseName: string, assignment: Assignment,
                    homeworkId: string, deliveryId: string) {
-    return this.http.get(`${hostnameStudents}/${studentId}/${courseName}/${assignment.id}/${homeworkId}/deliveries/${deliveryId}`,
+    return this.http.get(`${hostnameCourses}/${courseName}/${studentId}/deliveries/${deliveryId}`,
       {responseType: 'blob'});
   }
 
-  updateHomework(courseName: string, assignmentId: string, homework: Homework) {
-    this.http.put<Homework>(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, homework).subscribe();
+  updateHomework(courseName: string, assignmentId: string, homework: Homework): Observable<Homework> {
+    return this.http.put<Homework>(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, homework);
   }
 
   submitDelivery(studentId: string, courseName: string, assignmentId: string,
                  homeworkId: string, file: any, dialogRef: MatDialogRef<SubmitDeliveryDialogComponent>) {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('multipartFile', file);
     this.http.post(`${hostnameStudents}/${studentId}/${courseName}/${assignmentId}/${homeworkId}/deliveries`, formData)
       .subscribe(() => {
           dialogRef.close();

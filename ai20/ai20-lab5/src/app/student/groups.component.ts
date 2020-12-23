@@ -28,43 +28,48 @@ export class GroupsComponent implements OnInit {
   studentInPendingGroup: boolean;
   group: Group;
   @Input() student: Student;
-  @Input() course: Course;
-
+  course: Course;
+  @Input()
+  set courseInput(course: Course) {
+    if (course !== null) {
+      this.course = course;
+      this.courseService.getAvailablesForCourse(this.course.name)
+        .subscribe(availables => {
+            if (availables.map(s => s.id).includes(this.student.id)) {
+              this.studentInActivatedGroup = false;
+              this.studentInPendingGroup = false;
+              availables.splice(availables.indexOf(this.student), 1); // non includo lo studente nell'elenco
+              this.dataSourceAvailables = new MatTableDataSource(availables);
+              /*            this.studentService.getPendingGroupsForCourse(this.course.name)
+                            .subscribe(requests => {
+                                this.requestsList = requests;
+                                for (const request of requests) {
+                                  this.studentService.getRequestMembers(request)
+                                    .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
+                                }
+                              }
+                            );*/
+            } else {
+              this.studentService.getGroupForCourse(this.student.id, this.course.name)
+                .subscribe(group => {
+                  if (group.activated) {
+                    this.studentInActivatedGroup = true;
+                    this.group = group;
+                    this.studentService.getGroupMembers(group.id)
+                      .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
+                  } else {
+                    this.studentInActivatedGroup = false;
+                    this.studentInPendingGroup = true;
+                  }
+                });
+            }
+          }
+        );
+    }
+  }
   constructor(public dialog: MatDialog, private studentService: StudentService, private courseService: CourseService) { }
 
   ngOnInit(): void {
-    this.courseService.getAvailablesForCourse(this.course.name)
-      .subscribe(availables => {
-          if (availables.includes(this.student)) {
-            this.studentInActivatedGroup = false;
-            this.studentInPendingGroup = false;
-            availables.splice(availables.indexOf(this.student), 1); // non includo lo studente nell'elenco
-            this.dataSourceAvailables = new MatTableDataSource(availables);
-            this.studentService.getPendingGroupsForCourse(this.course.name)
-              .subscribe(requests => {
-                  this.requestsList = requests;
-                  for (const request of requests) {
-                    this.studentService.getRequestMembers(request)
-                      .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
-                  }
-                }
-              );
-          } else {
-            this.studentService.getGroupForCourse(this.student.id, this.course.name)
-              .subscribe(group => {
-                if (group.activated) {
-                  this.studentInActivatedGroup = true;
-                  this.group = group;
-                  this.studentService.getGroupMembers(group.id)
-                    .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
-                } else {
-                  this.studentInActivatedGroup = false;
-                  this.studentInPendingGroup = true;
-                }
-              });
-          }
-        }
-      );
     /*    if (this.student.courseGroup.has(this.course.name)) {
         this.studentService.getGroupMembers(this.student.courseGroup.get(this.course.name))
         .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
@@ -115,6 +120,7 @@ export class GroupsComponent implements OnInit {
       const index = this.membersSelected.indexOf(row);
       this.membersSelected.splice(index, 1);
     }
+    console.log(this.membersSelected);
   }
 
   isChecked(row){
@@ -126,7 +132,9 @@ export class GroupsComponent implements OnInit {
   }
 
   setGroupNameAndTimeout() {
-    this.membersSelected.push(this.student);
+    if (!this.membersSelected.map(s => s.id).includes(this.student.id)) {
+      this.membersSelected.push(this.student);
+    }
     if (this.membersSelected.length >= this.course.min && this.membersSelected.length <= this.course.max) {
       this.openDialog(false);
     } else {
