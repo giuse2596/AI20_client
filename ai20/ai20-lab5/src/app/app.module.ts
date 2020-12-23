@@ -58,6 +58,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {TeacherImageDialogComponent} from './teacher/teacher-image-dialog.component';
 import {StudentImageDialogComponent} from './student/student-image-dialog.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
+import {CourseDetailsComponent} from "./teacher/course-details.component";
+import {ConfirmDisclaimerComponent} from "./teacher/confirm-disclaimer.component";
 
 
 @NgModule({
@@ -90,6 +93,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     SubmitDeliveryDialogComponent,
     TeacherImageDialogComponent,
     StudentImageDialogComponent,
+    CourseDetailsContComponent,
+    CourseDetailsComponent,
+    ConfirmDisclaimerComponent
   ],
   imports: [
     BrowserModule,
@@ -126,7 +132,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   entryComponents: [
     LoginDialogComponent,
     AddCourseComponent,
-    SignupComponent
+    SignupComponent,
+    ConfirmDisclaimerComponent
   ],
   providers: [
     {

@@ -5,7 +5,7 @@
     <form [formGroup]="imageForm">
       <h3>Immagine Profilo</h3>
       <div class="image-box">
-        <img id="profile-image" [src]=url alt="Immagine Profilo">
+        <img id="profile-image" [src]="url" alt="Immagine Profilo">
         <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" >
         <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
         <button mat-raised-button style="float: right;" (click)="uploadImage()">Salva</button>

@@ -14,15 +14,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const accessToken = localStorage.getItem('jwt');
-    console.log(accessToken);
     if (accessToken) {
       const cloned = request.clone({
       headers: request.headers.set('Authorization', 'Bearer ' + accessToken)
     });
-      console.log('AuthInterceptor accessToken found: ' + JSON.stringify(accessToken));
       return next.handle(cloned);
     } else {
-      console.log('AuthInterceptor accessToken not found');
       return next.handle(request);
     }
   }

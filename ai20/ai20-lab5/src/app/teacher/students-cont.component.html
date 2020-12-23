@@ -1,3 +1,5 @@
 <app-students [enrolledStudents] = "enrolledStudents$ | async" [allStudents]="students$ | async"
+              [selected] = "courseSelected$ | async"
 (enrollEmitter) = "enrollStudent($event)"
-(deleteEmitter) = "deleteStudents($event)"></app-students>
+(deleteEmitter) = "deleteStudents($event)"
+(uploadCsvEmitter)="uploadMany($event)"></app-students>

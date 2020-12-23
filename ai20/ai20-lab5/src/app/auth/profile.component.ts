@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} f
 import {AuthService} from "./auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../models/user.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -13,8 +14,11 @@ export class ProfileComponent implements OnInit {
 
   failed: boolean = false;
   hide: boolean = true;
-  url: string = "assets/default_profile.png";
+  url: any;
   currentUser: User;
+  image: any;
+
+  currentImage$: Observable<any>;
 
   imageForm: FormGroup = this.builder.group({
     inputFile: ['']
@@ -47,10 +51,17 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.service.user;
     console.log("current name: " + this.currentUser.name);
+    this.service.getProfileImage().subscribe(
+      val => {
+        this.createImageFromBlob(val);
+      }
+    )
   }
 
   onChangeImage(event){
+
     if (event.target.files && event.target.files[0]) {
+      this.image = event.target.files[0];
       var reader = new FileReader();
 
       reader.onload = (event:any) => {
@@ -94,8 +105,7 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadImage(){
-
-
+    this.service.uploadImage(this.image, this);
   }
 
   editData(){
@@ -116,4 +126,18 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getImage(){
+    this.currentImage$ = this.service.getProfileImage();
+  }
+
+  private createImageFromBlob(data: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.url = reader.result;
+    }, false);
+
+    if (data) {
+      reader.readAsDataURL(data);
+    }
+  }
 }

@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <h2>Attenzione!</h2>
+  <p><b>Stai per eliminare questo corso. Con questa azione verranno eliminati
+          tutti i dati relativi e non saranno più recuperabili</b></p>
+  <p>Confremi?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="delete()">Conferma</button>
+  <button mat-raised-button (click)="onNoClick()">Annulla</button>
+</div>
