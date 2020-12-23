@@ -33,8 +33,10 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
         this.deliveryService.getHistoricalsForDelivery(this.courseName, this.assignment, this.lastDelivery.studentId)
           .subscribe(deliveryHistoricals => {
             for (const deliveryHistorical of deliveryHistoricals) {
+              deliveryHistorical.studentId = this.lastDelivery.studentId;
+              deliveryHistorical.studentName = this.lastDelivery.studentName;
+              deliveryHistorical.studentFirstName = this.lastDelivery.studentFirstName;
               deliveryHistorical.timestamp = new Date(deliveryHistorical.timestamp);
-              deliveryHistorical.content = null; // image
               this.deliveryHistoricals.push(deliveryHistorical);
               this.deliveryHistoricals.sort((del1, del2) =>
                 del1.timestamp.getTime() - del2.timestamp.getTime()); // ordina dalla più vecchia alla più recente

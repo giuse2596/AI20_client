@@ -1,6 +1,6 @@
 export class Delivery {
   id: string;
-  content: string;
+  pathImage: string;
   timestamp: Date;
   status: string;
   studentId: string;
@@ -9,7 +9,7 @@ export class Delivery {
 
   constructor(id: string, content: string, timestamp: Date, status: string){
     this.id = id;
-    this.content = content;
+    this.pathImage = content;
     this.timestamp = timestamp;
     this.status = status;
   }
