@@ -32,7 +32,7 @@
       </mat-nav-list>
       <ng-template #elseBlock>
         <mat-nav-list *ngIf="user.token.roles[0] === 'ROLE_TEACHER'">
-          <mat-list-item (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
+          <mat-list-item (click)="openDialogAdd()" class="add-button">
             <mat-icon mat-list-icon>add</mat-icon>
             <div mat-line>Aggiungi Corso</div>
           </mat-list-item>

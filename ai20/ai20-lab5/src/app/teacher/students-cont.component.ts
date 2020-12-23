@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../models/student.model';
 import { StudentService } from '../services/student.service';
-import { Observable } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {CourseService} from '../services/course.service';
 import {ActivatedRoute, Router} from "@angular/router";
+import {Course} from "../models/course.model";
 
 
 
@@ -17,6 +18,8 @@ export class StudentsContComponent implements OnInit {
 
    students$: Observable<Student[]>;
    enrolledStudents$: Observable<Student[]>;
+   subscription: Subscription;
+   courseSelected$: Observable<Course>;
 
   constructor(private studentService: StudentService,
               private courseService: CourseService,
@@ -24,9 +27,11 @@ export class StudentsContComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
     this.students$ = this.studentService.query();
     this.enrolledStudents$ = this.courseService.getEnrolled(this.route.snapshot.params.courseId);
-    this.router.events.subscribe(val => {
+    this.subscription = this.router.events.subscribe(val => {
+      this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
       this.students$ = this.studentService.query();
       this.enrolledStudents$ = this.courseService.getEnrolled(this.route.snapshot.params.courseId);
     });
@@ -41,8 +46,6 @@ export class StudentsContComponent implements OnInit {
   }
 
   enrollStudent(toAdd: Student[]){
-    console.log(toAdd);
-    //toAdd.forEach(s => s.courses.concat(this.route.snapshot.params.courseId));
     this.courseService.enroll(this.route.snapshot.params.courseId, toAdd[0]).subscribe(
       () => {
         this.enrolledStudents$ = this.getEnrolled();
@@ -55,27 +58,29 @@ export class StudentsContComponent implements OnInit {
       console.log(toDelete);
       toDelete.forEach(
         s => {
-          /*const index = s.courses.indexOf(this.route.snapshot.params.courseId);
-          if (index !== -1) {
-            s.courses.splice(index, 1);
-          }*/
-          this.courseService.delete(this.route.snapshot.params.courseId, s).subscribe(
+          this.courseService.deleteStudent(this.route.snapshot.params.courseId, s).subscribe(
             () => {
               this.enrolledStudents$ = this.getEnrolled();
             });
         }
       );
-      /*this.studentService.updateEnrolled(toDelete).subscribe(
-        () => {
-        this.enrolledStudents$ = this.getEnrolled();
-      }
-    );*/
-  }
-    /*
-    toDelete.forEach(s => this.enrolledStudents.splice(this.enrolledStudents.indexOf(s), 1));
-    this.enrolledStudents = Array.from(this.enrolledStudents);
-    */
+    }
   }
 
+  uploadMany(csvFile: File){
+    console.log(csvFile);
+    this.courseService.enrollMany(this.route.snapshot.params.courseId,csvFile).subscribe(
+      value => {
+        this.enrolledStudents$ = this.getEnrolled();
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  /*ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }*/
 
 }

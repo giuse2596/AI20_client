@@ -1,1 +1,73 @@
-<p>course-details-component works!</p>
+<mat-grid-list cols="2" rowHeight="100px">
+  <mat-grid-tile colspan="2">
+    <h2 *ngIf="selected">Corso di {{selected.name}}({{selected.acronym}})</h2>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2" *ngIf="selected && !selected.enabled">
+    <mat-error>Questo corso è disabilitato</mat-error>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="4">
+    <mat-card class="max-min-card">
+      <mat-card-header>
+        <mat-card-title>
+          Limiti Gruppi
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="max-min-content" *ngIf="selected">
+        <form [formGroup]="courseForm">
+          <mat-form-field class="course-detail-form">
+            <mat-label>Minimo Partecipanti</mat-label>
+            <input matInput type="number" formControlName="min">
+            <mat-error *ngIf="min.invalid">
+              <div *ngIf="min.errors.required">Questo campo è obbligatorio</div>
+              <div *ngIf="min.errors.min">Questo campo deve essere un numero valido</div>
+              <div *ngIf="min.errors.max">Questo campo deve essere un numero valido</div>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="course-detail-form">
+            <mat-label>Massimo Partecipanti</mat-label>
+            <input matInput type="number" formControlName="max">
+            <mat-error *ngIf="min.invalid">
+              <div *ngIf="max.errors.required">Questo campo è obbligatorio</div>
+              <div *ngIf="max.errors.min">Questo campo deve essere un numero valido</div>
+              <div *ngIf="max.errors.max">Questo campo deve essere un numero valido</div>
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" *ngIf="selected" [disabled]="courseForm.invalid || !selected.enabled">Modifica</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="4">
+    <mat-card class="vm-model-card" *ngIf="vmModel">
+      <mat-card-header class="vm-model-header">
+        <mat-card-title>Modello VM</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="vm-model-content">
+        <mat-label><b>Max CPU:</b></mat-label>
+        <p>{{vmModel.cpuMax}}</p>
+        <mat-label><b>Max Ram:</b></mat-label>
+        <p>{{vmModel.ramMax}} MB</p>
+        <mat-label><b>Max Spazio Disco:</b></mat-label>
+        <p>{{vmModel.diskSpaceMax}} MB</p>
+        <mat-label><b>Numero Max Istanze:</b></mat-label>
+        <p>{{vmModel.totalInstances}}</p>
+        <mat-label><b>Numero Max Istanze Attive:</b></mat-label>
+        <p>{{vmModel.activeInstances}}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <h3>Opzioni avanzate</h3>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1">
+    <mat-label>Disattiva/Attiva Corso</mat-label>
+    <mat-slide-toggle *ngIf="selected" [checked]="selected.enabled" (change)="changeStatus($event.checked)"></mat-slide-toggle>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1">
+    <button mat-raised-button color="warn" (click)="deleteCourse()">Elimina Corso</button>
+  </mat-grid-tile>
+</mat-grid-list>

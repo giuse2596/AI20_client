@@ -3,7 +3,7 @@ export class Course{
     name: string;
     acronym: string;
     students: string[];
-    active: boolean;
+    enabled: boolean;
     min: number;
     max: number;
 
@@ -13,7 +13,7 @@ export class Course{
       this.id = id;
       this.name = name;
       this.acronym = acronym;
-      this.active = active;
+      this.enabled = active;
       this.min = min;
       this.max = max;
     }

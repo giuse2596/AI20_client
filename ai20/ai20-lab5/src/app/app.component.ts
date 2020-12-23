@@ -3,7 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './auth/login-dialog.component';
 import { AuthService } from './auth/auth.service';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Route, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 import {CourseService} from './services/course.service';
 import {Course} from './models/course.model';
@@ -35,14 +35,14 @@ export class AppComponent implements OnInit, OnDestroy{
 
   constructor(public dialog: MatDialog,
               private authService: AuthService,
-              private route: ActivatedRoute,
+              private actRoute: ActivatedRoute,
               private routes: Router,
               private courseService: CourseService,
               private studentService: StudentService){
   }
 
   ngOnInit(){
-    this.subscription = this.route.queryParamMap.subscribe(
+    this.subscription = this.actRoute.queryParamMap.subscribe(
       (params: ParamMap ) => {
         console.log(params);
         const doLogin = params.get('doLogin');
@@ -53,8 +53,17 @@ export class AppComponent implements OnInit, OnDestroy{
         if (doSignup === 'true'){
           this.openDialogSignup(false, false);
         }
+
+        const doDelete = params.get('doDelete');
+        if(doDelete === 'true'){
+          this.selected = null;
+          this.courses$ = this.courseService.getAll();
+          this.routes.navigate(['/home']);
+        }
       }
     );
+
+
 
   }
 

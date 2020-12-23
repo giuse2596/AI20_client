@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Student } from '../models/student.model';
 import { MatTableDataSource } from '@angular/material/table';
+import {Course} from "../models/course.model";
 
 
 
@@ -29,6 +30,8 @@ export class StudentsComponent implements OnInit {
 
   @Input() studentsInTable: Student[];
 
+  @Input() selected: Course;
+
   students: Student[];
   @Input()
   set allStudents(students: Student[]) {
@@ -54,6 +57,9 @@ export class StudentsComponent implements OnInit {
 
   @Output()
   private deleteEmitter = new EventEmitter<Student[]>();
+
+  @Output()
+  private uploadCsvEmitter = new EventEmitter<File>();
 
   constructor() {
     this.options = this.students;
@@ -107,11 +113,7 @@ export class StudentsComponent implements OnInit {
     if (row === 'master'){
       return this.masterState === State.CHECKED;
     }
-    if (this.studentSelected.some(s => s.id === row.id)){
-      return true;
-    }
-
-    return false;
+    return this.studentSelected.some(s => s.id === row.id);
   }
 
   isIntermediate(){
@@ -169,6 +171,11 @@ export class StudentsComponent implements OnInit {
   }
  }
 
+ addMany(csvFile: File){
+    console.log(csvFile);
+    this.uploadCsvEmitter.emit(csvFile);
+ }
+
   @Input() set enrolledStudents(enrolledStudents: Student[]){
     if (enrolledStudents !== null){
       this.studentsInTable = Array.from(enrolledStudents);
@@ -177,5 +184,6 @@ export class StudentsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
+
 
 }

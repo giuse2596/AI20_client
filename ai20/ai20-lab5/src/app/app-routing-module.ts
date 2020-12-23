@@ -10,6 +10,7 @@ import {ProfileComponent} from './auth/profile.component';
 import {TeacherAssignmentsContComponent} from './teacher/teacher-assignments-cont.component';
 import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
 import {CourseDetailsComponent} from "./teacher/course-details.component";
+import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [
        { path: 'courses/:courseId/students', component: StudentsContComponent },
        { path: 'courses/:courseId/assignments', component: TeacherAssignmentsContComponent },
        { path: 'courses/:courseId/vms', component: VmsContComponent },
-       { path: 'courses/:courseId/details', component: CourseDetailsComponent},
+       { path: 'courses/:courseId/details', component: CourseDetailsContComponent},
 
         ]
     },
