@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Request} from '../models/request.model';
 import {Student} from '../models/student.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
@@ -16,15 +15,15 @@ import {Group} from '../models/group.model';
 })
 export class GroupsComponent implements OnInit {
 
-  requestsList: Request[];
+  pendingGroupsList: Group[];
   displayColumnsMembers: string[] = ['id', 'name', 'firstName'];
   displayColumnsAvailables: string[] = ['Select', 'id', 'name', 'firstName'];
-  displayColumnsRequests: string[] = ['id', 'name', 'firstName', 'accepted'];
+  displayColumnsPendingGroups: string[] = ['id', 'name', 'firstName', 'accepted'];
   dataSourceMembers: MatTableDataSource<Student> = new MatTableDataSource();
   dataSourceAvailables: MatTableDataSource<Student> = new MatTableDataSource();
-  dataSourceRequests = new Map<string, MatTableDataSource<Student>>();
+  dataSourceMembersOfPendingGroups = new Map<string, MatTableDataSource<Student>>();
   membersSelected: Student[] = [];
-  studentInActivatedGroup: boolean;
+  studentInActiveGroup: boolean;
   studentInPendingGroup: boolean;
   group: Group;
   @Input() student: Student;
@@ -35,31 +34,47 @@ export class GroupsComponent implements OnInit {
       this.course = course;
       this.courseService.getAvailablesForCourse(this.course.name)
         .subscribe(availables => {
+//            availables.splice(availables.map(s => s.id).indexOf(this.student.id), 1); // non includo lo studente nell'elenco
             if (availables.map(s => s.id).includes(this.student.id)) {
-              this.studentInActivatedGroup = false;
+              this.studentInActiveGroup = false;
               this.studentInPendingGroup = false;
-              availables.splice(availables.indexOf(this.student), 1); // non includo lo studente nell'elenco
+              availables.splice(availables.map(s => s.id).indexOf(this.student.id), 1); // non includo lo studente nell'elenco
               this.dataSourceAvailables = new MatTableDataSource(availables);
-              /*            this.studentService.getPendingGroupsForCourse(this.course.name)
-                            .subscribe(requests => {
-                                this.requestsList = requests;
-                                for (const request of requests) {
-                                  this.studentService.getRequestMembers(request)
-                                    .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
-                                }
+              this.studentService.getPendingGroupsForCourse(this.course.name)
+                .subscribe(groups => {
+                    this.pendingGroupsList = groups;
+                    for (const group of this.pendingGroupsList) {
+                      group.requestAccepted = new Map<string, boolean>();
+                      this.studentService.getGroupMembers(this.course.name, group.id)
+                        .subscribe(allMembers => {
+                          this.dataSourceMembersOfPendingGroups.set(group.name, new MatTableDataSource(allMembers));
+                          this.studentService.getMembersWhoAccepted(group.proposer, group.id)
+                            .subscribe(confirmedMembers => {
+                              for (const member of confirmedMembers) {
+                                group.requestAccepted.set(member.id, true);
+                                allMembers.splice(allMembers.map(s => s.id).indexOf(member.id), 1); // a fine loop rimangono solo false
                               }
-                            );*/
+                              for (const member of allMembers) {
+                                group.requestAccepted.set(member.id, false);
+                              }
+                            });
+                        });
+                    }
+                  }
+                );
             } else {
               this.studentService.getGroupForCourse(this.student.id, this.course.name)
                 .subscribe(group => {
-                  if (group.activated) {
-                    this.studentInActivatedGroup = true;
+                  if (group.active) {
+                    this.studentInActiveGroup = true;
                     this.group = group;
-                    this.studentService.getGroupMembers(group.id)
+                    this.studentService.getGroupMembers(this.course.name, group.id)
                       .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
                   } else {
-                    this.studentInActivatedGroup = false;
+                    this.studentInActiveGroup = false;
                     this.studentInPendingGroup = true;
+                    console.log('Active: ' + this.studentInActiveGroup);
+                    console.log('Pending: ' + this.studentInPendingGroup);
                   }
                 });
             }
@@ -67,51 +82,12 @@ export class GroupsComponent implements OnInit {
         );
     }
   }
-  constructor(public dialog: MatDialog, private studentService: StudentService, private courseService: CourseService) { }
+  constructor(public dialog: MatDialog,
+              private studentService: StudentService,
+              private courseService: CourseService) { }
 
   ngOnInit(): void {
-    /*    if (this.student.courseGroup.has(this.course.name)) {
-        this.studentService.getGroupMembers(this.student.courseGroup.get(this.course.name))
-        .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
-      } else {
-        this.courseService.getAvailablesForCourse(this.course.name)
-        .subscribe(availables => this.dataSourceAvailables = new MatTableDataSource(availables));
-        this.studentService.getPendingGroupsForCourse(this.course.name)
-        .subscribe(requests =>
-        {
-          this.requestsList = requests;
-          for (const request of requests) {
-          this.studentService.getRequestMembers(request)
-            .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
-          }
-        });
-      }*/
   }
-
-  /*  @Input() set members(members: Student[]){
-    if (members !== null){
-      this.membersList = Array.from(members);
-      this.dataSourceMembers = new MatTableDataSource(this.membersList);
-    }
-    }
-
-    @Input() set availables(availables: Student[]){
-    if (availables !== null){
-      this.membersList = Array.from(availables);
-      this.dataSourceAvailables = new MatTableDataSource(this.availablesList);
-    }
-    }
-
-    @Input() set requests(requests: Request[]){
-    if (requests !== null){
-      this.requestsList = Array.from(requests);
-      for (const request of this.requestsList) {
-      this.studentService.getRequestMembers(request)
-        .subscribe(members => this.dataSourceRequests.set(request.nameGroup, new MatTableDataSource(members)));
-      }
-    }
-    }
-  */
 
   getChangeEvent(event, row){
     if (!this.membersSelected.some(s => s.id === row.id ) && event.checked === true ){
@@ -120,15 +96,10 @@ export class GroupsComponent implements OnInit {
       const index = this.membersSelected.indexOf(row);
       this.membersSelected.splice(index, 1);
     }
-    console.log(this.membersSelected);
   }
 
   isChecked(row){
-    if (this.membersSelected.some(s => s.id === row.id)){
-      return true;
-    }
-
-    return false;
+    return this.membersSelected.some(s => s.id === row.id);
   }
 
   setGroupNameAndTimeout() {
@@ -142,14 +113,20 @@ export class GroupsComponent implements OnInit {
     }
   }
 
-  private openDialog(outOfRange: boolean) {
-    this.dialog.open(GroupNameDialogComponent, {data: {
+  private openDialog(outOfRange: boolean, errorMessage ?: string) {
+    const dialogRef = this.dialog.open(GroupNameDialogComponent, {data: {
         notInRange: outOfRange,
         min: this.course.min,
         max: this.course.max,
         courseName: this.course.name,
         proposer: this.student.id,
-        members: this.membersSelected.map(s => s.id)
+        members: this.membersSelected.map(s => s.id),
+        error: errorMessage
+      }
+    });
+    dialogRef.afterClosed().subscribe(err => {
+      if (err) {
+        this.openDialog(outOfRange, err);
       }
     });
   }

@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DialogData} from './dialogData.module';
 import {StudentService} from '../services/student.service';
-import {Request} from '../models/request.model';
+import {Group} from '../models/group.model';
 
 @Component({
   selector: 'app-group-name-dialog',
@@ -19,7 +19,8 @@ export class GroupNameDialogComponent implements OnInit {
 
   constructor(private builder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private studentService: StudentService
+              private studentService: StudentService,
+              public dialogRef: MatDialogRef<GroupNameDialogComponent>
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class GroupNameDialogComponent implements OnInit {
 
   sendRequest() {
     const timeoutMillis = this.expiry.value * 60 * 1000;
-    const request = new Request(this.data.proposer, this.name.value, this.data.members, this.data.courseName, timeoutMillis);
-    this.studentService.proposeTeam(request);
+    const group = new Group('', this.name.value, this.data.proposer, false, timeoutMillis);
+    this.studentService.proposeTeam(this.data.courseName, group, this.dialogRef);
   }
 }
