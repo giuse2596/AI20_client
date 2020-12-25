@@ -61,6 +61,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
 import {CourseDetailsComponent} from "./teacher/course-details.component";
 import {ConfirmDisclaimerComponent} from "./teacher/confirm-disclaimer.component";
+import {VmsComponent} from "./teacher/vms.component";
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import {ConfirmDisclaimerComponent} from "./teacher/confirm-disclaimer.component
     HomeComponent,
     PageNotFoundComponent,
     VmsContComponent,
+    VmsComponent,
     LoginDialogComponent,
     AddCourseComponent,
     LoginDialogComponent,
