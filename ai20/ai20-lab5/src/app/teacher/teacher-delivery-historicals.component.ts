@@ -19,19 +19,27 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
   @Input() courseName: string;
   homework: Homework;
   deliveryHistoricals: Delivery[] = [];
+  action: string;
+  nowDate: Date;
+  expiryDate: Date;
 
   constructor(public dialog: MatDialog,
               private deliveryService: DeliveryService) { }
 
   ngOnInit(): void {
+    this.nowDate = new Date();
+    this.expiryDate = new Date(this.assignment.expiryDate);
     this.deliveryService.getHomework(this.courseName, this.assignment, this.lastDelivery.studentId)
       .subscribe(homework => {
         this.homework = homework;
+        this.action = this.homework.editable ? 'Attiva' : 'Disattiva';
         this.deliveryService.getHistoricalsForDelivery(this.courseName, this.assignment, this.lastDelivery.studentId)
           .subscribe(deliveryHistoricals => {
             for (const deliveryHistorical of deliveryHistoricals) {
+              deliveryHistorical.studentId = this.lastDelivery.studentId;
+              deliveryHistorical.studentName = this.lastDelivery.studentName;
+              deliveryHistorical.studentFirstName = this.lastDelivery.studentFirstName;
               deliveryHistorical.timestamp = new Date(deliveryHistorical.timestamp);
-              deliveryHistorical.content = null; // image
               this.deliveryHistoricals.push(deliveryHistorical);
               this.deliveryHistoricals.sort((del1, del2) =>
                 del1.timestamp.getTime() - del2.timestamp.getTime()); // ordina dalla più vecchia alla più recente
@@ -73,5 +81,12 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
         delivery: deliveryToOpen
       }
     });
+  }
+
+  setEditable() {
+    this.homework.editable = !this.homework.editable;
+    this.deliveryService.updateHomework(this.courseName, this.assignment.id, this.homework)
+      .subscribe(() => this.action = this.action === 'Disattiva' ? 'Attiva' : 'Disattiva', // change button label
+        () => this.homework.editable = !this.homework.editable); // restore old editable flag
   }
 }

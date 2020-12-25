@@ -29,6 +29,6 @@ export class EvaluateDialogComponent implements OnInit {
   confirmEvaluation() {
     this.data.homework.editable = false;
     this.data.homework.mark = this.mark.value;
-    this.deliveryService.updateHomework(this.data.courseName, this.data.assignment.id, this.data.homework);
+    this.deliveryService.updateHomework(this.data.courseName, this.data.assignment.id, this.data.homework).subscribe();
   }
 }

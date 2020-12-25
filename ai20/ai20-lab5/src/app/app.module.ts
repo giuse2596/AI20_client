@@ -57,7 +57,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {TeacherImageDialogComponent} from './teacher/teacher-image-dialog.component';
 import {StudentImageDialogComponent} from './student/student-image-dialog.component';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {DatePipe} from '@angular/common';
 import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
 import {CourseDetailsComponent} from "./teacher/course-details.component";
 import {ConfirmDisclaimerComponent} from "./teacher/confirm-disclaimer.component";
@@ -137,7 +138,7 @@ import {VmsComponent} from "./teacher/vms.component";
     SignupComponent,
     ConfirmDisclaimerComponent
   ],
-  providers: [
+  providers: [DatePipe,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     }

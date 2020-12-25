@@ -12,7 +12,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class CorrectDialogComponent implements OnInit {
   nowDate: Date;
   expiryDate: Date;
-  deliveryToRedo = false;
   image: any;
   file: any;
 
@@ -43,8 +42,7 @@ export class CorrectDialogComponent implements OnInit {
   }
 
   confirmCorrection() {
-    const homeworkToUpdate = this.data.homework.editable !== this.deliveryToRedo;
     this.deliveryService.reviewDelivery(this.data.courseName, this.data.assignment.id,
-      this.data.homework, this.file, this.dialogRef, homeworkToUpdate);
+      this.data.homework, this.file, this.dialogRef);
   }
 }
