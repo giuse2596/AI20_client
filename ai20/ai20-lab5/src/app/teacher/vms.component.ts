@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VmsComponent implements OnInit {
 
+  panelOpenState = false;
+
+  testList: string[] = [
+    'test1',
+    'test2',
+    'test3'
+  ]
+
   constructor() { }
 
   ngOnInit(): void {
