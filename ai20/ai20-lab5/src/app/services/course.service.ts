@@ -35,7 +35,7 @@ export class CourseService {
   }
 
   getAvailablesForCourse(courseId: string): Observable<Student[]> {
-    return this.http.get<Student[]>(`${hostname}/courses/${courseId}/avaiable_students`);
+    return this.http.get<Student[]>(`${hostname}/courses/${courseId}/available_students`);
   }
 
   addCourse(courseVmModel: CourseVmModel): Observable<Course>{

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../models/student.model';
-import {of, Observable, forkJoin} from 'rxjs';
+import {of, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { concatMap, toArray, flatMap} from 'rxjs/operators';
-import {Request} from '../models/request.model';
 import {Group} from '../models/group.model';
 import {Course} from '../models/course.model';
+import {MatDialogRef} from '@angular/material/dialog';
+import {GroupNameDialogComponent} from '../student/group-name-dialog.component';
 
-const hostname = '/server/API';
+const hostnameStudents = '/server/API/students';
+const hostnameCourses = '/server/API/courses';
+const hostnameNotification = '/server/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -19,59 +22,61 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   find(id: string): Observable<Student>{
-    return this.http.get<Student>(`${hostname}/students/${id}`);
+    return this.http.get<Student>(`${hostnameStudents}/${id}`);
   }
 
   query(): Observable<Student[]>{
-    return this.http.get<Student[]>(`${hostname}/students`);
+    return this.http.get<Student[]>(`${hostnameStudents}`);
   }
 
 
   create(student: Student): Observable<Student[]>{
-    return this.http.post<Student[]>(`${hostname}/students`, student);
+    return this.http.post<Student[]>(`${hostnameStudents}`, student);
   }
 
   update(student: Student): Observable<Student[]>{
-     return this.http.put<Student[]>(`${hostname}/students/${student.id}`, student);
+    return this.http.put<Student[]>(`${hostnameStudents}/${student.id}`, student);
   }
 
   delete(id: string): Observable<Student>{
-    return this.http.delete<Student>(`${hostname}/students/${id}`);
+    return this.http.delete<Student>(`${hostnameStudents}/${id}`);
   }
 
   updateEnrolled(students: Student[]): Observable<Student[]>{
-     return of(students).pipe(
+    return of(students).pipe(
       flatMap(st => st),
-      concatMap(s => this.http.post(`${hostname}/students/${s.id}`, s)),
+      concatMap(s => this.http.post(`${hostnameStudents}/${s.id}`, s)),
       toArray<Student>()
     );
   }
 
-  getGroupMembers(groupId: string): Observable<Student[]> {
-    return this.http.get<Student[]>(`${hostname}/groups/${groupId}/students`);
+  getGroupMembers(courseName: string, groupId: string): Observable<Student[]> {
+    return this.http.get<Student[]>(`${hostnameCourses}/${courseName}/teams/${groupId}`);
   }
 
   getGroupForCourse(studentId: string, courseId: string): Observable<Group> {
-    return this.http.get<Group>(`${hostname}/students/${studentId}/courses/${courseId}/groups`);
+    return this.http.get<Group>(`${hostnameStudents}/${studentId}/teams/${courseId}`);
   }
 
-  proposeTeam(request: Request) {
-    this.http.post(`${hostname}/groups`, request);
+  proposeTeam(courseName: string, group: Group, dialogRef: MatDialogRef<GroupNameDialogComponent>) {
+    this.http.post(`${hostnameNotification}/propose/${courseName}/${group.name}/${group.proposer}`, group)
+      .subscribe(() => {
+          dialogRef.close();
+        },
+        err => {
+          dialogRef.close(err.error.message);
+        });
   }
 
-  getPendingGroupsForCourse(courseId: string): Observable<Request[]> {
-    return this.http.get<Request[]>(`${hostname}/courses/${courseId}/requests`);
-  }
-
-  getRequestMembers(request: Request): Observable<Student[]> {
-    const listObservable: Observable<Student>[] = [];
-    for (const memberId of request.members) {
-      listObservable.push(this.find(memberId));
-    }
-    return forkJoin(listObservable);
+  getPendingGroupsForCourse(courseName: string): Observable<Group[]> {
+    return this.http.get<Group[]>(`${hostnameCourses}/${courseName}/teams/not_enabled`);
   }
 
   getCourses(studentId: string): Observable<Course[]> {
-    return this.http.get<Course[]>(`${hostname}/students/${studentId}/courses`);
+    return this.http.get<Course[]>(`${hostnameStudents}/${studentId}/courses`);
+  }
+
+  getMembersWhoAccepted(studentId: string, groupId: string): Observable<Student[]> {
+    return this.http.get<Student[]>(`${hostnameStudents}/${studentId}/teams/${groupId}/confirmed_members`);
   }
 }
