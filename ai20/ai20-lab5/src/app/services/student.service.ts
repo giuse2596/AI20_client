@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../models/student.model';
 import {of, Observable} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { concatMap, toArray, flatMap} from 'rxjs/operators';
 import {Group} from '../models/group.model';
 import {Course} from '../models/course.model';
@@ -54,12 +54,15 @@ export class StudentService {
     return this.http.get<Student[]>(`${hostnameCourses}/${courseName}/teams/${groupId}`);
   }
 
-  getGroupForCourse(studentId: string, courseId: string): Observable<Group> {
-    return this.http.get<Group>(`${hostnameStudents}/${studentId}/teams/${courseId}`);
+  getGroupForCourse(studentId: string, courseId: string): Observable<Group[]> {
+    return this.http.get<Group[]>(`${hostnameCourses}/${courseId}/student_enabled_teams`);
   }
 
-  proposeTeam(courseName: string, group: Group, dialogRef: MatDialogRef<GroupNameDialogComponent>) {
-    this.http.post(`${hostnameNotification}/propose/${courseName}/${group.name}/${group.proposer}`, group)
+  proposeTeam(courseName: string, groupName: string, proposer: string, timeoutMillis: number,
+              members: string[], dialogRef: MatDialogRef<GroupNameDialogComponent>) {
+    const params = new HttpParams()
+      .set('expiryOffset', timeoutMillis.toString());
+    this.http.post(`${hostnameNotification}/propose/${courseName}/${groupName}/${proposer}`, members, {params})
       .subscribe(() => {
           dialogRef.close();
         },
@@ -69,7 +72,7 @@ export class StudentService {
   }
 
   getPendingGroupsForCourse(courseName: string): Observable<Group[]> {
-    return this.http.get<Group[]>(`${hostnameCourses}/${courseName}/teams/not_enabled`);
+    return this.http.get<Group[]>(`${hostnameCourses}/${courseName}/student_not_enabled_teams`);
   }
 
   getCourses(studentId: string): Observable<Course[]> {

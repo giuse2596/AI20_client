@@ -25,7 +25,7 @@ export class StudentImageDialogComponent implements OnInit {
     } else if (this.data.homework !== undefined) {
       // todo getVmImage and modify if
     } else {
-      this.assignmentService.getAssignmentImageForStudent(this.data.studentId, this.data.courseName, this.data.assignment.id)
+      this.assignmentService.getAssignmentImageForStudent(this.data.studentId, this.data.assignment.id)
         .subscribe(data => this.createImageFromBlob(data));
     }
   }
