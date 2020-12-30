@@ -23,7 +23,9 @@
     </form>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button color="primary" type="submit" mat-dialog-close [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
     <button mat-raised-button mat-dialog-close>Cancel</button>
   </div>
+  <br>
+  <mat-label *ngIf="submission" style="color: green;">Invio Richiesta...</mat-label>
 </ng-template>

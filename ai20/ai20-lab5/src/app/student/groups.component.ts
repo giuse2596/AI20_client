@@ -24,7 +24,6 @@ export class GroupsComponent implements OnInit {
   dataSourceMembersOfPendingGroups = new Map<string, MatTableDataSource<Student>>();
   membersSelected: Student[] = [];
   studentInActiveGroup: boolean;
-  studentInPendingGroup: boolean;
   group: Group;
   @Input() student: Student;
   course: Course;
@@ -34,10 +33,8 @@ export class GroupsComponent implements OnInit {
       this.course = course;
       this.courseService.getAvailablesForCourse(this.course.name)
         .subscribe(availables => {
-//            availables.splice(availables.map(s => s.id).indexOf(this.student.id), 1); // non includo lo studente nell'elenco
             if (availables.map(s => s.id).includes(this.student.id)) {
               this.studentInActiveGroup = false;
-              this.studentInPendingGroup = false;
               availables.splice(availables.map(s => s.id).indexOf(this.student.id), 1); // non includo lo studente nell'elenco
               this.dataSourceAvailables = new MatTableDataSource(availables);
               this.studentService.getPendingGroupsForCourse(this.course.name)
@@ -48,7 +45,7 @@ export class GroupsComponent implements OnInit {
                       this.studentService.getGroupMembers(this.course.name, group.id)
                         .subscribe(allMembers => {
                           this.dataSourceMembersOfPendingGroups.set(group.name, new MatTableDataSource(allMembers));
-                          this.studentService.getMembersWhoAccepted(group.proposer, group.id)
+                          this.studentService.getMembersWhoAccepted(this.student.id, group.id)
                             .subscribe(confirmedMembers => {
                               for (const member of confirmedMembers) {
                                 group.requestAccepted.set(member.id, true);
@@ -64,17 +61,14 @@ export class GroupsComponent implements OnInit {
                 );
             } else {
               this.studentService.getGroupForCourse(this.student.id, this.course.name)
-                .subscribe(group => {
-                  if (group.active) {
+                .subscribe(groups => {
+                  if (groups[0].active) {
                     this.studentInActiveGroup = true;
-                    this.group = group;
-                    this.studentService.getGroupMembers(this.course.name, group.id)
+                    this.group = groups[0]; // ce n'è solo uno
+                    this.studentService.getGroupMembers(this.course.name, this.group.id)
                       .subscribe(members => this.dataSourceMembers = new MatTableDataSource(members));
                   } else {
                     this.studentInActiveGroup = false;
-                    this.studentInPendingGroup = true;
-                    console.log('Active: ' + this.studentInActiveGroup);
-                    console.log('Pending: ' + this.studentInPendingGroup);
                   }
                 });
             }

@@ -3,14 +3,12 @@ export class Group{
   name: string;
   proposer: string;
   active: boolean;
-  timeoutMillis: number;
   requestAccepted: Map<string, boolean>;
 
-  constructor(id: string, name: string, proposer: string, active: boolean, timeoutMillis: number){
+  constructor(id: string, name: string, proposer: string, active: boolean){
     this.id = id;
     this.name = name;
     this.proposer = proposer;
     this.active = active;
-    this.timeoutMillis = timeoutMillis;
   }
 }
