@@ -8,6 +8,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {AddCourseComponent} from "../teacher/add-course.component";
 import {Router} from "@angular/router";
 import {VmModel} from "../models/vm.model";
+import {Group} from "../models/group.model";
 
 const hostname = '/server/API';
 
@@ -68,6 +69,10 @@ export class CourseService {
 
   disableCourse(courseId: string){
     return this.http.post(hostname + '/courses/' + courseId + '/disable', '');
+  }
+
+  getAllTeams(courseId: string){
+    return this.http.get<Group[]>(hostname + '/courses/' + courseId + '/teams');
   }
 
 }
