@@ -55,11 +55,10 @@ export class DeliveryService {
     return this.http.put<Homework>(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, homework);
   }
 
-  submitDelivery(studentId: string, courseName: string, assignmentId: string,
-                 homeworkId: string, file: any, dialogRef: MatDialogRef<SubmitDeliveryDialogComponent>) {
+  submitDelivery(studentId: string, homeworkId: string, file: any, dialogRef: MatDialogRef<SubmitDeliveryDialogComponent>) {
     const formData = new FormData();
     formData.append('multipartFile', file);
-    this.http.post(`${hostnameStudents}/${studentId}/${courseName}/${assignmentId}/${homeworkId}/deliveries`, formData)
+    this.http.post(`${hostnameStudents}/${studentId}/homework/${homeworkId}/deliveries`, formData)
       .subscribe(() => {
           dialogRef.close();
         },

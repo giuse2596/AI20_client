@@ -39,8 +39,7 @@ export class SubmitDeliveryDialogComponent implements OnInit {
   }
 
   submitDelivery() {
-    this.deliveryService.submitDelivery
-    (this.data.delivery.studentId, this.data.courseName, this.data.assignment.id, this.data.homework.id, this.file, this.dialogRef);
+    this.deliveryService.submitDelivery(this.data.delivery.studentId, this.data.homework.id, this.file, this.dialogRef);
   }
 
 }

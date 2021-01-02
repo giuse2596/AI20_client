@@ -40,8 +40,8 @@ export class AssignmentService {
       {responseType: 'blob'});
   }
 
-  getAssignmentImageForStudent(studentId: string, courseName: string, assignmentId: string) {
-    return this.http.get(`${hostnameStudents}/${studentId}/${courseName}/${assignmentId}`,
+  getAssignmentImageForStudent(studentId: string, assignmentId: string) {
+    return this.http.get(`${hostnameStudents}/${studentId}/assignments/${assignmentId}`,
       {responseType: 'blob'});
   }
 }

@@ -16,6 +16,7 @@ export class GroupNameDialogComponent implements OnInit {
     name: ['', [Validators.required]],
     expiry: ['', [Validators.required, Validators.min(5)]]
   });
+  submission = false;
 
   constructor(private builder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -35,8 +36,10 @@ export class GroupNameDialogComponent implements OnInit {
   }
 
   sendRequest() {
-    const timeoutMillis = this.expiry.value * 60 * 1000;
-    const group = new Group('', this.name.value, this.data.proposer, false, timeoutMillis);
-    this.studentService.proposeTeam(this.data.courseName, group, this.dialogRef);
+    const timeout = this.expiry.value * 60 * 1000;  // in millisecondi
+    const expiry = new Date();
+    expiry.setMilliseconds(expiry.getMilliseconds() + timeout);
+    this.submission = true;
+    this.studentService.proposeTeam(this.data.courseName, this.name.value, this.data.proposer, timeout, this.data.members, this.dialogRef);
   }
 }
