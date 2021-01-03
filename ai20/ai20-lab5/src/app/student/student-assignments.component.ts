@@ -3,6 +3,7 @@ import {Assignment} from '../models/assignment.model';
 import {Student} from '../models/student.model';
 import {MatDialog} from '@angular/material/dialog';
 import {StudentImageDialogComponent} from './student-image-dialog.component';
+import {Course} from '../models/course.model';
 
 @Component({
   selector: 'app-student-assignments',
@@ -15,6 +16,9 @@ export class StudentAssignmentsComponent implements OnInit {
   @Input()
   set assignmentsArray(assignments: Assignment[]) {
     if (assignments !== null) {
+      if (assignments.length === 0) {
+        this.noAssignmentsPresent = true;
+      }
       for (const assignment of assignments) {
         assignment.releaseDate = new Date(assignment.releaseDate);
         assignment.expiryDate = new Date(assignment.expiryDate);
@@ -25,7 +29,8 @@ export class StudentAssignmentsComponent implements OnInit {
     }
   }
   @Input() student: Student;
-  @Input() courseName: string;
+  @Input() course: Course;
+  noAssignmentsPresent = false;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -34,7 +39,7 @@ export class StudentAssignmentsComponent implements OnInit {
   seeImage(assignmentToOpen: Assignment) {
     this.dialog.open(StudentImageDialogComponent, {data: {
         studentId: this.student.id,
-        courseName: this.courseName,
+        courseName: this.course.name,
         assignment: assignmentToOpen
       }
     });

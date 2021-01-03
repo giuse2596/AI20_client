@@ -1,3 +1,18 @@
-<app-groups [student] = "student$ | async"
-            [courseInput] = "course$ | async">
-</app-groups>
+<div *ngIf="!this.studentAvailable; else elseBlock">
+  <app-groups [student] = "student$ | async"
+              [course] = "course$ | async"
+              [courseName] = courseId
+              [studentAvailable] = studentAvailable
+              [group] = group
+              [groupMembersInput] = "groupMembers$ | async">
+  </app-groups>
+</div>
+<ng-template #elseBlock>
+  <app-groups [student] = "student$ | async"
+              [course] = "course$ | async"
+              [courseName] = courseId
+              [studentAvailable] = studentAvailable
+              [availables] = availables
+              [pendingGroupsListInput] = "pendingGroups$ | async">
+  </app-groups>
+</ng-template>

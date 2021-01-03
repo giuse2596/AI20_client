@@ -5,6 +5,7 @@ import {AssignmentService} from '../services/assignment.service';
 import {ActivatedRoute} from '@angular/router';
 import {Student} from '../models/student.model';
 import {CourseService} from '../services/course.service';
+import {Course} from '../models/course.model';
 
 @Component({
   selector: 'app-teacher-assignments-cont',
@@ -14,16 +15,17 @@ import {CourseService} from '../services/course.service';
 export class TeacherAssignmentsContComponent implements OnInit {
   assignments$: Observable<Assignment[]>;
   students$: Observable<Student[]>;
-  courseId: string;
+  course$: Observable<Course>;
 
   constructor(private assignmentService: AssignmentService,
               private route: ActivatedRoute,
               private courseService: CourseService) { }
 
   ngOnInit(): void {
-    this.courseId = this.route.snapshot.params.courseId;
-    this.assignments$ = this.assignmentService.getAssignmentsForCourse(this.courseId);
-    this.students$ = this.courseService.getEnrolled(this.courseId);
+    const courseId = this.route.snapshot.params.courseId;
+    this.assignments$ = this.assignmentService.getAssignmentsForCourse(courseId);
+    this.students$ = this.courseService.getEnrolled(courseId);
+    this.course$ = this.courseService.find(courseId);
   }
 
 }
