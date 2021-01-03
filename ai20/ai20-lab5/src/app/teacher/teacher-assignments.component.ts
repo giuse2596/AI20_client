@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {NewAssignmentDialogComponent} from './new-assignment-dialog.component';
 import {Student} from '../models/student.model';
 import {TeacherImageDialogComponent} from './teacher-image-dialog.component';
+import {Course} from '../models/course.model';
 
 @Component({
   selector: 'app-teacher-assignments',
@@ -26,7 +27,7 @@ export class TeacherAssignmentsComponent implements OnInit {
     }
   }
   @Input() students: Student[];
-  @Input() courseName: string;
+  @Input() course: Course;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -34,7 +35,7 @@ export class TeacherAssignmentsComponent implements OnInit {
 
   addAssignment(errorMessage ?: string) {
     const dialogRef = this.dialog.open(NewAssignmentDialogComponent, {data: {
-        courseName: this.courseName,
+        courseName: this.course.name,
         error: errorMessage
       }
     });
@@ -47,7 +48,7 @@ export class TeacherAssignmentsComponent implements OnInit {
 
   seeImage(assignmentToOpen: Assignment) {
     this.dialog.open(TeacherImageDialogComponent, {data: {
-        courseName: this.courseName,
+        courseName: this.course.name,
         assignment: assignmentToOpen
       }
     });

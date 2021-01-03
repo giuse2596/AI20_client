@@ -31,18 +31,14 @@
         </mat-list-item>
       </mat-nav-list>
       <ng-template #elseBlock>
-        <mat-nav-list *ngIf="user.token.roles[0] === 'ROLE_TEACHER'">
-          <mat-list-item (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
+        <mat-nav-list >
+          <mat-list-item *ngIf="user.token.roles[0] === 'ROLE_TEACHER'"
+                         (click)="openDialogAdd()" class="add-button" routerLink="teacher/courses/addCourse">
             <mat-icon mat-list-icon>add</mat-icon>
             <div mat-line>Aggiungi Corso</div>
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="teacher/courses/{{course.name}}/students">
-            {{course.name}}
-          </mat-list-item>
-        </mat-nav-list>
-        <mat-nav-list *ngIf="user.token.roles[0] === 'ROLE_STUDENT'">
-          <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="student/courses/{{course.name}}/groups">
+          <mat-list-item *ngFor="let course of courses$ | async" (click)="selectCourse(course)" routerLink="home/{{course.name}}">
             {{course.name}}
           </mat-list-item>
         </mat-nav-list>

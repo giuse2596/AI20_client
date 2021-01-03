@@ -59,6 +59,7 @@ import {TeacherImageDialogComponent} from './teacher/teacher-image-dialog.compon
 import {StudentImageDialogComponent} from './student/student-image-dialog.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DatePipe} from '@angular/common';
+import {HomeCourseComponent} from './home-course.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {DatePipe} from '@angular/common';
     StudentsComponent,
     StudentsContComponent,
     HomeComponent,
+    HomeCourseComponent,
     PageNotFoundComponent,
     VmsContComponent,
     LoginDialogComponent,

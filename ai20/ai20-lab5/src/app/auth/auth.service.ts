@@ -20,7 +20,6 @@ export class AuthService {
   private jwt;
   user: User;
   logged = false;
-  redirectUrl: string;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -37,9 +36,6 @@ export class AuthService {
         console.log(this.jwt);
         this.logged = true;
         dialog.close(this.logged);
-        if (this.redirectUrl){
-          this.router.navigate([this.redirectUrl]);
-        }
       },
       err => {
         console.log(err.message);
@@ -55,9 +51,6 @@ export class AuthService {
     this.http.post<any>( hostname + '/register', user).subscribe(
       res => {
         dialog.close(true);
-        if (this.redirectUrl){
-          this.router.navigate([this.redirectUrl]);
-        }
       },
       err => {
         dialog.close(false);

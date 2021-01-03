@@ -6,6 +6,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {Delivery} from '../models/delivery.model';
 import {Student} from '../models/student.model';
+import {Course} from '../models/course.model';
 
 @Component({
   selector: 'app-student-delivery',
@@ -26,14 +27,14 @@ export class StudentDeliveryComponent implements OnInit {
   selectedState = '';
   dataSourceDeliveries: MatTableDataSource<Delivery> = new MatTableDataSource();
   deliveries: Delivery[] = [];
-  @Input() courseName: string;
+  @Input() course: Course;
   @Input() assignment: Assignment;
   expandedDelivery: Delivery;
   students: Student[];
   @Input()
   set studentInput(student: Student) {
     if (student !== null) {
-      this.deliveryService.getLastDeliveriesForStudent(this.courseName, this.assignment, student)
+      this.deliveryService.getLastDeliveriesForStudent(this.course.name, this.assignment, student)
         .subscribe(delivery => {
           delivery.timestamp = new Date(delivery.timestamp);
           delivery.studentId = student.id;

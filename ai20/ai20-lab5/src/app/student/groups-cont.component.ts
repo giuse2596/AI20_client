@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Course} from '../models/course.model';
 import {CourseService} from '../services/course.service';
 import {AuthService} from '../auth/auth.service';
+import {Group} from '../models/group.model';
 
 @Component({
   selector: 'app-groups-cont',
@@ -13,11 +14,14 @@ import {AuthService} from '../auth/auth.service';
   styleUrls: ['./groups-cont.component.css']
 })
 export class GroupsContComponent implements OnInit {
-/*  requests$: Observable<Request[]>;
-  members$: Observable<Student[]>;
-  availables$: Observable<Student[]>;*/
   student$: Observable<Student>;
   course$: Observable<Course>;
+  courseId: string;
+  studentAvailable = false;
+  availables: Student[];
+  pendingGroups$: Observable<Group[]>;
+  group: Group;
+  groupMembers$: Observable<Student[]>;
 
   constructor(private studentService: StudentService,
               private route: ActivatedRoute,
@@ -26,12 +30,28 @@ export class GroupsContComponent implements OnInit {
 
   ngOnInit(): void {
     const studentId = this.authService.user.username;
-    const courseId = this.route.snapshot.params.courseId;
+    this.courseId = this.route.snapshot.params.courseId;
     this.student$ = this.studentService.find(studentId);
-    this.course$ = this.courseService.find(courseId);
-/*    this.members$ = this.studentService.getGroupMembers('id');
-    this.availables$ = this.courseService.getAvailablesForCourse(courseId);
-    this.requests$ = this.studentService.getPendingGroupsForCourse(courseId);*/
+    this.course$ = this.courseService.find(this.courseId);
+    this.courseService.getAvailablesForCourse(this.courseId)
+      .subscribe(availables => {
+        if (availables.map(s => s.id).includes(studentId)) {
+          this.studentAvailable = true;
+          availables.splice(availables.map(s => s.id).indexOf(studentId), 1); // non includo lo studente nell'elenco
+          this.availables = availables;
+          this.pendingGroups$ = this.studentService.getPendingGroupsForCourse(this.courseId);
+        } else {
+          this.studentService.getGroupForCourse(studentId, this.courseId)
+            .subscribe(groups => {
+              if (groups[0].active) {
+                this.group = groups[0]; // ce n'è solo uno
+                this.groupMembers$ = this.studentService.getGroupMembers(this.courseId, this.group.id);
+              } else {
+                this.studentAvailable = true;
+              }
+            });
+        }
+      });
   }
 
 }
