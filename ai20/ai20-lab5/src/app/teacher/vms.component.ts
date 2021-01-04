@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Group} from "../models/group.model";
 
 @Component({
   selector: 'app-vms',
@@ -9,11 +10,7 @@ export class VmsComponent implements OnInit {
 
   panelOpenState = false;
 
-  testList: string[] = [
-    'test1',
-    'test2',
-    'test3'
-  ]
+  @Input() teamList: Group[] = [];
 
   constructor() { }
 

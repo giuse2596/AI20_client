@@ -1,14 +1,14 @@
 <h2>Lista VM gruppi</h2>
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let item of testList" class="team-panel"
+  <mat-expansion-panel *ngFor="let team of teamList" class="team-panel"
                        (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{item}}
+        {{team.name}}
       </mat-panel-title>
       <mat-panel-description>
-        This is a summary of the content
+        <a>Lista Partecipanti</a>
       </mat-panel-description>
     </mat-expansion-panel-header>
     <p>This is the primary content of the panel.</p>

@@ -71,8 +71,8 @@ export class CourseService {
     return this.http.post(hostname + '/courses/' + courseId + '/disable', '');
   }
 
-  getAllTeams(courseId: string){
-    return this.http.get<Group[]>(hostname + '/courses/' + courseId + '/teams');
+  getAllEnabledTeams(courseId: string){
+    return this.http.get<Group[]>(hostname + '/courses/' + courseId + '/enabled_teams');
   }
 
 }
