@@ -1,4 +1,7 @@
-<div *ngIf="this.studentInActiveGroup; else elseBlock">
+<div *ngIf="!course.enabled">
+  <mat-error>Corso non attivo</mat-error>
+</div>
+<div *ngIf="!this.studentAvailable; else elseBlock">
   <h3>{{this.group.name}}</h3>
   <table mat-table id="group-table" [dataSource]="dataSourceMembers" class="mat-elevation-z8" >
     <ng-container matColumnDef="id">
@@ -39,7 +42,9 @@
     <tr mat-header-row *matHeaderRowDef="displayColumnsAvailables"></tr>
     <tr mat-row *matRowDef="let row; columns: displayColumnsAvailables;"></tr>
   </table>
-  <button mat-raised-button color="primary" (click) = "setGroupNameAndTimeout()">Invia Richiesta</button>
+  <button mat-raised-button color="primary"
+          [disabled]="!course.enabled"
+          (click) = "setGroupNameAndTimeout()">Invia Richiesta</button>
   <h3>Elenco richieste di partecipazione per gruppi</h3>
   <div *ngFor="let group of pendingGroupsList">
     <h4>Nome Gruppo: {{group.name}}</h4>

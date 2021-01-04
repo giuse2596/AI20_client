@@ -6,6 +6,7 @@ import {Delivery} from '../models/delivery.model';
 import {DeliveryService} from '../services/delivery.service';
 import {SubmitDeliveryDialogComponent} from './submit-delivery-dialog.component';
 import {StudentImageDialogComponent} from './student-image-dialog.component';
+import {Course} from '../models/course.model';
 
 @Component({
   selector: 'app-student-delivery-historicals',
@@ -15,7 +16,7 @@ import {StudentImageDialogComponent} from './student-image-dialog.component';
 export class StudentDeliveryHistoricalsComponent implements OnInit {
   @Input() lastDelivery: Delivery;
   @Input() assignment: Assignment;
-  @Input() courseName: string;
+  @Input() course: Course;
   homework: Homework;
   deliveryHistoricals: Delivery[] = [];
   nowDate: Date;
@@ -27,10 +28,10 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
   ngOnInit(): void {
     this.nowDate = new Date();
     this.expiryDate = new Date(this.assignment.expiryDate);
-    this.deliveryService.getHomework(this.courseName, this.assignment, this.lastDelivery.studentId)
+    this.deliveryService.getHomework(this.course.name, this.assignment, this.lastDelivery.studentId)
       .subscribe(homework => {
         this.homework = homework;
-        this.deliveryService.getHistoricalsForDelivery(this.courseName, this.assignment, this.lastDelivery.studentId)
+        this.deliveryService.getHistoricalsForDelivery(this.course.name, this.assignment, this.lastDelivery.studentId)
           .subscribe(deliveryHistoricals => {
             for (const deliveryHistorical of deliveryHistoricals) {
               deliveryHistorical.studentId = this.lastDelivery.studentId;
@@ -50,7 +51,7 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
         delivery: this.lastDelivery,
         assignment: this.assignment,
         homework: this.homework,
-        courseName: this.courseName,
+        courseName: this.course.name,
         error: errorMessage
       }
     });
@@ -63,7 +64,7 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
 
   seeImage(deliveryToOpen: Delivery) {
     this.dialog.open(StudentImageDialogComponent, {data: {
-        courseName: this.courseName,
+        courseName: this.course.name,
         assignment: this.assignment,
         homework: this.homework,
         delivery: deliveryToOpen

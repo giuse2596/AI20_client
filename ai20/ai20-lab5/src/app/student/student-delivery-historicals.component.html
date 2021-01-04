@@ -9,5 +9,7 @@
 <div *ngIf="(this.expiryDate >= this.nowDate) &&
  (lastDelivery.status === 'READ' || lastDelivery.status === 'REVIEWED') &&
  (this.homework.editable)">
-  <button mat-raised-button color="primary" (click) = "submitDelivery()">Carica Elaborato</button>
+  <button mat-raised-button color="primary"
+          [disabled]="!course.enabled"
+          (click) = "submitDelivery()">Carica Elaborato</button>
 </div>

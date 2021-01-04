@@ -7,6 +7,7 @@ import {Delivery} from '../models/delivery.model';
 import {DeliveryService} from '../services/delivery.service';
 import {EvaluateDialogComponent} from './evaluate-dialog.component';
 import {TeacherImageDialogComponent} from './teacher-image-dialog.component';
+import {Course} from '../models/course.model';
 
 @Component({
   selector: 'app-teacher-delivery-historicals',
@@ -16,7 +17,7 @@ import {TeacherImageDialogComponent} from './teacher-image-dialog.component';
 export class TeacherDeliveryHistoricalsComponent implements OnInit {
   @Input() lastDelivery: Delivery;
   @Input() assignment: Assignment;
-  @Input() courseName: string;
+  @Input() course: Course;
   homework: Homework;
   deliveryHistoricals: Delivery[] = [];
   action: string;
@@ -29,11 +30,11 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
   ngOnInit(): void {
     this.nowDate = new Date();
     this.expiryDate = new Date(this.assignment.expiryDate);
-    this.deliveryService.getHomework(this.courseName, this.assignment, this.lastDelivery.studentId)
+    this.deliveryService.getHomework(this.course.name, this.assignment, this.lastDelivery.studentId)
       .subscribe(homework => {
         this.homework = homework;
         this.action = this.homework.editable ? 'Attiva' : 'Disattiva';
-        this.deliveryService.getHistoricalsForDelivery(this.courseName, this.assignment, this.lastDelivery.studentId)
+        this.deliveryService.getHistoricalsForDelivery(this.course.name, this.assignment, this.lastDelivery.studentId)
           .subscribe(deliveryHistoricals => {
             for (const deliveryHistorical of deliveryHistoricals) {
               deliveryHistorical.studentId = this.lastDelivery.studentId;
@@ -53,7 +54,7 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
         delivery: this.lastDelivery,
         assignment: this.assignment,
         homework: this.homework,
-        courseName: this.courseName,
+        courseName: this.course.name,
         error: errorMessage
       }
     });
@@ -68,14 +69,14 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
     this.dialog.open(EvaluateDialogComponent, {data: {
         assignment: this.assignment,
         homework: this.homework,
-        courseName: this.courseName
+        courseName: this.course.name
       }
     });
   }
 
   seeImage(deliveryToOpen: Delivery) {
     this.dialog.open(TeacherImageDialogComponent, {data: {
-        courseName: this.courseName,
+        courseName: this.course.name,
         assignment: this.assignment,
         homework: this.homework,
         delivery: deliveryToOpen
@@ -85,7 +86,7 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
 
   setEditable() {
     this.homework.editable = !this.homework.editable;
-    this.deliveryService.updateHomework(this.courseName, this.assignment.id, this.homework)
+    this.deliveryService.updateHomework(this.course.name, this.assignment.id, this.homework)
       .subscribe(() => this.action = this.action === 'Disattiva' ? 'Attiva' : 'Disattiva', // change button label
         () => this.homework.editable = !this.homework.editable); // restore old editable flag
   }

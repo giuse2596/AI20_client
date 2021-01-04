@@ -9,11 +9,13 @@ import {GroupsContComponent} from './student/groups-cont.component';
 import {ProfileComponent} from './auth/profile.component';
 import {TeacherAssignmentsContComponent} from './teacher/teacher-assignments-cont.component';
 import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
-import {CourseDetailsComponent} from "./teacher/course-details.component";
+import {CourseDetailsComponent} from './teacher/course-details.component';
+import {HomeCourseComponent} from './home-course.component';
 import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
+    { path: 'home/:courseId', component: HomeCourseComponent },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'teacher', canActivate: [AuthGuard],

@@ -1,18 +1,26 @@
-<div *ngFor="let assignment of assignments">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h4>{{assignment.name}}</h4>
-      </mat-panel-title>
-      <mat-panel-title>
-        <h4>Scadenza: {{assignment.expiryDate.toLocaleDateString()}}</h4>
-      </mat-panel-title>
-      <button mat-button color="primary" (click)="seeImage(assignment)">Guarda Contenuto</button>
-    </mat-expansion-panel-header>
-    <app-student-delivery [courseName]= courseName
-                          [assignment] = assignment
-                          [studentInput] = student>
-
-    </app-student-delivery>
-  </mat-expansion-panel>
+<div *ngIf="!course.enabled">
+  <mat-error>Corso non attivo</mat-error>
 </div>
+<div *ngIf="noAssignmentsPresent; else elseBlock">
+  <h1>Non sono presenti consegne per questo corso</h1>
+</div>
+<ng-template #elseBlock>
+  <div *ngFor="let assignment of assignments">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>{{assignment.name}}</h4>
+        </mat-panel-title>
+        <mat-panel-title>
+          <h4>Scadenza: {{assignment.expiryDate.toLocaleDateString()}}</h4>
+        </mat-panel-title>
+        <button mat-button color="primary" (click)="seeImage(assignment)">Guarda Contenuto</button>
+      </mat-expansion-panel-header>
+      <app-student-delivery [course]= course
+                            [assignment] = assignment
+                            [studentInput] = student>
+
+      </app-student-delivery>
+    </mat-expansion-panel>
+  </div>
+</ng-template>

@@ -5,7 +5,13 @@
 </div>
 <div *ngIf="(!homework.mark) &&
 (lastDelivery.status === 'DELIVERED' || lastDelivery.status === 'REVIEWED')">
-  <button mat-raised-button color="primary" [disabled]="lastDelivery.status === 'REVIEWED'" (click) = "correct()">Correggi</button>
-  <button mat-button color="primary" [disabled] = "this.expiryDate < this.nowDate" (click)="setEditable()">Riconsegna: {{action}}</button>
-  <button mat-raised-button [disabled]="lastDelivery.status !== 'REVIEWED'" (click) = "evaluate()">Assegna Voto</button>
+  <button mat-raised-button color="primary"
+          [disabled]="(!course.enabled) || (lastDelivery.status === 'REVIEWED')"
+          (click) = "correct()">Correggi</button>
+  <button mat-button color="primary"
+          [disabled] = "(!course.enabled) || (this.expiryDate < this.nowDate)"
+          (click)="setEditable()">Riconsegna: {{action}}</button>
+  <button mat-raised-button
+          [disabled]="(!course.enabled) || (lastDelivery.status !== 'REVIEWED')"
+          (click) = "evaluate()">Assegna Voto</button>
 </div>
