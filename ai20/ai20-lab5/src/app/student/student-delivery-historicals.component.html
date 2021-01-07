@@ -1,4 +1,4 @@
-<mat-error *ngIf="lastDelivery.status === 'REVIEWED' && this.homework.editable">
+<mat-error *ngIf="lastDelivery.status === 'REVIEWED' && this.homework && this.homework.editable">
   Richiesta una nuova consegna
 </mat-error>
 <div *ngFor="let historical of deliveryHistoricals">
@@ -8,7 +8,7 @@
 </div>
 <div *ngIf="(this.expiryDate >= this.nowDate) &&
  (lastDelivery.status === 'READ' || lastDelivery.status === 'REVIEWED') &&
- (this.homework.editable)">
+ (this.homework) && (this.homework.editable)">
   <button mat-raised-button color="primary"
           [disabled]="!course.enabled"
           (click) = "submitDelivery()">Carica Elaborato</button>

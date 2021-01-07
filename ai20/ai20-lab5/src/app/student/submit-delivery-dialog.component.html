@@ -4,7 +4,7 @@
   <form [formGroup]="deliveryForm" class="image-box">
     <h3>Elaborato</h3>
     <div>
-      <img id="profile-image" [src]="image" alt="Immagine">
+      <img class="image-input" [src]="image" alt="Immagine">
       <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" formControlName="inputFile">
       <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
     </div>
