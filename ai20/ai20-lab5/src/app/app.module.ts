@@ -64,6 +64,10 @@ import {CourseDetailsComponent} from "./teacher/course-details.component";
 import {ConfirmDisclaimerComponent} from "./teacher/confirm-disclaimer.component";
 import {HomeCourseComponent} from './home-course.component';
 import {VmsComponent} from "./teacher/vms.component";
+import {StudentVmsComponent} from "./student/student-vms.component";
+import {StudentVmsContComponent} from "./student/student-vms-cont.component";
+import {CreateVmDialogComponent} from "./student/create-vm-dialog.component";
+import {EditVmDialogComponent} from "./student/edit-vm-dialog.component";
 
 
 @NgModule({
@@ -100,7 +104,11 @@ import {VmsComponent} from "./teacher/vms.component";
     StudentImageDialogComponent,
     CourseDetailsContComponent,
     CourseDetailsComponent,
-    ConfirmDisclaimerComponent
+    ConfirmDisclaimerComponent,
+    StudentVmsComponent,
+    StudentVmsContComponent,
+    CreateVmDialogComponent,
+    EditVmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +146,9 @@ import {VmsComponent} from "./teacher/vms.component";
     LoginDialogComponent,
     AddCourseComponent,
     SignupComponent,
-    ConfirmDisclaimerComponent
+    ConfirmDisclaimerComponent,
+    CreateVmDialogComponent,
+    EditVmDialogComponent
   ],
   providers: [DatePipe,
     {

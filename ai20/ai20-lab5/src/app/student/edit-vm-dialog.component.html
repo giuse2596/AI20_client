@@ -1,0 +1,82 @@
+<mat-tab-group>
+  <mat-tab label="Requisiti VM">
+    <div class="content">
+      <form [formGroup]="vmForm">
+        <h3>Modifica la caretteristica desiderata</h3>
+        <mat-form-field class="input-item" id="vmName">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="vmName">
+          <mat-error *ngIf="vmName.invalid">
+            <div *ngIf="vmName.errors.required">Questo campo è obbligatorio</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item" id="cpu">
+          <mat-label>Numero di CPU (Max +{{data.resourcesAvailable.cpu}})</mat-label>
+          <input type="number" matInput formControlName="cpu">
+          <mat-error *ngIf="cpu.invalid">
+            <div *ngIf="cpu.errors.required">Questo campo è obbligatorio</div>
+            <div *ngIf="cpu.errors.min">Questo campo deve essere un numero valido</div>
+            <div *ngIf="cpu.errors.max">Questo campo deve essere un numero valido</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item" id="ram">
+          <mat-label>Quantità di RAM (In MB: Max +{{data.resourcesAvailable.ram}} MB)</mat-label>
+          <input type="number" matInput formControlName="ram">
+          <mat-error *ngIf="ram.invalid">
+            <div *ngIf="ram.errors.required">Questo campo è obbligatorio</div>
+            <div *ngIf="ram.errors.min">Questo campo deve essere un numero valido</div>
+            <div *ngIf="ram.errors.max">Questo campo deve essere un numero valido</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-item" id="disk">
+          <mat-label>Capienza disco (In MB: Max +{{data.resourcesAvailable.diskSpace}} MB)</mat-label>
+          <input type="number" matInput formControlName="disk">
+          <mat-error *ngIf="disk.invalid">
+            <div *ngIf="disk.errors.required">Questo campo è obbligatorio</div>
+            <div *ngIf="disk.errors.min">Questo campo deve essere un numero valido</div>
+            <div *ngIf="disk.errors.max">Questo campo deve essere un numero valido</div>
+          </mat-error>
+        </mat-form-field>
+        <div mat-dialog-actions>
+          <button mat-raised-button color="primary" [disabled]="vmForm.invalid" (click)="save()">Salva</button>
+          <button mat-raised-button (click)="onNoClick()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+  <mat-tab label="Owners">
+    <div class="content">
+      <mat-form-field appearance="fill" style="margin-bottom: 10px; margin-top: 10px" *ngIf="memberList.length !== 0">
+        <mat-label>Rendi owner</mat-label>
+        <mat-select [formControl]="owners" multiple>
+          <mat-select-trigger>
+            {{owners.value ? owners.value[0].name + ' ' + owners.value[0].firstName : ''}}
+            <span *ngIf="owners.value?.length > 1" class="example-additional-selection">
+        (+{{owners.value.length - 1}} {{owners.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let member of memberList" [value]="member">{{member.id}}: {{member.name}} {{member.firstName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button (click)="addOwners()">Aggiungi</button>
+      <table mat-table id="group-table" [dataSource]="dataSourceOwners" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id</th>
+          <td mat-cell *matCellDef="let student">{{student.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Cognome</th>
+          <td mat-cell *matCellDef="let student">{{student.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> Nome</th>
+          <td mat-cell *matCellDef="let student">{{student.firstName}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayColumnsMembers"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumnsMembers;"></tr>
+      </table>
+
+    </div>
+  </mat-tab>
+</mat-tab-group>
+

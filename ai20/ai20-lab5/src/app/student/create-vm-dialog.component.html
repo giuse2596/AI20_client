@@ -1,0 +1,43 @@
+<form [formGroup] = "vmForm">
+  <div mat-dialog-content class="dialog-body">
+    <h3>Inserisci tutte le caratteristiche della vm</h3>
+    <mat-form-field class="input-item" id="vmName">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="vmName">
+      <mat-error *ngIf="vmName.invalid">
+        <div *ngIf="vmName.errors.required">Questo campo è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="cpu">
+      <mat-label>Numero di CPU (Max {{data.resourcesAvailable.cpu}})</mat-label>
+      <input type="number" matInput formControlName="cpu">
+      <mat-error *ngIf="cpu.invalid">
+        <div *ngIf="cpu.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="cpu.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="cpu.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="ram">
+      <mat-label>Quantità di RAM (In MB: Max {{data.resourcesAvailable.ram}} MB)</mat-label>
+      <input type="number" matInput formControlName="ram">
+      <mat-error *ngIf="ram.invalid">
+        <div *ngIf="ram.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="ram.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="ram.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-item" id="disk">
+      <mat-label>Capienza disco (In MB: Max {{data.resourcesAvailable.diskSpace}} MB)</mat-label>
+      <input type="number" matInput formControlName="disk">
+      <mat-error *ngIf="disk.invalid">
+        <div *ngIf="disk.errors.required">Questo campo è obbligatorio</div>
+        <div *ngIf="disk.errors.min">Questo campo deve essere un numero valido</div>
+        <div *ngIf="disk.errors.max">Questo campo deve essere un numero valido</div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="course-dialog-submit">
+    <button mat-raised-button color="primary" [disabled]="vmForm.invalid" (click)="create()">Crea</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

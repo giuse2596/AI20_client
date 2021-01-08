@@ -1,0 +1,13 @@
+.input-item{
+  width: 100%;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+#group-table{
+  width: 100%;
+  height: 100%;
+}

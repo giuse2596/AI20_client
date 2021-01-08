@@ -7,6 +7,7 @@ import {Group} from '../models/group.model';
 import {Course} from '../models/course.model';
 import {MatDialogRef} from '@angular/material/dialog';
 import {GroupNameDialogComponent} from '../student/group-name-dialog.component';
+import {VmImage} from "../models/vmImage.model";
 
 const hostnameStudents = '/server/API/students';
 const hostnameCourses = '/server/API/courses';
@@ -82,4 +83,32 @@ export class StudentService {
   getMembersWhoAccepted(studentId: string, groupId: string): Observable<Student[]> {
     return this.http.get<Student[]>(`${hostnameStudents}/${studentId}/teams/${groupId}/confirmed_members`);
   }
+
+  createVm(studentId: string, groupId: string, vmImage: VmImage){
+    return this.http.post<any>(`${hostnameStudents}/${studentId}/teams/${groupId}/virtual_machines`, vmImage);
+  }
+
+  modifyVm(studentId: string, groupId: string, vmImage: VmImage){
+    return this.http.put<any>(`${hostnameStudents}/${studentId}/teams/${groupId}/virtual_machines/${vmImage.id}/modify`, vmImage);
+  }
+
+  startVm(studentId: string, groupId: string, vmId: number){
+    return this.http.put<any>(`${hostnameStudents}/${studentId}/teams/${groupId}/virtual_machines/${vmId}/start`, '');
+  }
+
+  stopVm(studentId: string, groupId: string, vmId: number){
+    return this.http.put<any>(`${hostnameStudents}/${studentId}/teams/${groupId}/virtual_machines/${vmId}/stop`, '');
+  }
+
+  deleteVm(studentId: string, groupId: string, vmId: number){
+    return this.http.delete<any>(`${hostnameStudents}/${studentId}/teams/${groupId}/virtual_machines/${vmId}/delete`);
+  }
+
+  addOwners(studentId: string, groupId: string, vmId: number, members: string[]){
+    return this.http.put(`${hostnameStudents}/${studentId}/teams/${groupId}/virtual_machines/${vmId}/add_owners` ,members)
+  }
+
+
+
+
 }

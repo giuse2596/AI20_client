@@ -1,0 +1,46 @@
+<div id="page-active" *ngIf="active">
+  <button mat-raised-button color="primary" (click)="open()">Crea Nuova Vm</button>
+  <p *ngIf="vms == null || (vms != null && vms.length === 0)">Ancora nessuna vm per questo Team</p>
+  <mat-error *ngIf="error !== ''">{{error}}</mat-error>
+  <mat-list *ngIf="vms != null && vms.length !== 0">
+    <div mat-subheader>Tutte le vm</div>
+    <mat-list-item *ngFor="let vm of vms">
+      <mat-icon mat-list-icon id="vm-icon">laptop_mac</mat-icon>
+      <div class="vm-info">
+        <div mat-line>{{vm.name}}</div>
+        <div mat-line>vcpu: {{vm.cpu}}</div>
+        <div mat-line>ram: {{vm.ram}}MB</div>
+        <div mat-line>disk: {{vm.diskSpace}}MB</div>
+      </div>
+      <div class="actions">
+        <div id="start-vm" *ngIf="!vm.active && checkOwnership(vm)">
+          <mat-label>Avvia VM</mat-label>
+          <button mat-icon-button (click)="start(vm)">
+            <mat-icon>play_circle</mat-icon>
+          </button>
+        </div>
+        <div id="stop-vm" *ngIf="vm.active && checkOwnership(vm)">
+          <mat-label>Stop VM</mat-label>
+          <button mat-icon-button (click)="stop(vm)">
+            <mat-icon>stop</mat-icon>
+          </button>
+        </div>
+        <div id="active-label" *ngIf="vm.active">
+          <mat-label>Attiva</mat-label>
+        </div>
+      </div>
+      <div id="vm-link" *ngIf="vm.active">
+        <button mat-raised-button (click)="connect(vm)">Collegati</button>
+      </div>
+      <div id="vm-delete" *ngIf="!vm.active && checkOwnership(vm)">
+        <button mat-raised-button color="warn" (click)="delete(vm)">Elimina</button>
+      </div>
+      <div id="vm-edit" *ngIf="!vm.active && checkOwnership(vm)">
+        <button mat-raised-button (click)="openEdit(vm)">Modifica</button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div id="page-not-active" *ngIf="!active">
+  <h3>Devi far parte di un gruppo per avviare delle VM</h3>
+</div>

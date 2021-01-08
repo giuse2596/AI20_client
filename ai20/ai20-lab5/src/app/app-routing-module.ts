@@ -9,9 +9,9 @@ import {GroupsContComponent} from './student/groups-cont.component';
 import {ProfileComponent} from './auth/profile.component';
 import {TeacherAssignmentsContComponent} from './teacher/teacher-assignments-cont.component';
 import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
-import {CourseDetailsComponent} from './teacher/course-details.component';
 import {HomeCourseComponent} from './home-course.component';
 import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
+import {StudentVmsContComponent} from "./student/student-vms-cont.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -31,6 +31,7 @@ const routes: Routes = [
       children: [
         { path: 'courses/:courseId/groups', component: GroupsContComponent },
         { path: 'courses/:courseId/assignments', component: StudentAssignmentsContComponent },
+        { path: 'courses/:courseId/vms', component: StudentVmsContComponent},
       ]
     },
     { path: '**', component: PageNotFoundComponent}
@@ -41,7 +42,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { enableTracing: false })
   ],
   exports: [
-    RouterModule,
-  ],
+    RouterModule
+  ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule{}

@@ -1,0 +1,23 @@
+#vm-icon{
+  width: 20%;
+}
+.vm-info{
+  width: 40%;
+  margin-left: 10px;
+}
+
+.actions{
+  width: 30%;
+}
+
+#vm-link{
+  width: 10%;
+}
+
+#active-label{
+  color: green;
+}
+
+#vm-edit{
+  margin-left: 10px;
+}

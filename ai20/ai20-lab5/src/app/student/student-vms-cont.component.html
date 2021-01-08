@@ -1,0 +1,12 @@
+<app-student-vms
+  (openDialogEvent)="openDialog()"
+  (connectVmEvent)="connectVm($event)"
+  (startEvent)="startVm($event)"
+  (stopEvent) = "stopVm($event)"
+  (deleteEvent)="delete($event)"
+  (editEvent)="openEdit($event)"
+  [error] = "error"
+  [active] = "active"
+  [vms]="allVms$ | async"
+  [studentId] = "studentId"
+></app-student-vms>
