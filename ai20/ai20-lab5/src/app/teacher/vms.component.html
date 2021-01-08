@@ -1,16 +1,49 @@
-<h2>Lista VM gruppi</h2>
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let team of teamList" class="team-panel"
-                       (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{team.name}}
-      </mat-panel-title>
-      <mat-panel-description>
-        <a>Lista Partecipanti</a>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <p>This is the primary content of the panel.</p>
-  </mat-expansion-panel>
-</mat-accordion>
+<div *ngIf="teamList && teamList.length !== 0">
+  <h2>Tutti i gruppi</h2>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let team of teamList" class="team-panel"
+                         (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{team.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          clicca per tutte le vm
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4 *ngIf="team.vmList != null && team.vmList.length === 0">Attualmente non ci sono vm per questo gruppo
+      </h4>
+      <button mat-raised-button color="primary" (click)="editResources(team)">Modifica parametri gruppo</button>
+      <mat-list *ngIf="team.vmList != null && team.vmList.length !== 0">
+        <div mat-subheader>Tutte le vm</div>
+        <mat-list-item *ngFor="let vm of team.vmList">
+          <mat-icon mat-list-icon id="vm-icon">laptop_mac</mat-icon>
+          <div class="vm-info">
+            <div mat-line>{{vm.name}}</div>
+            <div mat-line>vcpu: {{vm.cpu}}</div>
+            <div mat-line>ram: {{vm.ram}}MB</div>
+            <div mat-line>disk: {{vm.diskSpace}}MB</div>
+            <div mat-line>creator: {{vm.creator}}</div>
+          </div>
+          <div class="actions">
+            <div id="active-label" *ngIf="vm.active">
+              <mat-label>Attiva</mat-label>
+            </div>
+            <div id="inactive-label" *ngIf="!vm.active">
+              <mat-label>Spenta</mat-label>
+            </div>
+          </div>
+          <div id="vm-link" *ngIf="vm.active">
+            <button mat-raised-button (click)="connect(vm,team)">Collegati</button>
+          </div>
+          <div id="padding" *ngIf="!vm.active">
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div *ngIf="!teamList || (teamList && teamList.length === 0)">
+  <h3>Attualmente non ci sono gruppi per questo corso</h3>
+</div>

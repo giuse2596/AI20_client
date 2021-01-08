@@ -1,0 +1,53 @@
+<mat-error *ngIf="error!== ''">{{error}}</mat-error>
+<form [formGroup]="teamResourcesForm">
+  <h3>Modifica limiti del gruppo</h3>
+  <mat-form-field class="input-item" id="cpu">
+    <mat-label>Massima CPU</mat-label>
+    <input type="number" matInput formControlName="maxCpu">
+    <mat-error *ngIf="maxCpu.invalid">
+      <div *ngIf="maxCpu.errors.required">Questo campo è obbligatorio</div>
+      <div *ngIf="maxCpu.errors.min">Questo campo deve essere un numero valido</div>
+      <div *ngIf="maxCpu.errors.max">Questo campo deve essere un numero valido</div>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="input-item" id="ram">
+    <mat-label>Massima RAM allocabile (In MB)</mat-label>
+    <input type="number" matInput formControlName="maxRam">
+    <mat-error *ngIf="maxRam.invalid">
+      <div *ngIf="maxRam.errors.required">Questo campo è obbligatorio</div>
+      <div *ngIf="maxRam.errors.min">Questo campo deve essere un numero valido</div>
+      <div *ngIf="maxRam.errors.max">Questo campo deve essere un numero valido</div>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="input-item" id="disk">
+    <mat-label>Massima capienza disco (In MB)</mat-label>
+    <input type="number" matInput formControlName="maxDisk">
+    <mat-error *ngIf="maxDisk.invalid">
+      <div *ngIf="maxDisk.errors.required">Questo campo è obbligatorio</div>
+      <div *ngIf="maxDisk.errors.min">Questo campo deve essere un numero valido</div>
+      <div *ngIf="maxDisk.errors.max">Questo campo deve essere un numero valido</div>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="input-item" id="instances">
+    <mat-label>Massimo numero di istanze</mat-label>
+    <input type="number" matInput formControlName="maxInstances">
+    <mat-error *ngIf="maxInstances.invalid">
+      <div *ngIf="maxInstances.errors.required">Questo campo è obbligatorio</div>
+      <div *ngIf="maxInstances.errors.min">Questo campo deve essere un numero valido</div>
+      <div *ngIf="maxInstances.errors.max">Questo campo deve essere un numero valido</div>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="input-item" id="activeIns">
+    <mat-label>Massimo numero istanze attive</mat-label>
+    <input type="number" matInput formControlName="activeInstances">
+    <mat-error *ngIf="activeInstances.invalid">
+      <div *ngIf="activeInstances.errors.required">Questo campo è obbligatorio</div>
+      <div *ngIf="activeInstances.errors.min">Questo campo deve essere un numero valido</div>
+      <div *ngIf="activeInstances.errors.max">Questo campo deve essere un numero valido</div>
+    </mat-error>
+  </mat-form-field>
+  <div mat-dialog-actions class="course-dialog-submit">
+    <button mat-raised-button color="primary" [disabled]="teamResourcesForm.invalid" (click)="edit()">Salva</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

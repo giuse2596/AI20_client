@@ -1,14 +1,18 @@
+import {VmImage} from "./vmImage.model";
+
 export class Group{
   id: string;
   name: string;
   proposer: string;
   active: boolean;
   requestAccepted: Map<string, boolean>;
-  cpuMAx: number;
+  cpuMax: number;
   ramMax: number;
   diskSpaceMax: number;
-  totVm: number;
+  totVM: number;
   activeVM: number;
+  vmList: VmImage[];
+  resourceAvailable;
 
 
   constructor(id: string, name: string, proposer: string, active: boolean){

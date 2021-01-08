@@ -68,6 +68,7 @@ import {StudentVmsComponent} from "./student/student-vms.component";
 import {StudentVmsContComponent} from "./student/student-vms-cont.component";
 import {CreateVmDialogComponent} from "./student/create-vm-dialog.component";
 import {EditVmDialogComponent} from "./student/edit-vm-dialog.component";
+import {EditTeamResourcesDialogComponent} from "./teacher/edit-team-resources-dialog.component";
 
 
 @NgModule({
@@ -108,7 +109,8 @@ import {EditVmDialogComponent} from "./student/edit-vm-dialog.component";
     StudentVmsComponent,
     StudentVmsContComponent,
     CreateVmDialogComponent,
-    EditVmDialogComponent
+    EditVmDialogComponent,
+    EditTeamResourcesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -148,7 +150,8 @@ import {EditVmDialogComponent} from "./student/edit-vm-dialog.component";
     SignupComponent,
     ConfirmDisclaimerComponent,
     CreateVmDialogComponent,
-    EditVmDialogComponent
+    EditVmDialogComponent,
+    EditTeamResourcesDialogComponent
   ],
   providers: [DatePipe,
     {

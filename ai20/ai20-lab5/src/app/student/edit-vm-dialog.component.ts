@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {VmDialog} from "../models/vmDialog.module";
+import {VmDialog} from "../models/vmDialog.model";
 import {VmImage} from "../models/vmImage.model";
 import {Student} from "../models/student.model";
 import {MatTableDataSource} from "@angular/material/table";

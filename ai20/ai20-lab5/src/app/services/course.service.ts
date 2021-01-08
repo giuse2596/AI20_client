@@ -86,6 +86,10 @@ export class CourseService {
     });
   }
 
+  editTeamLimits(courseId: string, groupId: string, limits: Group){
+    return this.http.put(hostname + courseId + '/teams/' + groupId, limits);
+  }
+
   getVmOwner(courseId: string, groupId: string, vmId: number): Observable<Student[]>{
     return this.http.get<Student[]>(hostname + courseId + '/teams/' + groupId + '/virtual_machines/' + vmId + '/owners');
   }

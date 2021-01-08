@@ -1,1 +1,4 @@
-<app-vms [teamList]="teams$ | async"></app-vms>
+<app-vms [teamList]="teams$ | async"
+          (connectVmEvent)="connectVm($event)"
+         (editResourcesEvent)="editResources($event)"
+></app-vms>

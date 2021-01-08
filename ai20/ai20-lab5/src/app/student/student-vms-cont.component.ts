@@ -140,7 +140,7 @@ export class StudentVmsContComponent implements OnInit {
   }
 
   checkResources(vm: VmImage): boolean{
-    if(this.availableResources.totVm === this.group.totVm)
+    if(this.availableResources.totVM === this.group.totVM)
       return false;
 
     return this.availableResources.cpu >= vm.cpu

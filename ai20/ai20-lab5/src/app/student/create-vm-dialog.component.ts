@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {VmImage} from "../models/vmImage.model";
-import {VmDialog} from "../models/vmDialog.module";
+import {VmDialog} from "../models/vmDialog.model";
 
 @Component({
   selector: 'app-create-vm-dialog',

@@ -8,6 +8,8 @@ export class VmImage{
    ram: number;
    diskSpace: number;
    active: boolean;
+   teamId: string;
+   creator: string;
    owners: Student[];
 
   constructor(id: number = 0,name: string, cpu: number, ram: number, disk: number) {
