@@ -1,11 +1,14 @@
-<div *ngIf="!course.enabled">
-  <mat-error>Corso non attivo</mat-error>
+<div *ngIf="course">
+  <div *ngIf="!course.enabled">
+    <mat-error>Corso non attivo</mat-error>
+  </div>
+  <button class="button" mat-raised-button color="primary"
+          [disabled]="!course.enabled"
+          (click) = "addAssignment()">Aggiungi Consegna
+  </button>
 </div>
-<button mat-raised-button color="primary"
-        [disabled]="!course.enabled"
-        (click) = "addAssignment()">Aggiungi Consegna</button>
 <div *ngFor="let assignment of assignments">
-  <mat-expansion-panel>
+  <mat-expansion-panel class="panel">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <h4>{{assignment.name}}</h4>
@@ -15,10 +18,12 @@
       </mat-panel-title>
       <button mat-button color="primary" (click)="seeImage(assignment)">Guarda Contenuto</button>
     </mat-expansion-panel-header>
-    <app-teacher-delivery [course]= course
-                          [assignment] = assignment
-                          [studentsArray] = students>
+    <div *ngIf="course">
+      <app-teacher-delivery [course] = course
+                            [assignment] = assignment
+                            [studentsArray] = students>
 
-    </app-teacher-delivery>
+      </app-teacher-delivery>
+    </div>
   </mat-expansion-panel>
 </div>

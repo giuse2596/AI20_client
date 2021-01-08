@@ -17,17 +17,17 @@
       <h3>Modifica Dati</h3>
       <form [formGroup]="profileForm" autocomplete="off">
         <mat-form-field class="input-item">
-          <mat-label>Nome</mat-label>
-          <input matInput placeholder="Nome" formControlName="name" autocomplete="off">
+          <mat-label>Cognome</mat-label>
+          <input matInput placeholder="Cognome" formControlName="name" autocomplete="off">
           <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-            <div *ngIf="name.errors.required">Il nome è obbligatorio</div>
+            <div *ngIf="name.errors.required">Il cognome è obbligatorio</div>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="input-item">
-          <mat-label>Cognome</mat-label>
-          <input matInput placeholder="Cognome" formControlName="firstName"  autocomplete="off">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Nome" formControlName="firstName"  autocomplete="off">
           <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-            <div *ngIf="firstName.errors.required">Il cognome è obbligatorio</div>
+            <div *ngIf="firstName.errors.required">Il nome è obbligatorio</div>
           </mat-error>
         </mat-form-field>
       </form>

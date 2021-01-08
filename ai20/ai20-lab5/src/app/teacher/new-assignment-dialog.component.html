@@ -4,15 +4,15 @@
   <form [formGroup]="assignmentForm" class="image-box">
     <h3>Contenuto</h3>
     <div>
-      <img id="profile-image" [src]="image" alt="Immagine">
+      <img class="image-input" [src]="image" alt="Immagine">
       <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" formControlName="inputFile">
       <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
     </div>
-    <mat-form-field>
+    <mat-form-field class="text-box">
       <mat-label>Nome</mat-label>
       <input matInput type="text" formControlName="name">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="text-box">
       <mat-label>Data di scadenza</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="expiryDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

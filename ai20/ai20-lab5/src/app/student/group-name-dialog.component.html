@@ -6,18 +6,19 @@
   <h1 mat-dialog-title>Inserisci il nome del gruppo e il timeout della richiesta</h1>
   <div mat-dialog-content>
     <form [formGroup] = "groupForm">
-      <mat-form-field class="input-item">
+      <mat-form-field class="text-box">
         <mat-label>Nome Gruppo</mat-label>
         <input matInput placeholder="Inserisci il nome" formControlName="name">
         <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
           <div *ngIf="name.errors.required">Il nome del gruppo è obbligatorio</div>
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="input-item">
+      <mat-form-field class="text-box">
         <mat-label>Timeout (in minuti)</mat-label>
         <input type="number" matInput placeholder="Inserisci il timeout" formControlName="expiry">
         <mat-error *ngIf="expiry.invalid && (expiry.dirty || expiry.touched)">
           <div *ngIf="expiry.errors.required">Il timeout è obbligatorio</div>
+          <div *ngIf="expiry.errors.min">Il valore minimo è di 5 minuti</div>
         </mat-error>
       </mat-form-field>
     </form>

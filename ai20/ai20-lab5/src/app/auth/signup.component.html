@@ -4,24 +4,17 @@
 <form [formGroup] = "userForm">
   <div mat-dialog-content>
     <mat-form-field class="input-item">
-      <mat-label>Nome</mat-label>
-      <input matInput placeholder="Nome" formControlName="name">
-      <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-        <div *ngIf="name.errors.required">Il nome è obbligatorio</div>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="input-item">
       <mat-label>Cognome</mat-label>
-      <input matInput placeholder="Cognome" formControlName="firstName">
-      <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-        <div *ngIf="firstName.errors.required">Il cognome è obbligatorio</div>
+      <input matInput placeholder="Cognome" formControlName="name">
+      <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required">Il cognome è obbligatorio</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item">
-      <mat-label>Matricola</mat-label>
-      <input matInput placeholder="Matricola" formControlName="id">
-      <mat-error *ngIf="id.invalid && (id.dirty || id.touched)">
-        <div *ngIf="id.errors.required">La matricola è obbligatoria</div>
+      <mat-label>Nome</mat-label>
+      <input matInput placeholder="Nome" formControlName="firstName">
+      <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">Il nome è obbligatorio</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item">
@@ -30,6 +23,10 @@
       <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
         <div *ngIf="username.errors.email">Email non valida</div>
         <div *ngIf="username.errors.required">L'Email è obbligatoria</div>
+        <div *ngIf="username.errors.wrongFormat">Inserire 's' più matricola per studenti o 'd' più matricola per docenti</div>
+        <div *ngIf="username.errors.wrongDomain">I domini accettati sono polito.it e studenti.polito.it</div>
+        <div *ngIf="username.errors.wrongDomainStudent">Il dominio per gli studenti è studenti.polito.it</div>
+        <div *ngIf="username.errors.wrongDomainTeacher">Il dominio per i docenti è polito.it</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item">
