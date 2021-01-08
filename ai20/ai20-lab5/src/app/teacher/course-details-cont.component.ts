@@ -38,9 +38,9 @@ export class CourseDetailsContComponent implements OnInit {
     );
   }
 
-  changeStatus(event){
-    if(event === true){
-      this.courseService.enableCourse(this.courseId).subscribe(
+  changeStatus(event: Course){
+    console.log(event);
+    this.courseService.editCourse(this.courseId, event).subscribe(
         value => {
             this.router.navigate(['/teacher/courses/' + this.courseId + '/students']);
         },
@@ -48,17 +48,7 @@ export class CourseDetailsContComponent implements OnInit {
 
         }
       )
-    }else{
-      this.courseService.disableCourse(this.courseId).subscribe(
-        value => {
-          this.router.navigate(['/teacher/courses/' + this.courseId + '/students']);
-        },
-        error => {
-
-        }
-      );
     }
-  }
 
   deleteCourse(){
     console.log("delete");

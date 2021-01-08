@@ -30,11 +30,11 @@ export class StudentsContComponent implements OnInit {
     this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
     this.students$ = this.studentService.query();
     this.enrolledStudents$ = this.courseService.getEnrolled(this.route.snapshot.params.courseId);
-    this.subscription = this.router.events.subscribe(val => {
+   /* this.subscription = this.router.events.subscribe(val => {
       this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
       this.students$ = this.studentService.query();
       this.enrolledStudents$ = this.courseService.getEnrolled(this.route.snapshot.params.courseId);
-    });
+    });*/
   }
 
   getStudents(): Observable<Student[]>{

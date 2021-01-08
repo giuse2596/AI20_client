@@ -1,5 +1,6 @@
+<mat-error *ngIf="selected && !selected.enabled">Questo corso non è attivo</mat-error>
 <div id="page-active" *ngIf="active">
-  <button mat-raised-button color="primary" (click)="open()">Crea Nuova Vm</button>
+  <button mat-raised-button color="primary" (click)="open()" [disabled]="selected && !selected.enabled">Crea Nuova Vm</button>
   <p *ngIf="vms == null || (vms != null && vms.length === 0)">Ancora nessuna vm per questo Team</p>
   <mat-error *ngIf="error !== ''">{{error}}</mat-error>
   <mat-list *ngIf="vms != null && vms.length !== 0">
@@ -15,13 +16,13 @@
       <div class="actions">
         <div id="start-vm" *ngIf="!vm.active && checkOwnership(vm)">
           <mat-label>Avvia VM</mat-label>
-          <button mat-icon-button (click)="start(vm)">
+          <button mat-icon-button (click)="start(vm)" [disabled]="selected && !selected.enabled">
             <mat-icon>play_circle</mat-icon>
           </button>
         </div>
         <div id="stop-vm" *ngIf="vm.active && checkOwnership(vm)">
           <mat-label>Stop VM</mat-label>
-          <button mat-icon-button (click)="stop(vm)">
+          <button mat-icon-button (click)="stop(vm)" [disabled]="selected && !selected.enabled">
             <mat-icon>stop</mat-icon>
           </button>
         </div>
@@ -30,13 +31,13 @@
         </div>
       </div>
       <div id="vm-link" *ngIf="vm.active">
-        <button mat-raised-button (click)="connect(vm)">Collegati</button>
+        <button mat-raised-button (click)="connect(vm)" [disabled]="selected && !selected.enabled">Collegati</button>
       </div>
       <div id="vm-delete" *ngIf="!vm.active && checkOwnership(vm)">
-        <button mat-raised-button color="warn" (click)="delete(vm)">Elimina</button>
+        <button mat-raised-button color="warn" (click)="delete(vm)" [disabled]="selected && !selected.enabled">Elimina</button>
       </div>
       <div id="vm-edit" *ngIf="!vm.active && checkOwnership(vm)">
-        <button mat-raised-button (click)="openEdit(vm)">Modifica</button>
+        <button mat-raised-button (click)="openEdit(vm)" [disabled]="selected && !selected.enabled">Modifica</button>
       </div>
     </mat-list-item>
   </mat-list>

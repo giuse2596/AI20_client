@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VmImage} from "../models/vmImage.model";
+import {Course} from "../models/course.model";
 
 @Component({
   selector: 'app-student-vms',
@@ -12,6 +13,7 @@ export class StudentVmsComponent implements OnInit {
   @Input() error: string = '';
   @Input() active: boolean;
   @Input() studentId: string;
+  @Input() selected: Course;
   @Output() openDialogEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() connectVmEvent: EventEmitter<VmImage> = new EventEmitter<VmImage>();
   @Output() startEvent: EventEmitter<VmImage> = new EventEmitter<VmImage>();

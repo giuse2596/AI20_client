@@ -1,4 +1,5 @@
 <app-vms [teamList]="teams$ | async"
+         [selected]="courseSelected$ | async"
           (connectVmEvent)="connectVm($event)"
          (editResourcesEvent)="editResources($event)"
 ></app-vms>

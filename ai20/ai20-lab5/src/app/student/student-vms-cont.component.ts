@@ -12,6 +12,7 @@ import {every, map, mapTo, mergeMap, toArray} from "rxjs/operators";
 import {Student} from "../models/student.model";
 import {EditVmDialogComponent} from "./edit-vm-dialog.component";
 import {dashCaseToCamelCase} from "@angular/compiler/src/util";
+import {Course} from "../models/course.model";
 
 @Component({
   selector: 'app-student-vms-cont',
@@ -28,6 +29,7 @@ export class StudentVmsContComponent implements OnInit {
 
   allVms$: Observable<VmImage[]>;
   courseId: string;
+  courseSelected$: Observable<Course>;
   studentId: string;
   groupId: string = '';
   team$: Observable<Group[]>;
@@ -39,6 +41,7 @@ export class StudentVmsContComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params.courseId;
+    this.courseService.find(this.courseId);
     this.studentId = this.authService.user.username;
     this.team$ = this.studentService.getGroupForCourse(this.studentId,this.courseId);
     this.team$.subscribe(

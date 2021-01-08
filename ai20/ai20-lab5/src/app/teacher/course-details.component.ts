@@ -31,7 +31,7 @@ export class CourseDetailsComponent implements OnInit {
   });
 
   @Output() deleteCourseEvent = new EventEmitter<Course>();
-  @Output() changeCourseStatus = new EventEmitter<boolean>();
+  @Output() changeCourseStatus = new EventEmitter<Course>();
 
   constructor(private builder: FormBuilder) { }
 
@@ -46,8 +46,9 @@ export class CourseDetailsComponent implements OnInit {
     return this.courseForm.get('max');
   }
 
-  changeStatus(checked: boolean){
-    this.changeCourseStatus.emit(checked);
+  changeStatus(checked: boolean, course: Course){
+    course.enabled = checked;
+    this.changeCourseStatus.emit(course);
   }
 
   deleteCourse(){

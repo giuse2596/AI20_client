@@ -6,6 +6,7 @@ import {Group} from "../models/group.model";
 import {VmImage} from "../models/vmImage.model";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTeamResourcesDialogComponent} from "./edit-team-resources-dialog.component";
+import {Course} from "../models/course.model";
 
 @Component({
   selector: 'app-vms-cont',
@@ -16,6 +17,7 @@ export class VmsContComponent implements OnInit {
 
   courseId: string;
   teams$: Observable<Group[]>;
+  courseSelected$: Observable<Course>;
   error: string;
 
   constructor(
@@ -27,6 +29,7 @@ export class VmsContComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params.courseId;
+    this.courseSelected$ = this.courseService.find(this.courseId);
     this.courseService.getAllEnabledTeams(this.courseId).subscribe(
       teams => {
           for(let team of teams){

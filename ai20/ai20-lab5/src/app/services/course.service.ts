@@ -64,12 +64,17 @@ export class CourseService {
     return this.http.delete(hostname + courseId);
   }
 
-  enableCourse(courseId: string){
+ /* enableCourse(courseId: string){
     return this.http.post(hostname + courseId + '/enable', '');
   }
 
   disableCourse(courseId: string){
     return this.http.post(hostname + courseId + '/disable', '');
+  }*/
+
+  editCourse(courseId: string, course: Course){
+    console.log(course);
+    return this.http.put(hostname + courseId + '/modify', course);
   }
 
   getAllEnabledTeams(courseId: string){

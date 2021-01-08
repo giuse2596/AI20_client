@@ -1,3 +1,4 @@
+<mat-error *ngIf="selected && !selected.enabled">Questo Corso non è attivo</mat-error>
 <h3 class="tab-content-item">Studenti Iscritti al corso</h3>
 <mat-form-field class="tab-content-item" id="add-form-field">
     <input matInput="text" placeholder="Aggiungi Studente" [matAutocomplete] = "auto" (keyup) = "filter($event.target.value)" >

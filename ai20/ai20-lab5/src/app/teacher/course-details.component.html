@@ -3,7 +3,7 @@
     <h2 *ngIf="selected">Corso di {{selected.name}}({{selected.acronym}})</h2>
   </mat-grid-tile>
   <mat-grid-tile colspan="2" *ngIf="selected && !selected.enabled">
-    <mat-error>Questo corso è disabilitato</mat-error>
+    <mat-error>Questo corso non è attivo</mat-error>
   </mat-grid-tile>
   <mat-grid-tile colspan="1" rowspan="4">
     <mat-card class="max-min-card">
@@ -65,7 +65,7 @@
   </mat-grid-tile>
   <mat-grid-tile colspan="1">
     <mat-label>Disattiva/Attiva Corso</mat-label>
-    <mat-slide-toggle *ngIf="selected" [checked]="selected.enabled" (change)="changeStatus($event.checked)"></mat-slide-toggle>
+    <mat-slide-toggle *ngIf="selected" [checked]="selected.enabled" (change)="changeStatus( $event.checked,selected)"></mat-slide-toggle>
   </mat-grid-tile>
   <mat-grid-tile colspan="1">
     <button mat-raised-button color="warn" (click)="deleteCourse()">Elimina Corso</button>

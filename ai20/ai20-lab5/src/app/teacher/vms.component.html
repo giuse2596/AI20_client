@@ -1,3 +1,4 @@
+<mat-error *ngIf="selected && !selected.enabled">Questo corso non è attivo</mat-error>
 <div *ngIf="teamList && teamList.length !== 0">
   <h2>Tutti i gruppi</h2>
   <mat-accordion>
@@ -14,7 +15,7 @@
       </mat-expansion-panel-header>
       <h4 *ngIf="team.vmList != null && team.vmList.length === 0">Attualmente non ci sono vm per questo gruppo
       </h4>
-      <button mat-raised-button color="primary" (click)="editResources(team)">Modifica parametri gruppo</button>
+      <button mat-raised-button color="primary" (click)="editResources(team)" [disabled]="selected && !selected.enabled">Modifica parametri gruppo</button>
       <mat-list *ngIf="team.vmList != null && team.vmList.length !== 0">
         <div mat-subheader>Tutte le vm</div>
         <mat-list-item *ngFor="let vm of team.vmList">
@@ -35,7 +36,7 @@
             </div>
           </div>
           <div id="vm-link" *ngIf="vm.active">
-            <button mat-raised-button (click)="connect(vm,team)">Collegati</button>
+            <button mat-raised-button (click)="connect(vm,team)" [disabled]="selected && !selected.enabled">Collegati</button>
           </div>
           <div id="padding" *ngIf="!vm.active">
           </div>
