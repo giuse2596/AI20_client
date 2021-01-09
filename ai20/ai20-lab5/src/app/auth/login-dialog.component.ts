@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class LoginDialogComponent implements OnInit {
 
   userForm: FormGroup =  this.builder.group({
-                username: ['', [Validators.email, Validators.required]],
+                username: ['', [Validators.required]],
                 password: ['', [Validators.minLength(8), Validators.required]]
   });
   hide = true;

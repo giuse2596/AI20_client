@@ -1,6 +1,6 @@
 <div *ngIf="course">
   <div *ngIf="!course.enabled">
-    <mat-error>Corso non attivo</mat-error>
+    <mat-error>Questo corso non è attivo</mat-error>
   </div>
   <button class="button" mat-raised-button color="primary"
           [disabled]="!course.enabled"
