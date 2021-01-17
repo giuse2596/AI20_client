@@ -11,4 +11,3 @@ RUN npm run build --prod
 FROM nginx:1.17.1-alpine
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-step app/dist/ai20-lab42 /usr/share/nginx/html
-#CMD ["nginx", "-g", "daemon off;"]
