@@ -86,7 +86,8 @@ export class EditTeamResourcesDialogComponent implements OnInit {
     return this.maxCpu.value >= usedCpu
       && this.maxRam.value >= usedRam
       && this.maxDisk.value >= usedDisk
-      && this.maxInstances.value >= this.data.group.resourceAvailable.totVM;
+      && this.maxInstances.value >= this.data.group.resourceAvailable.totVM
+      && this.activeInstances.value >= this.data.group.resourceAvailable.activeVM;
   }
 
 

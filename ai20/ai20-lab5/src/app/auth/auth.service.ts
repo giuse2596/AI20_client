@@ -70,12 +70,10 @@ export class AuthService {
     return this.jwt && this.jwt.exp > moment().unix();
   }
 
-  updateUser(user: User, profile: ProfileComponent){
-    console.log(user);
-    this.http.put<any>( hostname + '/modify_user', user).subscribe(
+  updatePassword(passMap, profile: ProfileComponent){
+    this.http.put<any>( hostname + '/modify_user', passMap).subscribe(
       res => {
-        this.user = user;
-        profile.showResult(true, 'Data successfully updated');
+        profile.showResult(true, 'Password successfully updated');
       },
       err => {
         profile.showResult(false, 'Some error occurred during request');

@@ -12,26 +12,8 @@
       </div>
     </form>
   </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="2">
+  <mat-grid-tile colspan="2" rowspan="1">
     <div class="update-data">
-      <h3>Modifica Dati</h3>
-      <form [formGroup]="profileForm" autocomplete="off">
-        <mat-form-field class="input-item">
-          <mat-label>Cognome</mat-label>
-          <input matInput placeholder="Cognome" formControlName="name" autocomplete="off">
-          <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-            <div *ngIf="name.errors.required">Il cognome è obbligatorio</div>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="input-item">
-          <mat-label>Nome</mat-label>
-          <input matInput placeholder="Nome" formControlName="firstName"  autocomplete="off">
-          <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-            <div *ngIf="firstName.errors.required">Il nome è obbligatorio</div>
-          </mat-error>
-        </mat-form-field>
-      </form>
-      <button mat-raised-button color="primary" [disabled]="profileForm.invalid" (click)="editData()" style="margin-bottom: 10px;">Modifica</button>
       <div class="password-box">
         <h3>Modifica Password</h3>
         <form [formGroup]="passwordForm" autocomplete="off">

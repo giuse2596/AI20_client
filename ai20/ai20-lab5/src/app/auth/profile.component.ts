@@ -4,6 +4,7 @@ import {AuthService} from "./auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../models/user.model";
 import {Observable} from "rxjs";
+import {PasswordModel} from "../models/password.model";
 
 @Component({
   selector: 'app-profile',
@@ -23,10 +24,6 @@ export class ProfileComponent implements OnInit {
   imageForm: FormGroup = this.builder.group({
     inputFile: ['']
   })
-  profileForm: FormGroup =  this.builder.group({
-    name: [this.service.user.name, [Validators.required]],
-    firstName: [this.service.user.firstName, [Validators.required]],
-  });
 
   passwordForm: FormGroup = this.builder.group({
     password: ['', [ Validators.minLength(8),
@@ -72,14 +69,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  get name(){
-    return this.profileForm.get('name');
-  }
-
-  get firstName(){
-    return this.profileForm.get('firstName');
-  }
-
   get password(){
     return this.passwordForm.get('password');
   }
@@ -108,12 +97,8 @@ export class ProfileComponent implements OnInit {
     this.service.uploadImage(this.image, this);
   }
 
-  editData(){
-    this.service.updateUser(this.currentUser, this);
-  }
-
   editPassword(){
-
+    this.service.updatePassword(new PasswordModel(this.lastPassword.value, this.password.value), this);
   }
 
   showResult(success: boolean, message: string){
