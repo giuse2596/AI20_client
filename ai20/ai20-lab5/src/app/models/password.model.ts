@@ -1,11 +1,11 @@
 export class PasswordModel{
 
-  password1: string;
-  password2: string;
+  oldPassword: string;
+  newPassword: string;
 
-  constructor(password1: string, password2: string) {
-    this.password1 = password1;
-    this.password2 = password2;
+  constructor(oldPassword: string, newPassword: string) {
+    this.oldPassword = oldPassword;
+    this.newPassword = newPassword;
   }
 
 }
