@@ -6,6 +6,9 @@
   <h4>{{historical.timestamp.toLocaleDateString()}}</h4>
   <button mat-button color="primary" (click)="seeImage(historical)">Guarda Contenuto</button>
 </div>
+<div *ngIf="homework && homework.mark">
+  <h3 align="right">Voto: {{homework.mark}}</h3>
+</div>
 <div *ngIf="(this.expiryDate >= this.nowDate) &&
  (lastDelivery.status === 'READ' || lastDelivery.status === 'REVIEWED') &&
  (this.homework) && (this.homework.editable)">
