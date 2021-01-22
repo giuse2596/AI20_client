@@ -58,9 +58,12 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
         error: errorMessage
       }
     });
-    dialogRef.afterClosed().subscribe(err => {
-      if (err) {
-        this.correct(err);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.data) {
+        this.deliveryHistoricals.push(result.data);
+      }
+      if (result.err) {
+        this.correct(result.err);
       }
     });
   }

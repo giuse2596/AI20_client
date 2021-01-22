@@ -39,9 +39,12 @@ export class TeacherAssignmentsComponent implements OnInit {
         error: errorMessage
       }
     });
-    dialogRef.afterClosed().subscribe(err => {
-      if (err) {
-        this.addAssignment(err);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.data) {
+        this.assignments.push(result.data);
+      }
+      if (result.err) {
+        this.addAssignment(result.err);
       }
     });
   }

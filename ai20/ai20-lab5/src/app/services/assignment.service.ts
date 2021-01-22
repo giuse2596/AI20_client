@@ -26,12 +26,13 @@ export class AssignmentService {
     formData.append('name', assignment.name);
     formData.append('expiryDate', this.datePipe.transform(assignment.expiryDate, 'yyyy-MM-dd'));
     formData.append('multipartFile', file);
-    return this.http.post(`${hostnameCourses}/${courseName}/assignments`, formData)
-      .subscribe(() => {
-          dialogRef.close();
+    return this.http.post<Assignment>(`${hostnameCourses}/${courseName}/assignments`, formData)
+      .subscribe(assignmentCreated => {
+          assignmentCreated.expiryDate = new Date(assignmentCreated.expiryDate);
+          dialogRef.close({data: assignmentCreated});
         },
         err => {
-          dialogRef.close(err.error.message);
+          dialogRef.close({err: err.error.message});
         });
   }
 

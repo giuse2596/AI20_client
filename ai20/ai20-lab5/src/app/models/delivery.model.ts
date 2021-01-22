@@ -7,9 +7,9 @@ export class Delivery {
   studentFirstName: string;
   studentName: string;
 
-  constructor(id: string, content: string, timestamp: Date, status: string){
+  constructor(id: string, pathImage: string, timestamp: Date, status: string){
     this.id = id;
-    this.pathImage = content;
+    this.pathImage = pathImage;
     this.timestamp = timestamp;
     this.status = status;
   }
