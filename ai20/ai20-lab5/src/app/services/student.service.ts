@@ -6,7 +6,7 @@ import { concatMap, toArray, flatMap} from 'rxjs/operators';
 import {Group} from '../models/group.model';
 import {Course} from '../models/course.model';
 import {MatDialogRef} from '@angular/material/dialog';
-import {GroupNameDialogComponent} from '../student/group-name-dialog.component';
+import {GroupNameDialogComponent} from '../student/teams/group-name-dialog.component';
 import {VmImage} from "../models/vmImage.model";
 
 const hostnameStudents = '/server/API/students';

@@ -6,8 +6,8 @@ import {Homework} from '../models/homework.model';
 import {Delivery} from '../models/delivery.model';
 import {Student} from '../models/student.model';
 import {MatDialogRef} from '@angular/material/dialog';
-import {CorrectDialogComponent} from '../teacher/correct-dialog.component';
-import {SubmitDeliveryDialogComponent} from '../student/submit-delivery-dialog.component';
+import {CorrectDialogComponent} from '../teacher/assignments/correct-dialog.component';
+import {SubmitDeliveryDialogComponent} from '../student/assignments/submit-delivery-dialog.component';
 
 const hostnameCourses = '/server/API/courses';
 const hostnameStudents = '/server/API/students';
@@ -28,12 +28,12 @@ export class DeliveryService {
                  dialogRef: MatDialogRef<CorrectDialogComponent>) {
     const formData = new FormData();
     formData.append('multipartFile', file);
-    this.http.post(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, formData)
-      .subscribe(() => {
-          dialogRef.close();
+    this.http.post<Delivery>(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, formData)
+      .subscribe(deliveryCreated => {
+          dialogRef.close({data: deliveryCreated});
         },
         err => {
-          dialogRef.close(err.error.message);
+          dialogRef.close({err: err.error.message});
         });
   }
 
@@ -58,12 +58,12 @@ export class DeliveryService {
   submitDelivery(studentId: string, homeworkId: string, file: any, dialogRef: MatDialogRef<SubmitDeliveryDialogComponent>) {
     const formData = new FormData();
     formData.append('multipartFile', file);
-    this.http.post(`${hostnameStudents}/${studentId}/homework/${homeworkId}/deliveries`, formData)
-      .subscribe(() => {
-          dialogRef.close();
+    this.http.post<Delivery>(`${hostnameStudents}/${studentId}/homework/${homeworkId}/deliveries`, formData)
+      .subscribe(deliveryCreated => {
+          dialogRef.close({data: deliveryCreated});
         },
         err => {
-          dialogRef.close(err.error.message);
+          dialogRef.close({err: err.error.message});
         });
   }
 }

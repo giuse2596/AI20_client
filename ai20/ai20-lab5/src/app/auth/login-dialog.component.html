@@ -4,10 +4,9 @@
     <div mat-dialog-content>
         <mat-form-field class="input-item">
             <mat-label>Username</mat-label>
-            <input matInput placeholder="Email" formControlName="username">
+            <input matInput placeholder="Username" formControlName="username">
             <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
-                <div *ngIf="username.errors.email">Email non valida</div>
-                <div *ngIf="username.errors.required">L'Email è obbligatoria</div>
+                <div *ngIf="username.errors.required">L'username è obbligatorio</div>
             </mat-error>
         </mat-form-field>
         <mat-form-field class="input-item">

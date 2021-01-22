@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {HttpClient} from '@angular/common/http';
 import {MatDialogRef} from '@angular/material/dialog';
-import {NewAssignmentDialogComponent} from '../teacher/new-assignment-dialog.component';
+import {NewAssignmentDialogComponent} from '../teacher/assignments/new-assignment-dialog.component';
 import {DatePipe} from '@angular/common';
 
 const hostnameCourses = '/server/API/courses';
@@ -26,12 +26,13 @@ export class AssignmentService {
     formData.append('name', assignment.name);
     formData.append('expiryDate', this.datePipe.transform(assignment.expiryDate, 'yyyy-MM-dd'));
     formData.append('multipartFile', file);
-    return this.http.post(`${hostnameCourses}/${courseName}/assignments`, formData)
-      .subscribe(() => {
-          dialogRef.close();
+    return this.http.post<Assignment>(`${hostnameCourses}/${courseName}/assignments`, formData)
+      .subscribe(assignmentCreated => {
+          assignmentCreated.expiryDate = new Date(assignmentCreated.expiryDate);
+          dialogRef.close({data: assignmentCreated});
         },
         err => {
-          dialogRef.close(err.error.message);
+          dialogRef.close({err: err.error.message});
         });
   }
 
