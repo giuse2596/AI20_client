@@ -6,8 +6,8 @@ import {Homework} from '../models/homework.model';
 import {Delivery} from '../models/delivery.model';
 import {Student} from '../models/student.model';
 import {MatDialogRef} from '@angular/material/dialog';
-import {CorrectDialogComponent} from '../teacher/correct-dialog.component';
-import {SubmitDeliveryDialogComponent} from '../student/submit-delivery-dialog.component';
+import {CorrectDialogComponent} from '../teacher/assignments/correct-dialog.component';
+import {SubmitDeliveryDialogComponent} from '../student/assignments/submit-delivery-dialog.component';
 
 const hostnameCourses = '/server/API/courses';
 const hostnameStudents = '/server/API/students';

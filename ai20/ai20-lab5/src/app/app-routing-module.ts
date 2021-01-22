@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StudentsContComponent} from './teacher/students-cont.component';
+import { StudentsContComponent} from './teacher/students/students-cont.component';
 import { HomeComponent } from './home.component';
-import { VmsContComponent } from './teacher/vms-cont.component';
+import { VmsContComponent } from './teacher/vms/vms-cont.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
-import {GroupsContComponent} from './student/groups-cont.component';
+import {GroupsContComponent} from './student/teams/groups-cont.component';
 import {ProfileComponent} from './auth/profile.component';
-import {TeacherAssignmentsContComponent} from './teacher/teacher-assignments-cont.component';
-import {StudentAssignmentsContComponent} from './student/student-assignments-cont.component';
+import {TeacherAssignmentsContComponent} from './teacher/assignments/teacher-assignments-cont.component';
+import {StudentAssignmentsContComponent} from './student/assignments/student-assignments-cont.component';
 import {HomeCourseComponent} from './home-course.component';
-import {CourseDetailsContComponent} from "./teacher/course-details-cont.component";
-import {StudentVmsContComponent} from "./student/student-vms-cont.component";
+import {CourseDetailsContComponent} from "./teacher/courseDetails/course-details-cont.component";
+import {StudentVmsContComponent} from "./student/vms/student-vms-cont.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Creazione nuova consegna</h1>
+<mat-error *ngIf="data.error">{{data.error}}</mat-error>
+<div mat-dialog-content>
+  <form [formGroup]="assignmentForm" class="image-box">
+    <h3>Contenuto</h3>
+    <div>
+      <img class="image-input" [src]="image" alt="Immagine">
+      <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" formControlName="inputFile">
+      <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
+    </div>
+    <mat-form-field class="text-box">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="text-box">
+      <mat-label>Data di scadenza</mat-label>
+      <input matInput [matDatepicker]="picker" [min]="tomorrowDate" formControlName="expiryDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="assignmentForm.invalid" (click)="createAssignment()">Crea</button>
+  <button mat-raised-button mat-dialog-close>Annulla</button>
+</div>

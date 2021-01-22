@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Assignment} from '../models/assignment.model';
 import {HttpClient} from '@angular/common/http';
 import {MatDialogRef} from '@angular/material/dialog';
-import {NewAssignmentDialogComponent} from '../teacher/new-assignment-dialog.component';
+import {NewAssignmentDialogComponent} from '../teacher/assignments/new-assignment-dialog.component';
 import {DatePipe} from '@angular/common';
 
 const hostnameCourses = '/server/API/courses';

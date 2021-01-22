@@ -5,7 +5,7 @@ import {Student} from '../models/student.model';
 import {Course} from '../models/course.model';
 import {CourseVmModel} from "../models/course-vm.model";
 import {MatDialogRef} from "@angular/material/dialog";
-import {AddCourseComponent} from "../teacher/add-course.component";
+import {AddCourseComponent} from "../teacher/addCourse/add-course.component";
 import {Router} from "@angular/router";
 import {VmModel} from "../models/vm.model";
 import {Group} from "../models/group.model";

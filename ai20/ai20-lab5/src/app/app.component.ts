@@ -10,7 +10,7 @@ import {Course} from './models/course.model';
 import {SignupComponent} from './auth/signup.component';
 import {User} from './models/user.model';
 import {StudentService} from './services/student.service';
-import {AddCourseComponent} from './teacher/add-course.component';
+import {AddCourseComponent} from './teacher/addCourse/add-course.component';
 import {ScrollStrategyOptions} from "@angular/cdk/overlay";
 
 @Component({

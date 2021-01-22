@@ -1,0 +1,10 @@
+.image-input{
+  margin-top: 5px;
+  display: flex;
+  max-width: 600px;
+  max-height: 500px;
+  min-width: 600px;
+  min-height: 500px;
+  border-radius: 10px;
+  border: darkgrey solid 2px;
+}
