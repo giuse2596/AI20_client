@@ -67,6 +67,12 @@ export class AuthService {
   }
 
   isLogged(){
+    if(this.jwt){
+      console.log("current time:");
+      console.log(moment().unix())
+      console.log("expire time:");
+      console.log(this.jwt.exp);
+    }
     return this.jwt && this.jwt.exp > moment().unix();
   }
 

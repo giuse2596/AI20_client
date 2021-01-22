@@ -15,23 +15,23 @@ import {StudentVmsContComponent} from "./student/student-vms-cont.component";
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'home/:courseId', component: HomeCourseComponent },
+    { path: 'home/:courseId', component: HomeCourseComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'teacher', canActivate: [AuthGuard],
       children: [
-       { path: 'courses/:courseId/students', component: StudentsContComponent },
-       { path: 'courses/:courseId/assignments', component: TeacherAssignmentsContComponent },
-       { path: 'courses/:courseId/vms', component: VmsContComponent },
-       { path: 'courses/:courseId/details', component: CourseDetailsContComponent},
+       { path: 'courses/:courseId/students', component: StudentsContComponent, canActivate: [AuthGuard] },
+       { path: 'courses/:courseId/assignments', component: TeacherAssignmentsContComponent , canActivate: [AuthGuard]},
+       { path: 'courses/:courseId/vms', component: VmsContComponent, canActivate: [AuthGuard] },
+       { path: 'courses/:courseId/details', component: CourseDetailsContComponent, canActivate: [AuthGuard]},
 
         ]
     },
     { path: 'student', canActivate: [AuthGuard],
       children: [
-        { path: 'courses/:courseId/groups', component: GroupsContComponent },
-        { path: 'courses/:courseId/assignments', component: StudentAssignmentsContComponent },
-        { path: 'courses/:courseId/vms', component: StudentVmsContComponent},
+        { path: 'courses/:courseId/groups', component: GroupsContComponent, canActivate: [AuthGuard] },
+        { path: 'courses/:courseId/assignments', component: StudentAssignmentsContComponent, canActivate: [AuthGuard] },
+        { path: 'courses/:courseId/vms', component: StudentVmsContComponent, canActivate: [AuthGuard]},
       ]
     },
     { path: '**', component: PageNotFoundComponent}
