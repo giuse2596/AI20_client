@@ -6,6 +6,7 @@ import {GroupNameDialogComponent} from './group-name-dialog.component';
 import {Course} from '../../models/course.model';
 import {StudentService} from '../../services/student.service';
 import {Group} from '../../models/group.model';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-groups',
@@ -62,7 +63,8 @@ export class GroupsComponent implements OnInit {
   @Input() studentAvailable: boolean;
 
   constructor(public dialog: MatDialog,
-              private studentService: StudentService) { }
+              private studentService: StudentService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -102,9 +104,12 @@ export class GroupsComponent implements OnInit {
         error: errorMessage
       }
     });
-    dialogRef.afterClosed().subscribe(err => {
-      if (err) {
-        this.openDialog(outOfRange, err);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.err) {
+        this.openDialog(outOfRange, result.err);
+      }
+      if (result && result.success) {
+        this.messageService.printMessage(true, 'Richiesta creata con successo');
       }
     });
   }

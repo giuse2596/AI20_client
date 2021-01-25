@@ -1,11 +1,13 @@
-<mat-label>Filtra per Stato</mat-label>
-<mat-select [(value)]="selectedState" (valueChange)="filter()">
-  <mat-option value="">TUTTI</mat-option>
-  <mat-option value="NULL">NULL</mat-option>
-  <mat-option value="READ">READ</mat-option>
-  <mat-option value="DELIVERED">DELIVERED</mat-option>
-  <mat-option value="REVIEWED">REVIEWED</mat-option>
-</mat-select>
+<mat-form-field>
+  <mat-label>Filtra per Stato</mat-label>
+  <mat-select min-width="200px" [(value)]="selectedState" (valueChange)="filter()">
+    <mat-option value="">TUTTI</mat-option>
+    <mat-option value="NULL">NULL</mat-option>
+    <mat-option value="READ">READ</mat-option>
+    <mat-option value="DELIVERED">DELIVERED</mat-option>
+    <mat-option value="REVIEWED">REVIEWED</mat-option>
+  </mat-select>
+</mat-form-field>
 <table mat-table
        [dataSource]="dataSourceDeliveries" multiTemplateDataRows
        class="mat-elevation-z8" matSort>

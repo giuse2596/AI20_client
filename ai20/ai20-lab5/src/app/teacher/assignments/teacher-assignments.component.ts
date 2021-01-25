@@ -5,6 +5,7 @@ import {NewAssignmentDialogComponent} from './new-assignment-dialog.component';
 import {Student} from '../../models/student.model';
 import {TeacherImageDialogComponent} from './teacher-image-dialog.component';
 import {Course} from '../../models/course.model';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-teacher-assignments',
@@ -28,7 +29,8 @@ export class TeacherAssignmentsComponent implements OnInit {
   }
   @Input() students: Student[];
   @Input() course: Course;
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -40,10 +42,11 @@ export class TeacherAssignmentsComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result.data) {
+      if (result && result.data) {
         this.assignments.push(result.data);
+        this.messageService.printMessage(true, 'Consegna caricata con successo');
       }
-      if (result.err) {
+      if (result && result.err) {
         this.addAssignment(result.err);
       }
     });

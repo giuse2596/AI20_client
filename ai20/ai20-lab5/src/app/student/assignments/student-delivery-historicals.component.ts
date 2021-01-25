@@ -7,6 +7,7 @@ import {DeliveryService} from '../../services/delivery.service';
 import {SubmitDeliveryDialogComponent} from './submit-delivery-dialog.component';
 import {StudentImageDialogComponent} from './student-image-dialog.component';
 import {Course} from '../../models/course.model';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-student-delivery-historicals',
@@ -23,7 +24,8 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
   expiryDate: Date;
 
   constructor(public dialog: MatDialog,
-              private deliveryService: DeliveryService) { }
+              private deliveryService: DeliveryService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.nowDate = new Date();
@@ -56,10 +58,11 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result.data) {
+      if (result && result.data) {
         this.deliveryHistoricals.push(result.data);
+        this.messageService.printMessage(true, 'Elaborato caricato con successo');
       }
-      if (result.err) {
+      if (result && result.err) {
         this.submitDelivery(result.err);
       }
     });

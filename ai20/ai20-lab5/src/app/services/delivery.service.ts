@@ -30,6 +30,7 @@ export class DeliveryService {
     formData.append('multipartFile', file);
     this.http.post<Delivery>(`${hostnameCourses}/${courseName}/assignments/${assignmentId}/homeworks/${homework.id}`, formData)
       .subscribe(deliveryCreated => {
+          deliveryCreated.timestamp = new Date(deliveryCreated.timestamp);
           dialogRef.close({data: deliveryCreated});
         },
         err => {
@@ -60,6 +61,7 @@ export class DeliveryService {
     formData.append('multipartFile', file);
     this.http.post<Delivery>(`${hostnameStudents}/${studentId}/homework/${homeworkId}/deliveries`, formData)
       .subscribe(deliveryCreated => {
+          deliveryCreated.timestamp = new Date(deliveryCreated.timestamp);
           dialogRef.close({data: deliveryCreated});
         },
         err => {
