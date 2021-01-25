@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {VmModel} from "../models/vm.model";
 import {Group} from "../models/group.model";
 import {VmImage} from "../models/vmImage.model";
+import {Teacher} from "../models/teacher.model";
 
 const hostname = '/server/API/courses/';
 
@@ -40,6 +41,10 @@ export class CourseService {
     return this.http.get<Student[]>(`${hostname}${courseId}/available_students`);
   }
 
+  getTeacherNotInCourse(courseId: string){
+    return this.http.get<Teacher[]>(hostname + courseId + '/teachers_not_in_course');
+  }
+
   addCourse(courseVmModel: CourseVmModel): Observable<Course>{
     console.log('Aggiunta corso: ');
     console.log(courseVmModel);
@@ -60,17 +65,13 @@ export class CourseService {
     return this.http.delete(hostname + courseId + '/remove/' + student.id);
   }
 
+  addTeacher(courseId: string, teacher: Teacher){
+    return this.http.post(hostname + courseId + '/add_teacher', teacher.id);
+  }
+
   deleteCourse(courseId: string){
     return this.http.delete(hostname + courseId);
   }
-
- /* enableCourse(courseId: string){
-    return this.http.post(hostname + courseId + '/enable', '');
-  }
-
-  disableCourse(courseId: string){
-    return this.http.post(hostname + courseId + '/disable', '');
-  }*/
 
   editCourse(courseId: string, course: Course){
     console.log(course);

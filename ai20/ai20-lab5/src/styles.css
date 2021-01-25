@@ -67,6 +67,7 @@ mat-sidenav-container{
 
  .result-bar-success{
    color: #ffff;
+   text-align: center;
    background: rgba(0,128,0,0.9);
    width: 800px;
    opacity: 0.5;
@@ -74,6 +75,8 @@ mat-sidenav-container{
 
  .result-bar-fail{
    color: #ffff;
+   text-align: center;
    background: rgba(255,0,0,0.9);
    width: 800px;
+   opacity: 0.5;
  }

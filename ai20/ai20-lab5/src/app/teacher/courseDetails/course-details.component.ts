@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Course} from "../../models/course.model";
 import {VmModel} from "../../models/vm.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Student} from "../../models/student.model";
+import {Teacher} from "../../models/teacher.model";
 
 
 
@@ -13,6 +15,10 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class CourseDetailsComponent implements OnInit {
 
   selected: Course;
+  optionSelected: Teacher;
+  @Input()
+  teachers: Teacher[] = [];
+
   @Input()
   set course(selected: Course){
     if(selected != null){
@@ -32,6 +38,7 @@ export class CourseDetailsComponent implements OnInit {
 
   @Output() deleteCourseEvent = new EventEmitter<Course>();
   @Output() changeCourseStatus = new EventEmitter<Course>();
+  @Output() addTeacher = new EventEmitter<Teacher>();
 
   constructor(private builder: FormBuilder) { }
 
@@ -54,4 +61,20 @@ export class CourseDetailsComponent implements OnInit {
   deleteCourse(){
     this.deleteCourseEvent.emit();
   }
+
+  displayFn(teacher: Teacher): string{
+    return  teacher.name + ' '
+      + teacher.firstName + ' (' + teacher.id + ')';
+  }
+
+
+  save(option: Teacher){
+    console.log(option);
+    this.optionSelected = option;
+  }
+
+  add(){
+    this.addTeacher.emit(this.optionSelected);
+  }
+
 }

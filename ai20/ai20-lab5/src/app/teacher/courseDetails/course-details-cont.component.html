@@ -1,3 +1,7 @@
-<app-course-details [course] = "selected$ | async" [vmModel] = "vmModel$ | async" (changeCourseStatus)="changeStatus($event)"
-      (deleteCourseEvent)="deleteCourse()">
+<app-course-details [course] = "selected$ | async"
+                    [vmModel] = "vmModel$ | async"
+                    [teachers] = "teachers$ | async"
+                    (addTeacher) = "addTeacher($event)"
+                    (changeCourseStatus)="changeStatus($event)"
+                    (deleteCourseEvent)="deleteCourse()">
 </app-course-details>

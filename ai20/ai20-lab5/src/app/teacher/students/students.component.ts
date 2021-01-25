@@ -69,6 +69,7 @@ export class StudentsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.studentsInTable);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
   }
 
 

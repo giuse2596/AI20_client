@@ -1,4 +1,4 @@
-<mat-grid-list cols="2" rowHeight="100px">
+<mat-grid-list cols="2" rowHeight="120px">
   <mat-grid-tile colspan="2">
     <h2 *ngIf="selected">Corso di {{selected.name}}({{selected.acronym}})</h2>
   </mat-grid-tile>
@@ -57,6 +57,27 @@
         <p>{{vmModel.totalInstances}}</p>
         <mat-label><b>Numero Max Istanze Attive:</b></mat-label>
         <p>{{vmModel.activeInstances}}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="2">
+    <mat-card style="height: 100px">
+      <mat-card-header>
+        <mat-card-title>
+          Aggiungi docenti
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="add-teacher-content">
+        <mat-form-field class="add-teacher-field">
+          <input matInput="text" placeholder="Aggiungi Docente" [matAutocomplete] = "auto">
+        </mat-form-field>
+        <mat-autocomplete #auto = "matAutocomplete" [displayWith] = "displayFn" (optionSelected) = "save($event.option.value)">
+          <mat-option *ngFor = "let option of teachers" [value] = "option">
+            {{option.name}} {{option.firstName}} ({{option.id}})
+          </mat-option>
+        </mat-autocomplete>
+        <button mat-raised-button color="primary" style="margin-top: 5px; margin-left: 10px" (click)="add()">Aggiungi</button>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>

@@ -8,7 +8,7 @@
         <img id="profile-image" [src]="url" alt="Immagine Profilo">
         <input type="file" style="display: none" #imageInput (change)="onChangeImage($event)" >
         <button mat-raised-button color="primary" (click)="imageInput.click()">Carica</button>
-        <button mat-raised-button style="float: right;" (click)="uploadImage()">Salva</button>
+        <button mat-raised-button style="float: right;" (click)="uploadImage()" [disabled]="!image">Salva</button>
       </div>
     </form>
   </mat-grid-tile>

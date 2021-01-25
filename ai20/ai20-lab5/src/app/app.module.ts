@@ -69,6 +69,7 @@ import {StudentVmsContComponent} from "./student/vms/student-vms-cont.component"
 import {CreateVmDialogComponent} from "./student/vms/create-vm-dialog.component";
 import {EditVmDialogComponent} from "./student/vms/edit-vm-dialog.component";
 import {EditTeamResourcesDialogComponent} from "./teacher/vms/edit-team-resources-dialog.component";
+import { MessageComponent } from './message.component';
 
 
 @NgModule({
@@ -110,7 +111,8 @@ import {EditTeamResourcesDialogComponent} from "./teacher/vms/edit-team-resource
     StudentVmsContComponent,
     CreateVmDialogComponent,
     EditVmDialogComponent,
-    EditTeamResourcesDialogComponent
+    EditTeamResourcesDialogComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -158,6 +160,7 @@ import {EditTeamResourcesDialogComponent} from "./teacher/vms/edit-team-resource
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [MessageComponent]
 })
 export class AppModule { }
