@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {AuthService} from "./auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../models/user.model";
 import {Observable} from "rxjs";
 import {PasswordModel} from "../models/password.model";
+import {MessageService} from "../services/message.service";
 
 @Component({
   selector: 'app-profile',
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
   constructor( private builder: FormBuilder,
                private service: AuthService,
-               private resultBar: MatSnackBar) { }
+               private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.currentUser = this.service.user;
@@ -102,13 +102,7 @@ export class ProfileComponent implements OnInit {
   }
 
   showResult(success: boolean, message: string){
-    const panelClass = success ? 'result-bar-success' : 'result-bar-fail';
-    this.resultBar.open(message,'', {
-      duration: 5000,
-      horizontalPosition: "center",
-      verticalPosition: "top",
-      panelClass: panelClass
-    });
+    this.messageService.printMessage(success, message);
   }
 
   getImage(){

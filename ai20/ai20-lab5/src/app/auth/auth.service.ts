@@ -79,10 +79,10 @@ export class AuthService {
   updatePassword(passMap, profile: ProfileComponent){
     this.http.put<any>( hostname + '/modify_user', passMap).subscribe(
       res => {
-        profile.showResult(true, 'Password successfully updated');
+        profile.showResult(true, 'Password aggiornata con successo');
       },
       err => {
-        profile.showResult(false, 'Some error occurred during request');
+        profile.showResult(false, 'Si è verificato un errore. Riprova');
       }
     );
   }

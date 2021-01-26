@@ -5,6 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {CourseService} from '../../services/course.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Course} from "../../models/course.model";
+import {MessageService} from "../../services/message.service";
 
 
 
@@ -24,7 +25,8 @@ export class StudentsContComponent implements OnInit {
   constructor(private studentService: StudentService,
               private courseService: CourseService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
@@ -54,16 +56,21 @@ export class StudentsContComponent implements OnInit {
   }
 
   deleteStudents(toDelete: Student[]){
+    let ok: boolean = true;
     if (toDelete){
-      console.log(toDelete);
       toDelete.forEach(
         s => {
           this.courseService.deleteStudent(this.route.snapshot.params.courseId, s).subscribe(
             () => {
               this.enrolledStudents$ = this.getEnrolled();
+            },
+            error => {
+              ok = false;
             });
         }
       );
+      this.messageService.printMessage(ok, ok ? 'Studenti eliminati con successo' : 'Si è verificato un errore. ' +
+        'Uno o più studenti potrebbero non essere stati eliminati');
     }
   }
 
@@ -71,10 +78,19 @@ export class StudentsContComponent implements OnInit {
     console.log(csvFile);
     this.courseService.enrollMany(this.route.snapshot.params.courseId,csvFile).subscribe(
       value => {
-        this.enrolledStudents$ = this.getEnrolled();
+        if (value && Array.from(value).includes(false)){
+          this.messageService.printMessage(false, 'Alcuni studenti potrebbero non essere stati aggiunti ' +
+            'perchè già presenti o non esistenti');
+          this.enrolledStudents$ = this.getEnrolled();
+        }else if(!Array.from(value).includes(false)){
+          this.messageService.printMessage(true, 'Studenti aggiunti con successo');
+          this.enrolledStudents$ = this.getEnrolled();
+        }
+
+
       },
       error => {
-        console.log(error);
+        this.messageService.printMessage(false, 'Si è verificato un errore. Riprova');
       }
     )
   }
