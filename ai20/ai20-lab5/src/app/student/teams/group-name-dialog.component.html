@@ -1,32 +1,27 @@
-<div *ngIf="data.notInRange; else elseBlock">
-  <mat-error>Il numero di membri deve essere compreso tra {{data.min}} e {{data.max}}</mat-error>
+<mat-error *ngIf="data.error">{{data.error}}</mat-error>
+<h1 mat-dialog-title>Inserisci il nome del gruppo e il timeout della richiesta</h1>
+<div mat-dialog-content>
+  <form [formGroup] = "groupForm">
+    <mat-form-field class="text-box">
+      <mat-label>Nome Gruppo</mat-label>
+      <input matInput placeholder="Inserisci il nome" formControlName="name">
+      <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required">Il nome del gruppo è obbligatorio</div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="text-box">
+      <mat-label>Timeout (in minuti)</mat-label>
+      <input type="number" matInput placeholder="Inserisci il timeout" formControlName="expiry">
+      <mat-error *ngIf="expiry.invalid && (expiry.dirty || expiry.touched)">
+        <div *ngIf="expiry.errors.required">Il timeout è obbligatorio</div>
+        <div *ngIf="expiry.errors.min">Il valore minimo è di 5 minuti</div>
+      </mat-error>
+    </mat-form-field>
+  </form>
 </div>
-<ng-template #elseBlock>
-  <mat-error *ngIf="data.error">{{data.error}}</mat-error>
-  <h1 mat-dialog-title>Inserisci il nome del gruppo e il timeout della richiesta</h1>
-  <div mat-dialog-content>
-    <form [formGroup] = "groupForm">
-      <mat-form-field class="text-box">
-        <mat-label>Nome Gruppo</mat-label>
-        <input matInput placeholder="Inserisci il nome" formControlName="name">
-        <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-          <div *ngIf="name.errors.required">Il nome del gruppo è obbligatorio</div>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="text-box">
-        <mat-label>Timeout (in minuti)</mat-label>
-        <input type="number" matInput placeholder="Inserisci il timeout" formControlName="expiry">
-        <mat-error *ngIf="expiry.invalid && (expiry.dirty || expiry.touched)">
-          <div *ngIf="expiry.errors.required">Il timeout è obbligatorio</div>
-          <div *ngIf="expiry.errors.min">Il valore minimo è di 5 minuti</div>
-        </mat-error>
-      </mat-form-field>
-    </form>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-raised-button color="primary" type="submit" [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
-    <button mat-raised-button mat-dialog-close>Cancel</button>
-  </div>
-  <br>
-  <mat-label *ngIf="submission" style="color: green;">Invio Richiesta...</mat-label>
-</ng-template>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" type="submit" [disabled]="groupForm.invalid" (click) = "sendRequest()">Invia Richiesta</button>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</div>
+<br>
+<mat-label *ngIf="submission" style="color: green;">Invio Richiesta...</mat-label>

@@ -63,6 +63,7 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.data) {
         this.deliveryHistoricals.push(result.data);
+        this.lastDelivery.status = 'REVIEWED';
         this.messageService.printMessage(true, 'Correzione caricata con successo');
       }
       if (result && result.err) {

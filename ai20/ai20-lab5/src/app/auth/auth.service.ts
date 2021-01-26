@@ -29,17 +29,14 @@ export class AuthService {
     user.username = user.email.split('@')[0];
     this.http.post<any>(hostname + '/auth/login', user).subscribe(
       res => {
-        console.log(res);
         this.jwt = JSON.parse(atob(res.token.split('.')[1]));
         localStorage.setItem('jwt', res.token);
         this.user = res.user;
         this.user.token = this.jwt;
-        console.log(this.jwt);
         this.logged = true;
         dialog.close(this.logged);
       },
       err => {
-        console.log(err.message);
         this.logged = false;
         dialog.close(this.logged);
       }
@@ -47,7 +44,6 @@ export class AuthService {
   }
 
   signup(user: User, dialog: MatDialogRef<SignupComponent>){
-    console.log(user);
     localStorage.clear();
     this.http.post<any>( hostname + '/register', user).subscribe(
       res => {
@@ -67,12 +63,6 @@ export class AuthService {
   }
 
   isLogged(){
-    if(this.jwt){
-      console.log("current time:");
-      console.log(moment().unix())
-      console.log("expire time:");
-      console.log(this.jwt.exp);
-    }
     return this.jwt && this.jwt.exp > moment().unix();
   }
 

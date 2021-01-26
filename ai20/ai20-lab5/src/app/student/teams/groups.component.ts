@@ -87,17 +87,14 @@ export class GroupsComponent implements OnInit {
       this.membersSelected.push(this.student);
     }
     if (this.membersSelected.length >= this.course.min && this.membersSelected.length <= this.course.max) {
-      this.openDialog(false);
+      this.openDialog();
     } else {
-      this.openDialog(true);
+      this.messageService.printMessage(false, `Il numero di membri deve essere compreso tra ${this.course.min} e ${this.course.max}`);
     }
   }
 
-  private openDialog(outOfRange: boolean, errorMessage ?: string) {
+  private openDialog(errorMessage ?: string) {
     const dialogRef = this.dialog.open(GroupNameDialogComponent, {data: {
-        notInRange: outOfRange,
-        min: this.course.min,
-        max: this.course.max,
         courseName: this.course.name,
         proposer: this.student.id,
         members: this.membersSelected.map(s => s.id),
@@ -106,7 +103,7 @@ export class GroupsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.err) {
-        this.openDialog(outOfRange, result.err);
+        this.openDialog(result.err);
       }
       if (result && result.success) {
         this.messageService.printMessage(true, 'Richiesta creata con successo');
