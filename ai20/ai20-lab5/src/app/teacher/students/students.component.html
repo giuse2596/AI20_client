@@ -12,10 +12,23 @@
 <input type="file" style="display: none" #csvInput (change)="addMany($event.target.files[0])" >
 <button mat-raised-button id="button-csv"  [disabled]="selected && !selected.enabled" (click) = "csvInput.click()">Carica studenti con CSV</button>
 <button  id="button" mat-raised-button [disabled]="selected && !selected.enabled" (click) = "delete()">Cancella Studenti Selezionati</button>
-<mat-paginator [pageSizeOptions] = "[5,10,25,100]" [length] = "2" ></mat-paginator>
+<mat-paginator [pageSizeOptions] = "[2,5,10,25,100]" [length] = "2" (page)="masterCheckboxState()"></mat-paginator>
 <table mat-table id="student-table" [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="Select">
-        <th mat-header-cell *matHeaderCellDef><mat-checkbox (change)="getChangeEvent($event, 'master')" [checked] = "isChecked('master')" [indeterminate] = "isIntermediate()"></mat-checkbox> </th>
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="getChangeEvent($event, 'master')"
+                        [checked] = "isChecked('master')" [indeterminate] = "isIntermediate()">
+
+          </mat-checkbox>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="allPagesSelection()">
+              <span>TUTTE LE PAGINE</span>
+            </button>
+          </mat-menu>
+        </th>
         <td mat-cell *matCellDef="let row"><mat-checkbox (change)="getChangeEvent($event, row)" [checked]="isChecked(row)"></mat-checkbox></td>
     </ng-container>
     <ng-container matColumnDef="id">

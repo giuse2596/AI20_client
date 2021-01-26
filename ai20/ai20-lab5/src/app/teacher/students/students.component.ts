@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Student } from '../../models/student.model';
 import { MatTableDataSource } from '@angular/material/table';
-import {Course} from "../../models/course.model";
+import {Course} from '../../models/course.model';
 
 
 
@@ -73,42 +73,101 @@ export class StudentsComponent implements OnInit {
   }
 
 
-  getChangeEvent(event, row){
-    if (row === 'master'){
-      switch (this.masterState){
+  getChangeEvent(event, row) {
+    let pageSize;
+    if (this.paginator.pageIndex === this.paginator.getNumberOfPages() - 1) {
+      pageSize = this.paginator.length - this.paginator.pageSize * this.paginator.pageIndex;
+    } else {
+      pageSize = this.paginator.pageSize;
+    }
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + pageSize;
+    if (row === 'master') {
+      switch (this.masterState) {
         case State.NOT_CHECKED:
           this.masterState = State.CHECKED;
-          this.studentsInTable.forEach(s => this.studentSelected.push(s));
+          for (let index = startIndex; index < endIndex; index++) {
+            this.studentSelected.push(this.dataSource.sortData(this.studentsInTable, this.sort)[index]);
+            // mantengo l'ordinamento con matSort
+          }
           break;
         case State.INTERMEDIATE:
           this.masterState = State.CHECKED;
-          this.studentsInTable.forEach(s => this.studentSelected.push(s));
+          for (let index = startIndex; index < endIndex; index++) {
+            if (this.studentSelected.indexOf(this.dataSource.sortData(this.studentsInTable, this.sort)[index]) < 0) {
+              this.studentSelected.push(this.dataSource.sortData(this.studentsInTable, this.sort)[index]);
+              // mantengo l'ordinamento con matSort
+            }
+          }
           break;
         case State.CHECKED:
           this.masterState = State.NOT_CHECKED;
-          this.studentSelected = [];
+          for (let index = startIndex; index < endIndex; index++) {
+            this.studentSelected.splice(this.studentSelected.indexOf(this.dataSource.sortData(this.studentsInTable, this.sort)[index]), 1);
+          }
           break;
       }
-    }else{
-      if (!this.studentSelected.some(s => s.id === row.id ) && event.checked === true ){
-        console.log('entrato');
+    } else {
+      if (!this.studentSelected.some(s => s.id === row.id) && event.checked === true) {
         this.studentSelected.push(row);
-        if (this.studentSelected.length === this.studentsInTable.length){
-          this.masterState = State.CHECKED;
-        }else{
-          this.masterState = State.INTERMEDIATE;
-        }
-      }else if (this.studentSelected.some(s => s.id === row.id ) && event.checked === false){
+        this.masterCheckboxState();
+      } else if (this.studentSelected.some(s => s.id === row.id) && event.checked === false) {
         const index = this.studentSelected.indexOf(row);
         this.studentSelected.splice(index, 1);
-        if (this.studentSelected.length === 0){
+        if (this.studentSelected.length === 0) {
           this.masterState = State.NOT_CHECKED;
-        }else{
+        } else {
           this.masterState = State.INTERMEDIATE;
         }
       }
     }
-}
+  }
+
+  allPagesSelection() {
+    switch (this.masterState) {
+      case State.NOT_CHECKED:
+        this.masterState = State.CHECKED;
+        this.studentSelected = []; // per evitare duplicati
+        this.studentsInTable.forEach(s => this.studentSelected.push(s));
+        break;
+      case State.INTERMEDIATE:
+        this.masterState = State.CHECKED;
+        this.studentSelected = []; // per evitare duplicati
+        this.studentsInTable.forEach(s => this.studentSelected.push(s));
+        break;
+      case State.CHECKED:
+        this.masterState = State.NOT_CHECKED;
+        this.studentSelected = [];
+        break;
+    }
+  }
+
+  masterCheckboxState() {
+    let pageSize;
+    if (this.paginator.pageIndex === this.paginator.getNumberOfPages() - 1) {
+      pageSize = this.paginator.length - this.paginator.pageSize * this.paginator.pageIndex;
+    } else {
+      pageSize = this.paginator.pageSize;
+    }
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + pageSize;
+    let countSelected = 0;
+    for (let index = startIndex; index < endIndex; index++) { // conto quanti sono selezionati
+      if (this.studentSelected.indexOf(this.dataSource.sortData(this.studentsInTable, this.sort)[index]) >= 0) {
+        countSelected++;
+      }
+    }
+    if (countSelected === 0) { // nessuno selezionato
+      this.masterState = State.NOT_CHECKED;
+    }
+    if (countSelected === pageSize) { // tutti selezionati
+      this.masterState = State.CHECKED;
+    }
+    if (countSelected > 0 && countSelected < pageSize) { // alcuni selezionati
+      this.masterState = State.INTERMEDIATE;
+    }
+  }
+
 
   isChecked(row){
     if (row === 'master'){
@@ -124,7 +183,6 @@ export class StudentsComponent implements OnInit {
   delete(){
     // this.studentSelected.forEach(s => this.studentsInTable.splice(this.studentsInTable.indexOf(s), 1));
     if (this.studentSelected != null && this.studentSelected.length !== 0){
-      console.log(this.studentSelected);
       this.deleteEmitter.emit(this.studentSelected);
       this.studentSelected = [];
       /*
@@ -142,13 +200,11 @@ export class StudentsComponent implements OnInit {
   }
 
   filter(name){
-    console.log(name);
     const lowerCase = name.toLowerCase();
     this.options = this.students.filter(s => s.name.toLowerCase().indexOf(lowerCase) === 0);
   }
 
   save(option: Student){
-    console.log(option);
     this.optionSelected = option;
   }
 
@@ -159,11 +215,10 @@ export class StudentsComponent implements OnInit {
     }
 
     */
-    console.log(this.optionSelected)
-   if (this.optionSelected != null){
+    if (this.optionSelected != null){
      const toAdd: Student[] = [];
-    toAdd.push(this.optionSelected);
-    this.enrollEmitter.emit(toAdd);
+     toAdd.push(this.optionSelected);
+     this.enrollEmitter.emit(toAdd);
     /*
     this.dataSource = new MatTableDataSource(this.studentsInTable);
     this.dataSource.sort = this.sort;
@@ -173,7 +228,6 @@ export class StudentsComponent implements OnInit {
  }
 
  addMany(csvFile: File){
-    console.log(csvFile);
     this.uploadCsvEmitter.emit(csvFile);
  }
 
@@ -185,6 +239,5 @@ export class StudentsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
-
 
 }

@@ -65,10 +65,10 @@ export class StudentService {
       .set('expiryOffset', timeoutMillis.toString());
     this.http.post(`${hostnameNotification}/propose/${courseName}/${groupName}/${proposer}`, members, {params})
       .subscribe(() => {
-          dialogRef.close();
+          dialogRef.close({success: true});
         },
         err => {
-          dialogRef.close(err.error.message);
+          dialogRef.close({err: err.error.message});
         });
   }
 
