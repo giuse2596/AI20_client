@@ -3,9 +3,6 @@ import {Assignment} from '../models/assignment.model';
 import {Homework} from '../models/homework.model';
 
 export class DialogData{
-  notInRange: boolean;
-  min: number;
-  max: number;
   courseName: string;
   proposer: string;
   members: string[];

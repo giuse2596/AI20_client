@@ -44,7 +44,6 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit(){
     this.subscription = this.actRoute.queryParamMap.subscribe(
       (params: ParamMap ) => {
-        console.log(params);
         const doLogin = params.get('doLogin');
         if (doLogin === 'true'){
           this.openDialog(false);
@@ -74,7 +73,6 @@ export class AppComponent implements OnInit, OnDestroy{
         }
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
         this.routes.navigate(['/home']);
         if (result === true){
           this.top = '0 20px 20px 20px';
@@ -102,7 +100,6 @@ export class AppComponent implements OnInit, OnDestroy{
       }
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
         this.routes.navigate(['/home']);
         if (result === true){
           this.label = 'Logout';
@@ -110,7 +107,6 @@ export class AppComponent implements OnInit, OnDestroy{
           this.user = this.authService.user;
           this.user.username = this.user.email.split('@')[0];
           this.top = '20px 20px 20px 20px';
-          console.log('app.component::ngOnInit is logged == true');
           if (this.user.token.roles[0] === 'ROLE_TEACHER') {
             this.courses$ = this.courseService.getAll();
           }

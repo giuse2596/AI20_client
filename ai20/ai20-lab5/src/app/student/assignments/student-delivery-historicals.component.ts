@@ -60,6 +60,7 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.data) {
         this.deliveryHistoricals.push(result.data);
+        this.lastDelivery.status = 'DELIVERED';
         this.messageService.printMessage(true, 'Elaborato caricato con successo');
       }
       if (result && result.err) {
