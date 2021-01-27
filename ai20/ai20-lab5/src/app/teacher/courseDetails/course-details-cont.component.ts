@@ -36,7 +36,7 @@ export class CourseDetailsContComponent implements OnInit {
    this.teachers$ = this.courseService.getTeacherNotInCourse(this.courseId);
   }
 
-  changeStatus(event: Course){
+  updateCourse(event: Course){
     console.log(event);
     this.courseService.editCourse(this.courseId, event).subscribe(
         value => {

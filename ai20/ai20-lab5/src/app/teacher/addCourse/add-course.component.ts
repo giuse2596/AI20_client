@@ -16,8 +16,8 @@ export class AddCourseComponent implements OnInit {
   courseForm: FormGroup =  this.builder.group({
     name: ['', Validators.required],
     acronym: ['',Validators.required],
-    min: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
-    max: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
+    min: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
+    max: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
     maxCpu: [1, [Validators.required, Validators.min(1), Validators.max(6)]],
     maxRam: [1, [Validators.required, Validators.min(1), Validators.max(4000)]],
     maxDisk: [1, [Validators.required, Validators.min(1), Validators.max(1000000)]],
@@ -77,22 +77,22 @@ export class AddCourseComponent implements OnInit {
   }
 
   addCourse(){
-    const course = new Course(this.name.value, this.name.value,this.acronym.value, [],
-                      false, this.min.value,this.max.value);
-    const vm = new VmModel(this.maxCpu.value,this.maxRam.value,this.maxDisk.value,
-                            this.maxInstances.value,this.activeInstances.value);
-    this.courseService.addCourse(new CourseVmModel(course,vm)).subscribe(
-      res => {
-        this.dialogRef.close();
-        /* Capire se serve */
-        /*let url = this.name.value.toLowerCase().replace(" ", "-");
-        console.log(url);
-        this.router.navigate(["/" + url]);*/
-      },
-      error => {
-        console.log(error);
-        this.dialogRef.close(false);
-      }
-    );
+    if(this.max.value >= this.min.value) {
+      const course = new Course(this.name.value, this.name.value, this.acronym.value, [],
+        false, this.min.value, this.max.value);
+      const vm = new VmModel(this.maxCpu.value, this.maxRam.value, this.maxDisk.value,
+        this.maxInstances.value, this.activeInstances.value);
+      this.courseService.addCourse(new CourseVmModel(course, vm)).subscribe(
+        res => {
+          this.dialogRef.close();
+        },
+        error => {
+          this.dialogRef.close(false);
+        }
+      );
+    }else{
+      this.max.setErrors({'min': true});
+    }
   }
+
 }

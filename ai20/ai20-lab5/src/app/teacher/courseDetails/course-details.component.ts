@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Course} from "../../models/course.model";
 import {VmModel} from "../../models/vm.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Student} from "../../models/student.model";
 import {Teacher} from "../../models/teacher.model";
 
 
@@ -25,20 +24,20 @@ export class CourseDetailsComponent implements OnInit {
       this.selected = selected;
       this.courseForm.get('min').setValue(this.selected.min);
       this.courseForm.get('max').setValue(this.selected.max);
-      console.log(selected);
     }
   }
 
   @Input() vmModel: VmModel;
 
   courseForm: FormGroup = this.builder.group({
-    min: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
-    max: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
+    min: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
+    max: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
   });
 
   @Output() deleteCourseEvent = new EventEmitter<Course>();
   @Output() changeCourseStatus = new EventEmitter<Course>();
   @Output() addTeacher = new EventEmitter<Teacher>();
+  @Output() modifyLimits = new  EventEmitter<Course>();
 
   constructor(private builder: FormBuilder) { }
 
@@ -75,6 +74,16 @@ export class CourseDetailsComponent implements OnInit {
 
   add(){
     this.addTeacher.emit(this.optionSelected);
+  }
+
+  modify(course: Course){
+    if(this.max.value >= this.min.value){
+      course.min = this.min.value;
+      course.max = this.max.value;
+      this.modifyLimits.emit(course);
+    }else {
+      this.max.setErrors({'min': true});
+    }
   }
 
 }

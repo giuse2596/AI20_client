@@ -1,7 +1,8 @@
 <app-course-details [course] = "selected$ | async"
                     [vmModel] = "vmModel$ | async"
                     [teachers] = "teachers$ | async"
+                    (modifyLimits)="updateCourse($event)"
                     (addTeacher) = "addTeacher($event)"
-                    (changeCourseStatus)="changeStatus($event)"
+                    (changeCourseStatus)="updateCourse($event)"
                     (deleteCourseEvent)="deleteCourse()">
 </app-course-details>

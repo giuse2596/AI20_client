@@ -8,11 +8,10 @@ import {CourseService} from "../../services/course.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../auth/auth.service";
 import {Group} from "../../models/group.model";
-import {every, map, mapTo, mergeMap, toArray} from "rxjs/operators";
 import {Student} from "../../models/student.model";
 import {EditVmDialogComponent} from "./edit-vm-dialog.component";
-import {dashCaseToCamelCase} from "@angular/compiler/src/util";
 import {Course} from "../../models/course.model";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-student-vms-cont',
@@ -25,7 +24,8 @@ export class StudentVmsContComponent implements OnInit {
               private studentService: StudentService,
               private courseService: CourseService,
               private authService: AuthService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private messageService: MessageService) { }
 
   allVms$: Observable<VmImage[]>;
   courseId: string;
@@ -49,7 +49,6 @@ export class StudentVmsContComponent implements OnInit {
         this.error = '';
         if(value.length !== 0){
           this.active = true;
-          console.log(value[0]);
           this.groupId = value[0].id;
           this.group = value[0];
           this.courseService.getAllTeamVms(this.courseId, value[0].id).subscribe(
@@ -61,7 +60,6 @@ export class StudentVmsContComponent implements OnInit {
                    }
                  )
               }
-              console.log(vms);
               this.allVms$ = of(vms);
             }
           );
@@ -73,7 +71,6 @@ export class StudentVmsContComponent implements OnInit {
           this.courseService.getTeamRemainingResource(this.courseId, this.groupId).subscribe(
             value1 => {
               this.availableResources = value1;
-              console.log(this.availableResources);
             }
           );
 
@@ -83,8 +80,8 @@ export class StudentVmsContComponent implements OnInit {
       },
 
       error => {
-        if (error.error.status === 409){
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
 
@@ -122,11 +119,13 @@ export class StudentVmsContComponent implements OnInit {
                   this.availableResources.diskSpace -= val.data.diskSpace;
                 },
                 error1 => {
-                  this.error = error1.error.message;
+                  if (error1.error.status >= 400 && error1.error.status < 500){
+                    this.messageService.printMessage(false, error1.error.message);
+                  }
                 }
               );
             } else if (val.result === true) {
-              this.error = 'Impossibile creare la vm. Alcune delle specifiche superano i limiti del gruppo';
+              this.messageService.printMessage(false, 'Impossibile creare la vm. Alcune delle specifiche superano i limiti del gruppo');
             }
 
           }
@@ -135,8 +134,8 @@ export class StudentVmsContComponent implements OnInit {
       },
 
       error => {
-        if (error.error.status === 409){
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
     );
@@ -155,13 +154,12 @@ export class StudentVmsContComponent implements OnInit {
     this.courseService.connectVm(this.courseId, this.groupId, vm.id).subscribe(
       value => {
         this.error = '';
-        console.log(window.URL.createObjectURL(value));
         window.open(window.URL.createObjectURL(value), "_blank");
       },
 
       error => {
-        if (error.error.status === 409){
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
     );
@@ -187,8 +185,8 @@ export class StudentVmsContComponent implements OnInit {
       },
 
       error => {
-        if (error.error.status === 409){
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
     );
@@ -213,8 +211,8 @@ export class StudentVmsContComponent implements OnInit {
       },
 
       error => {
-        if (error.error.status === 409){
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
     );
@@ -241,8 +239,8 @@ export class StudentVmsContComponent implements OnInit {
         console.log(this.availableResources);
       },
       error => {
-        if (error.error.status === 409) {
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
     );
@@ -290,13 +288,14 @@ export class StudentVmsContComponent implements OnInit {
                 this.availableResources.diskSpace -= val.data.diskSpace;
               },
               error1 => {
-                this.error = error1.error.message;
+                if (error1.error.status >= 400 && error1.error.status < 500){
+                  this.messageService.printMessage(false, error1.error.message);
+                }
               }
             );
           } else if (val.modify === true) {
-            this.error = 'Impossibile apportare le modifiche. Alcune delle specifiche superano i limiti del gruppo';
+            this.messageService.printMessage(false, 'Impossibile apportare le modifiche. Alcune delle specifiche superano i limiti del gruppo');
           } else if (val.giveOwnership === true) {
-            console.log(val.owners);
             this.studentService.addOwners(this.studentId, this.groupId, vm.id, val.owners).subscribe(
               value => {
                 this.courseService.getAllTeamVms(this.courseId, this.groupId).subscribe(
@@ -308,12 +307,13 @@ export class StudentVmsContComponent implements OnInit {
                         }
                       )
                     }
-                    console.log(vms);
                     this.allVms$ = of(vms);
                   });
               },
               error1 => {
-                this.error = error1.error.message;
+                if (error1.error.status >= 400 && error1.error.status < 500){
+                  this.messageService.printMessage(false, error1.error.message);
+                }
               }
             )
           }
@@ -321,8 +321,8 @@ export class StudentVmsContComponent implements OnInit {
       },
 
       error => {
-        if (error.error.status === 409){
-          this.error = error.error.message;
+        if (error.error.status >= 400 && error.error.status < 500){
+          this.messageService.printMessage(false, error.error.message);
         }
       }
     )

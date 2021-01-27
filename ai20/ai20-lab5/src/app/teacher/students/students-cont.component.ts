@@ -32,11 +32,6 @@ export class StudentsContComponent implements OnInit {
     this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
     this.students$ = this.studentService.query();
     this.enrolledStudents$ = this.courseService.getEnrolled(this.route.snapshot.params.courseId);
-   /* this.subscription = this.router.events.subscribe(val => {
-      this.courseSelected$ = this.courseService.find(this.route.snapshot.params.courseId);
-      this.students$ = this.studentService.query();
-      this.enrolledStudents$ = this.courseService.getEnrolled(this.route.snapshot.params.courseId);
-    });*/
   }
 
   getStudents(): Observable<Student[]>{
@@ -49,8 +44,12 @@ export class StudentsContComponent implements OnInit {
 
   enrollStudent(toAdd: Student[]){
     this.courseService.enroll(this.route.snapshot.params.courseId, toAdd[0]).subscribe(
-      () => {
+      value => {
         this.enrolledStudents$ = this.getEnrolled();
+        this.messageService.printMessage(true, 'Studente iscritto con successo');
+      },
+      error => {
+        this.messageService.printMessage(false, 'Studente non valido o già iscritto al corso');
       }
     );
   }
