@@ -36,7 +36,7 @@ export class TeacherDeliveryComponent implements OnInit {
     if (students !== null) {
       this.students = [... students];
       for (const student of this.students) {
-        this.deliveryService.getLastDeliveriesForStudent(this.course.name, this.assignment, student)
+        this.deliveryService.getLastDeliveryForStudent(this.course.name, this.assignment, student)
           .subscribe(delivery => {
             delivery.timestamp = new Date(delivery.timestamp);
             delivery.studentId = student.id;

@@ -31,17 +31,19 @@ export class StudentAssignmentsComponent implements OnInit {
   @Input() student: Student;
   @Input() course: Course;
   noAssignmentsPresent = false;
+  readDelivery = false;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   seeImage(assignmentToOpen: Assignment) {
-    this.dialog.open(StudentImageDialogComponent, {data: {
+    const dialogRef = this.dialog.open(StudentImageDialogComponent, {data: {
         studentId: this.student.id,
         courseName: this.course.name,
         assignment: assignmentToOpen
       }
     });
+    dialogRef.afterClosed().subscribe(() => this.readDelivery = true);
   }
 }

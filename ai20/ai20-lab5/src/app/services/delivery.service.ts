@@ -20,7 +20,7 @@ export class DeliveryService {
 
   constructor(private http: HttpClient) { }
 
-  getLastDeliveriesForStudent(courseName: string, assignment: Assignment, student: Student): Observable<Delivery> {
+  getLastDeliveryForStudent(courseName: string, assignment: Assignment, student: Student): Observable<Delivery> {
     return this.http.get<Delivery>(`${hostnameCourses}/${courseName}/assignments/${assignment.id}/${student.id}/last`);
   }
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, AfterContentChecked, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Assignment} from '../../models/assignment.model';
 import {DeliveryService} from '../../services/delivery.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -20,7 +20,7 @@ import {Course} from '../../models/course.model';
     ]),
   ],
 })
-export class StudentDeliveryComponent implements OnInit {
+export class StudentDeliveryComponent implements OnInit, AfterContentChecked {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   displayColumns: string[] =
     ['studentId', 'studentFirstName', 'studentName', 'timestamp', 'status'];
@@ -28,13 +28,14 @@ export class StudentDeliveryComponent implements OnInit {
   dataSourceDeliveries: MatTableDataSource<Delivery> = new MatTableDataSource();
   deliveries: Delivery[] = [];
   @Input() course: Course;
+  @Input() readDelivery: boolean;
   @Input() assignment: Assignment;
   expandedDelivery: Delivery;
   students: Student[];
   @Input()
   set studentInput(student: Student) {
     if (student !== null) {
-      this.deliveryService.getLastDeliveriesForStudent(this.course.name, this.assignment, student)
+      this.deliveryService.getLastDeliveryForStudent(this.course.name, this.assignment, student)
         .subscribe(delivery => {
           delivery.timestamp = new Date(delivery.timestamp);
           delivery.studentId = student.id;
@@ -47,7 +48,13 @@ export class StudentDeliveryComponent implements OnInit {
     }
   }
 
-  constructor(private deliveryService: DeliveryService) { }
+  constructor(private deliveryService: DeliveryService,
+              private changeDetectorRef: ChangeDetectorRef) { }
+
+  ngAfterContentChecked() {
+    this.changeDetectorRef.detectChanges();
+    // per sopprimere ExpressionChangedAfterItHasBeenCheckedError quando aggiungo readDelivery
+  }
 
   ngOnInit(): void {
   }

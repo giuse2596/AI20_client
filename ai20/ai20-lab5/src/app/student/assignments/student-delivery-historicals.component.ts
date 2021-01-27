@@ -22,6 +22,17 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
   deliveryHistoricals: Delivery[] = [];
   nowDate: Date;
   expiryDate: Date;
+  @Input()
+  set readDeliveryInput(readDelivery: boolean) {
+    if (readDelivery) {
+      if (this.lastDelivery.status === 'NULL') {
+        const delivery = new Delivery(this.lastDelivery.id, this.lastDelivery.pathImage, new Date(), 'READ');
+        // assegno id di lastDelivery per rintracciare l'immagine, quando la view sarà refreshata l'id verrà opportunamente modificato
+        this.deliveryHistoricals.push(delivery);
+        this.lastDelivery.status = 'READ';
+      }
+    }
+  }
 
   constructor(public dialog: MatDialog,
               private deliveryService: DeliveryService,
