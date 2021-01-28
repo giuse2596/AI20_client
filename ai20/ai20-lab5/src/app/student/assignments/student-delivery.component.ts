@@ -28,7 +28,7 @@ export class StudentDeliveryComponent implements OnInit, AfterContentChecked {
   dataSourceDeliveries: MatTableDataSource<Delivery> = new MatTableDataSource();
   deliveries: Delivery[] = [];
   @Input() course: Course;
-  @Input() readDelivery: boolean;
+  @Input() readAssignment: string;
   @Input() assignment: Assignment;
   expandedDelivery: Delivery;
   students: Student[];

@@ -12,7 +12,7 @@ import {DialogData} from '../dialogData.module';
 export class StudentImageDialogComponent implements OnInit {
 
   image: any;
-  result = false;
+  result: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private assignmentService: AssignmentService,
@@ -39,13 +39,12 @@ export class StudentImageDialogComponent implements OnInit {
       (this.data.delivery.studentId, this.data.courseName, this.data.assignment, this.data.homework.id, this.data.delivery.id)
         .subscribe(data => {
           this.createImageFromBlob(data);
-          this.result = true;
         });
     } else {
       this.assignmentService.getAssignmentImageForStudent(this.data.studentId, this.data.assignment.id)
         .subscribe(data => {
           this.createImageFromBlob(data);
-          this.result = true;
+          this.result = this.data.assignment.id;
         });
     }
   }
