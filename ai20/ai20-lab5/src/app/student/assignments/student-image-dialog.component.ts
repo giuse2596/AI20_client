@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AssignmentService} from '../../services/assignment.service';
 import {DeliveryService} from '../../services/delivery.service';
 import {DialogData} from '../dialogData.module';
@@ -12,19 +12,41 @@ import {DialogData} from '../dialogData.module';
 export class StudentImageDialogComponent implements OnInit {
 
   image: any;
+  result = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private assignmentService: AssignmentService,
-              private deliveryService: DeliveryService) { }
+              private deliveryService: DeliveryService,
+              public dialogRef: MatDialogRef<StudentImageDialogComponent>) {
+    dialogRef.disableClose = true;
+    // chiudo manualmente la dialog per passare result al chiamante
+    dialogRef.backdropClick().subscribe(_ => { // chiusura quando si clicca sullo sfondo
+      this.dialogRef.close(this.result);
+    });
+  }
+
+  @HostListener('window:keyup.esc') onKeyUp() {
+    this.dialogRef.close(this.result); // chiusura quando si preme esc
+  }
+
+  close() {
+    this.dialogRef.close(this.result);
+  }
 
   ngOnInit(): void {
     if (this.data.delivery !== undefined) {
       this.deliveryService.getDeliveryImage
       (this.data.delivery.studentId, this.data.courseName, this.data.assignment, this.data.homework.id, this.data.delivery.id)
-        .subscribe(data => this.createImageFromBlob(data));
+        .subscribe(data => {
+          this.createImageFromBlob(data);
+          this.result = true;
+        });
     } else {
       this.assignmentService.getAssignmentImageForStudent(this.data.studentId, this.data.assignment.id)
-        .subscribe(data => this.createImageFromBlob(data));
+        .subscribe(data => {
+          this.createImageFromBlob(data);
+          this.result = true;
+        });
     }
   }
 

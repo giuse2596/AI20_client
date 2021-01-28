@@ -44,6 +44,6 @@ export class StudentAssignmentsComponent implements OnInit {
         assignment: assignmentToOpen
       }
     });
-    dialogRef.afterClosed().subscribe(() => this.readDelivery = true);
+    dialogRef.afterClosed().subscribe(result => this.readDelivery = result);
   }
 }
