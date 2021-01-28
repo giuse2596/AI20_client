@@ -140,20 +140,17 @@ export class AppComponent implements OnInit, OnDestroy{
     this.selected = course;
   }
 
-  openDialogAdd(){
+  openDialogAdd(failed: boolean = false, message: string = ''){
     const dialog = this.dialog.open(AddCourseComponent, {
       data: {
-        failed: false
+        failed: failed,
+        errorMessage: message
       }
     }).afterClosed().subscribe(
       res => {
-        if (res === false){
-          this.dialog.open(AddCourseComponent, {
-            data: {
-              failed: true
-            }
-          })
-        }else {
+        if (res && res.result === false){
+          this.openDialogAdd(true, res.message);
+        }else if(res && res.result === true){
           this.courses$ = this.courseService.getAll();
         }
       }

@@ -37,7 +37,7 @@ export class AddCourseComponent implements OnInit {
   }
 
   onNoClick(): void{
-    this.dialogRef.close();
+    this.dialogRef.close({ result: true});
   }
 
   get name(){
@@ -84,10 +84,13 @@ export class AddCourseComponent implements OnInit {
         this.maxInstances.value, this.activeInstances.value);
       this.courseService.addCourse(new CourseVmModel(course, vm)).subscribe(
         res => {
-          this.dialogRef.close();
+          this.dialogRef.close({result: true});
         },
         error => {
-          this.dialogRef.close(false);
+          this.dialogRef.close({
+            result: false,
+            message: error.error.message
+          });
         }
       );
     }else{

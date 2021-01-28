@@ -3,4 +3,5 @@ export class DialogData{
     failedSignup: boolean;
     signed: boolean;
     failed: boolean;
+    errorMessage: string;
 }

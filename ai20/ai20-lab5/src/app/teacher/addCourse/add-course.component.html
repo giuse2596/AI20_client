@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Aggiungi un nuovo corso</h1>
-<mat-error *ngIf="data.failed">Si è verificato un errore, riprova</mat-error>
+<mat-error *ngIf="data.failed">{{data.errorMessage}}</mat-error>
 <form [formGroup] = "courseForm">
   <div mat-dialog-content class="dialog-body">
     <mat-form-field class="input-item" id="courseDialog-name">
