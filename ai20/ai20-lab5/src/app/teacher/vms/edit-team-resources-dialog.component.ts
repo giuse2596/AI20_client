@@ -13,11 +13,11 @@ import {Group} from "../../models/group.model";
 export class EditTeamResourcesDialogComponent implements OnInit {
 
   teamResourcesForm: FormGroup = this.builder.group({
-    maxCpu: [1, [Validators.required, Validators.min(1), Validators.max(6)]],
-    maxRam: [1, [Validators.required, Validators.min(1), Validators.max(4000)]],
-    maxDisk: [1, [Validators.required, Validators.min(1), Validators.max(1000000)]],
-    maxInstances: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
-    activeInstances: [1, [Validators.required, Validators.min(1), Validators.max(10)]]
+    maxCpu: [1, [Validators.required, Validators.min(1)]],
+    maxRam: [1, [Validators.required, Validators.min(1)]],
+    maxDisk: [1, [Validators.required, Validators.min(1)]],
+    maxInstances: [1, [Validators.required, Validators.min(1)]],
+    activeInstances: [1, [Validators.required, Validators.min(1)]]
   });
 
   error: string;

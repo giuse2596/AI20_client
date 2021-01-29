@@ -7,7 +7,6 @@
     <mat-error *ngIf="maxCpu.invalid">
       <div *ngIf="maxCpu.errors.required">Questo campo è obbligatorio</div>
       <div *ngIf="maxCpu.errors.min">Questo campo deve essere un numero valido</div>
-      <div *ngIf="maxCpu.errors.max">Questo campo deve essere un numero valido</div>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-item" id="ram">
@@ -16,7 +15,6 @@
     <mat-error *ngIf="maxRam.invalid">
       <div *ngIf="maxRam.errors.required">Questo campo è obbligatorio</div>
       <div *ngIf="maxRam.errors.min">Questo campo deve essere un numero valido</div>
-      <div *ngIf="maxRam.errors.max">Questo campo deve essere un numero valido</div>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-item" id="disk">
@@ -25,7 +23,6 @@
     <mat-error *ngIf="maxDisk.invalid">
       <div *ngIf="maxDisk.errors.required">Questo campo è obbligatorio</div>
       <div *ngIf="maxDisk.errors.min">Questo campo deve essere un numero valido</div>
-      <div *ngIf="maxDisk.errors.max">Questo campo deve essere un numero valido</div>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-item" id="instances">
@@ -34,7 +31,6 @@
     <mat-error *ngIf="maxInstances.invalid">
       <div *ngIf="maxInstances.errors.required">Questo campo è obbligatorio</div>
       <div *ngIf="maxInstances.errors.min">Questo campo deve essere un numero valido</div>
-      <div *ngIf="maxInstances.errors.max">Questo campo deve essere un numero valido</div>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-item" id="activeIns">
@@ -43,7 +39,6 @@
     <mat-error *ngIf="activeInstances.invalid">
       <div *ngIf="activeInstances.errors.required">Questo campo è obbligatorio</div>
       <div *ngIf="activeInstances.errors.min">Questo campo deve essere un numero valido</div>
-      <div *ngIf="activeInstances.errors.max">Questo campo deve essere un numero valido</div>
     </mat-error>
   </mat-form-field>
   <div mat-dialog-actions class="course-dialog-submit">

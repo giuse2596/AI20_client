@@ -10,7 +10,7 @@
 </mat-autocomplete>
 <button mat-raised-button color="primary" [disabled]="selected && !selected.enabled" (click) = "insert()">Aggiungi</button>
 <input type="file" style="display: none" #csvInput (change)="addMany($event.target.files[0])" >
-<button mat-raised-button id="button-csv"  [disabled]="selected && !selected.enabled" (click) = "csvInput.click()">Carica studenti con CSV</button>
+<button mat-raised-button matTooltip="{{tooltipText}}" matTooltipPosition="below" id="button-csv"  [disabled]="selected && !selected.enabled" (click) = "csvInput.click()">Carica studenti con CSV</button>
 <button  id="button" mat-raised-button [disabled]="selected && !selected.enabled" (click) = "delete()">Cancella Studenti Selezionati</button>
 <mat-paginator [pageSizeOptions] = "[5,10,25,100]" [length] = "2" (page)="masterCheckboxState()"></mat-paginator>
 <table mat-table id="student-table" [dataSource]="dataSource" class="mat-elevation-z8" matSort>

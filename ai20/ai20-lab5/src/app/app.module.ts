@@ -70,6 +70,7 @@ import {CreateVmDialogComponent} from "./student/vms/create-vm-dialog.component"
 import {EditVmDialogComponent} from "./student/vms/edit-vm-dialog.component";
 import {EditTeamResourcesDialogComponent} from "./teacher/vms/edit-team-resources-dialog.component";
 import { MessageComponent } from './message.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -144,7 +145,8 @@ import { MessageComponent } from './message.component';
     MatCardModule,
     MatGridListModule,
     MatSnackBarModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTooltipModule
   ],
   entryComponents: [
     LoginDialogComponent,

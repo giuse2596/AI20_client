@@ -34,7 +34,6 @@ export class StudentVmsComponent implements OnInit {
   }
 
   open(){
-    console.log(this.vms);
     this.openDialogEvent.emit();
   }
 

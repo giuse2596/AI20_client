@@ -21,7 +21,6 @@
             <mat-error *ngIf="min.invalid">
               <div *ngIf="min.errors.required">Questo campo è obbligatorio</div>
               <div *ngIf="min.errors.min">Questo non può essere minore di 2</div>
-              <div *ngIf="min.errors.max">Questo campo deve essere un numero valido</div>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="course-detail-form">
@@ -30,7 +29,6 @@
             <mat-error *ngIf="max.invalid">
               <div *ngIf="max.errors.required">Questo campo è obbligatorio</div>
               <div *ngIf="max.errors.min">Questo deve essere almeno pari al minimo</div>
-              <div *ngIf="max.errors.max">Questo non può eccedere 10</div>
             </mat-error>
           </mat-form-field>
         </form>

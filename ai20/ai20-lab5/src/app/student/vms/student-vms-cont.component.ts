@@ -97,7 +97,6 @@ export class StudentVmsContComponent implements OnInit {
     }).afterClosed().subscribe(
       val => {
           this.error = '';
-          console.log(val);
           if(val) {
             if (val.result === true && this.checkResources(val.data)) {
               this.studentService.createVm(this.studentId, this.groupId, val.data).subscribe(
@@ -111,7 +110,6 @@ export class StudentVmsContComponent implements OnInit {
                           }
                         )
                       }
-                      console.log(vms);
                       this.allVms$ = of(vms);
                     });
                   this.availableResources.cpu -= val.data.cpu;
@@ -179,7 +177,6 @@ export class StudentVmsContComponent implements OnInit {
                 }
               )
             }
-            console.log(vms);
             this.allVms$ = of(vms);
           });
       },
@@ -205,7 +202,6 @@ export class StudentVmsContComponent implements OnInit {
                 }
               )
             }
-            console.log(vms);
             this.allVms$ = of(vms);
           });
       },
@@ -230,13 +226,11 @@ export class StudentVmsContComponent implements OnInit {
                 }
               )
             }
-            console.log(vms);
             this.allVms$ = of(vms);
           });
         this.availableResources.cpu += vm.cpu;
         this.availableResources.ram += vm.ram;
         this.availableResources.diskSpace += vm.diskSpace;
-        console.log(this.availableResources);
       },
       error => {
         if (error.error.status >= 400 && error.error.status < 500){
@@ -259,14 +253,9 @@ export class StudentVmsContComponent implements OnInit {
     }).afterClosed().subscribe(
       val => {
         this.error = '';
-        console.log(val);
         if(val) {
           if (val.modify === true && val.newResources) {
-            console.log("Vecchie risorse: ");
-            console.log(this.availableResources);
             this.availableResources = val.newResources;
-            console.log("Nuove risorse: ");
-            console.log(this.availableResources);
           }
           if (val.modify === true && this.checkResources(val.data)) {
             this.studentService.modifyVm(this.studentId, this.groupId, val.data).subscribe(
@@ -280,7 +269,6 @@ export class StudentVmsContComponent implements OnInit {
                         }
                       )
                     }
-                    console.log(vms);
                     this.allVms$ = of(vms);
                   });
                 this.availableResources.cpu -= val.data.cpu;

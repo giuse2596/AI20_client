@@ -21,6 +21,8 @@ enum State{
 export class StudentsComponent implements OnInit {
 
 
+  tooltipText: string = 'Caricare csv con intestazione: id,firstName,name,email';
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;

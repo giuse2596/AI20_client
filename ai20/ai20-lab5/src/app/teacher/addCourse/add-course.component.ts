@@ -16,13 +16,13 @@ export class AddCourseComponent implements OnInit {
   courseForm: FormGroup =  this.builder.group({
     name: ['', Validators.required],
     acronym: ['',Validators.required],
-    min: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
-    max: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
-    maxCpu: [1, [Validators.required, Validators.min(1), Validators.max(6)]],
-    maxRam: [1, [Validators.required, Validators.min(1), Validators.max(4000)]],
-    maxDisk: [1, [Validators.required, Validators.min(1), Validators.max(1000000)]],
-    maxInstances: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
-    activeInstances: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
+    min: [2, [Validators.required, Validators.min(2)]],
+    max: [2, [Validators.required, Validators.min(2)]],
+    maxCpu: [1, [Validators.required, Validators.min(1)]],
+    maxRam: [1, [Validators.required, Validators.min(1)]],
+    maxDisk: [1, [Validators.required, Validators.min(1)]],
+    maxInstances: [1, [Validators.required, Validators.min(1)]],
+    activeInstances: [1, [Validators.required, Validators.min(1)]],
   });
 
 

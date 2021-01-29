@@ -22,7 +22,6 @@
       <mat-error *ngIf="min.invalid">
         <div *ngIf="min.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="min.errors.min">Questo campo deve essere almeno pari a 2</div>
-        <div *ngIf="min.errors.max">Questo campo non può eccedere 10</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item max-min" id="max">
@@ -31,7 +30,6 @@
       <mat-error *ngIf="max.invalid">
         <div *ngIf="max.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="max.errors.min">Questo campo deve essere almeno pari al minimo</div>
-        <div *ngIf="max.errors.max">Questo campo non può eccedere 10</div>
       </mat-error>
     </mat-form-field>
     <h3>Inserisci i dati relativi alla VM del corso</h3>
@@ -41,7 +39,6 @@
       <mat-error *ngIf="maxCpu.invalid">
         <div *ngIf="maxCpu.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="maxCpu.errors.min">Questo campo deve essere un numero valido</div>
-        <div *ngIf="maxCpu.errors.max">Questo campo deve essere un numero valido</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item" id="ram">
@@ -50,7 +47,6 @@
       <mat-error *ngIf="maxRam.invalid">
         <div *ngIf="maxRam.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="maxRam.errors.min">Questo campo deve essere un numero valido</div>
-        <div *ngIf="maxRam.errors.max">Questo campo deve essere un numero valido</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item" id="disk">
@@ -59,7 +55,6 @@
       <mat-error *ngIf="maxDisk.invalid">
         <div *ngIf="maxDisk.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="maxDisk.errors.min">Questo campo deve essere un numero valido</div>
-        <div *ngIf="maxDisk.errors.max">Questo campo deve essere un numero valido</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item" id="instances">
@@ -68,7 +63,6 @@
       <mat-error *ngIf="maxInstances.invalid">
         <div *ngIf="maxInstances.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="maxInstances.errors.min">Questo campo deve essere un numero valido</div>
-        <div *ngIf="maxInstances.errors.max">Questo campo deve essere un numero valido</div>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-item" id="activeIns">
@@ -77,7 +71,6 @@
       <mat-error *ngIf="activeInstances.invalid">
         <div *ngIf="activeInstances.errors.required">Questo campo è obbligatorio</div>
         <div *ngIf="activeInstances.errors.min">Questo campo deve essere un numero valido</div>
-        <div *ngIf="activeInstances.errors.max">Questo campo deve essere un numero valido</div>
       </mat-error>
     </mat-form-field>
   </div>

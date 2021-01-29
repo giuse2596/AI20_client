@@ -30,8 +30,8 @@ export class CourseDetailsComponent implements OnInit {
   @Input() vmModel: VmModel;
 
   courseForm: FormGroup = this.builder.group({
-    min: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
-    max: [2, [Validators.required, Validators.min(2), Validators.max(10)]],
+    min: [2, [Validators.required, Validators.min(2)]],
+    max: [2, [Validators.required, Validators.min(2)]],
   });
 
   @Output() deleteCourseEvent = new EventEmitter<Course>();
