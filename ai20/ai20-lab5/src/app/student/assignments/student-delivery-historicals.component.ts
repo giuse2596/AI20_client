@@ -23,13 +23,14 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
   nowDate: Date;
   expiryDate: Date;
   @Input()
-  set readDeliveryInput(readDelivery: boolean) {
-    if (readDelivery) {
-      if (this.lastDelivery.status === 'NULL') {
+  set readAssignmentInput(readAssignment: string) {
+    if (readAssignment) {
+      if (this.lastDelivery.status === 'NULL' && this.assignment.id === readAssignment) {
+        this.lastDelivery.status = 'READ';
+        this.lastDelivery.timestamp = new Date();
         const delivery = new Delivery(this.lastDelivery.id, this.lastDelivery.pathImage, new Date(), 'READ');
         // assegno id di lastDelivery per rintracciare l'immagine, quando la view sarà refreshata l'id verrà opportunamente modificato
         this.deliveryHistoricals.push(delivery);
-        this.lastDelivery.status = 'READ';
       }
     }
   }
@@ -72,6 +73,7 @@ export class StudentDeliveryHistoricalsComponent implements OnInit {
       if (result && result.data) {
         this.deliveryHistoricals.push(result.data);
         this.lastDelivery.status = 'DELIVERED';
+        this.lastDelivery.timestamp = new Date();
         this.messageService.printMessage(true, 'Elaborato caricato con successo');
       }
       if (result && result.err) {

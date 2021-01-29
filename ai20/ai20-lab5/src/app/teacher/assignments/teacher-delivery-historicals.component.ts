@@ -64,6 +64,7 @@ export class TeacherDeliveryHistoricalsComponent implements OnInit {
       if (result && result.data) {
         this.deliveryHistoricals.push(result.data);
         this.lastDelivery.status = 'REVIEWED';
+        this.lastDelivery.timestamp = new Date();
         this.messageService.printMessage(true, 'Correzione caricata con successo');
       }
       if (result && result.err) {

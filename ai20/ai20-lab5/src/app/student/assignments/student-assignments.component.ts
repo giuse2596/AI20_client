@@ -31,7 +31,7 @@ export class StudentAssignmentsComponent implements OnInit {
   @Input() student: Student;
   @Input() course: Course;
   noAssignmentsPresent = false;
-  readDelivery = false;
+  readAssignment: string;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -44,6 +44,6 @@ export class StudentAssignmentsComponent implements OnInit {
         assignment: assignmentToOpen
       }
     });
-    dialogRef.afterClosed().subscribe(result => this.readDelivery = result);
+    dialogRef.afterClosed().subscribe(result => this.readAssignment = result);
   }
 }
